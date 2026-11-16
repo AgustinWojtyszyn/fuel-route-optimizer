@@ -715,8 +715,11 @@
       ];
       try {
         await navigator.clipboard.writeText(lines.join('\n'));
-        const button=el('copySummary');const old=button.textContent;
-        button.textContent=tr('copied');setTimeout(()=>{button.textContent=tr('copy')+' ↗'},1700);
+        const copyLabel=el('copySummary').querySelector('[data-i18n="copy"]');
+        if (copyLabel) {
+          copyLabel.textContent=tr('copied');
+          setTimeout(()=>{ copyLabel.textContent=tr('copy'); },1700);
+        }
       } catch {setStatus(tr('copyError'),'error');}
     });
     el('swapButton').addEventListener('click', () => {
@@ -732,8 +735,12 @@
     }));
     document.addEventListener('fuel:language-change', () => {
       if (lastResult) {
+        const currentCenter = map.getCenter(), currentZoom = map.getZoom();
         showResult(lastResult);
+        map.setView(currentCenter,currentZoom,{animate:false});
         setStatus(tr('statusSuccess'),'success');
+      } else if (el('submitButton').disabled) {
+        setStatus(tr('statusLoading'));
       } else {
         setStatus(tr('ready'));
         el('mapLiveLabel').textContent = tr('mapReady');
