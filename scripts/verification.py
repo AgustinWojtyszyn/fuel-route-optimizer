@@ -37,6 +37,14 @@ def verify_plan(result, actual_requests):
     tank = decimal(vehicle['initial_fuel_gallons'])
     require(mpg > 0 and capacity > 0 and 0 <= tank <= capacity,
             'Invalid vehicle or initial fuel')
+    # Reconciliation alone can validate a different, internally consistent
+    # vehicle. Live assessment evidence must retain the stated assumptions.
+    require(mpg == 10, 'Assessment vehicle must use 10 MPG')
+    require(capacity == 50, 'Assessment tank capacity must be 50 gallons')
+    require(tank == 50, 'Assessment trip must start with a full 50-gallon tank')
+    if 'max_range_miles' in vehicle:
+        require(decimal(vehicle['max_range_miles']) == 500,
+                'Assessment vehicle range must be 500 miles')
     initial = tank
     spent = Decimal(0)
     purchased = Decimal(0)

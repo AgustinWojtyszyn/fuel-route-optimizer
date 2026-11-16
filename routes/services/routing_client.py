@@ -55,11 +55,18 @@ def get_route(points):
         # Reject it here instead of crashing the station projector with HTTP 500.
         if not any(a[0] != b[0] or a[1] != b[1] for a,b in zip(coords,coords[1:])):
             raise ValueError('Zero-length road geometry')
+        measurements = [s['distance'] for s in segments]
+        measurements.extend((props['summary']['distance'], props['summary']['duration']))
+        # Python converts True to 1.0, but JSON booleans are not provider
+        # distance or duration measurements. Reject them at this boundary.
+        if any(isinstance(value, bool) for value in measurements):
+            raise ValueError('Boolean route measurement')
         distances = [float(s['distance'])/1609.344 for s in segments]
         summary = float(props['summary']['distance'])/1609.344
         duration = float(props['summary']['duration'])/60
         if (not all(math.isfinite(x) and x > 0 for x in distances)
-                or not math.isfinite(summary) or not math.isfinite(duration) or duration <= 0
+                or not math.isfinite(summary) or summary <= 0
+                or not math.isfinite(duration) or duration <= 0
                 or abs(sum(distances)-summary) > 0.1):
             raise ValueError('Invalid route distance')
         return {'geometry':geometry,'distance_miles':sum(distances), 'duration_minutes':duration, 'legs_miles':distances}
