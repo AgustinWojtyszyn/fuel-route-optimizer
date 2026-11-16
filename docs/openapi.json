@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Fuel Route Optimizer API",
-    "version": "1.2.0",
+    "version": "1.3.0",
     "description": "Django backend assessment: estimate driving fuel stops using an OPIS-derived local dataset and HeiGIT openrouteservice. Station positions are city-centroid approximations, NOT verified pump entrances; never navigate using these coordinates without independent checking. Initial tank is assumed full."
   },
   "servers": [
@@ -17,6 +17,9 @@
     },
     {
       "name": "Health"
+    },
+    {
+      "name": "Cities"
     }
   ],
   "paths": {
@@ -225,6 +228,91 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/v1/cities/": {
+      "get": {
+        "tags": [
+          "Cities"
+        ],
+        "summary": "Search locally imported U.S. cities and places by prefix",
+        "description": "Used by the accessible city picker. Only returns records from the imported local gazetteer. No HeiGIT requests. The optional Census 2026 import extends the base GeoNames catalog, but neither data source represents every possible settlement.",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "description": "City prefix: 2–80 characters to return suggestions.",
+            "schema": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 80
+            },
+            "example": "New"
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "required": false,
+            "description": "Optional two-letter U.S. state code.",
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z]{2}$"
+            },
+            "example": "NY"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Up to 12 matching catalog places (empty for a query shorter than two characters).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "results"
+                  ],
+                  "properties": {
+                    "results": {
+                      "type": "array",
+                      "maxItems": 12,
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "name",
+                          "state"
+                        ],
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "state": {
+                            "type": "string",
+                            "minLength": 2,
+                            "maxLength": 2
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Query exceeds 80 characters or state code is invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Use GET; POST is not allowed."
           }
         }
       }
