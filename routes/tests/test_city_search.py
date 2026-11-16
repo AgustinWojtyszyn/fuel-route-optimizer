@@ -4,7 +4,7 @@ import tempfile
 import zipfile
 
 from django.core.management import call_command
-from django.test import TestCase
+from django.test import SimpleTestCase, TestCase
 
 from routes.models import City, DatasetState
 
@@ -97,3 +97,26 @@ class CensusImportTests(TestCase):
             with self.assertRaises(CommandError):
                 call_command('import_census_places', file=path, verbosity=0)
             self.assertEqual(City.objects.count(), 0)
+
+
+class PresentationIntegrationTests(SimpleTestCase):
+    def test_landing_explains_product_and_links_to_planner(self):
+        page = self.client.get('/')
+        self.assertEqual(page.status_code, 200)
+        html = page.content.decode('utf-8')
+        self.assertIn('href="/demo/"', html)
+        self.assertIn('Fuel Route Optimizer', html)
+        self.assertIn('not verified pump entrances', html)
+        for language in ('en','es','fr','pt'):
+            self.assertIn(f'<option value="{language}">', html)
+
+    def test_planner_has_two_accessible_city_combos_and_still_calls_optimizer(self):
+        response = self.client.get('/demo/')
+        self.assertEqual(response.status_code, 200)
+        html = response.content.decode('utf-8')
+        self.assertEqual(html.count('role="combobox"'), 2)
+        self.assertEqual(html.count('role="listbox"'), 2)
+        self.assertIn('id="startCityOptions"', html)
+        self.assertIn('id="finishCityOptions"', html)
+        self.assertIn('/api/v1/cities/?q=', html)
+        self.assertIn('/api/v1/routes/optimize/', html)
