@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Fuel Route Optimizer API",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "description": "Django backend assessment: estimate driving fuel stops using an OPIS-derived local dataset and HeiGIT openrouteservice. Station positions are city-centroid approximations, NOT verified pump entrances; never navigate using these coordinates without independent checking. Initial tank is assumed full."
   },
   "servers": [
@@ -129,18 +129,48 @@
         "summary": "Check imported station catalog readiness",
         "responses": {
           "200": {
-            "description": "At least one imported station",
+            "description": "Local station data and geonames are ready (does not check provider validity)",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "status",
+                    "stations",
+                    "cities",
+                    "located_stations",
+                    "routing_key_present",
+                    "location_quality"
+                  ],
                   "properties": {
                     "status": {
                       "type": "string",
-                      "const": "ok"
+                      "enum": [
+                        "ok",
+                        "catalog_missing",
+                        "gazetteer_missing",
+                        "station_locations_missing"
+                      ]
                     },
                     "stations": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "cities": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "located_stations": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "routing_key_present": {
+                      "type": "boolean",
+                      "description": "Key env var present but validity not verified"
+                    },
+                    "location_quality": {
+                      "type": "string",
+                      "const": "city_centroids_only"
                     }
                   }
                 }
@@ -148,18 +178,48 @@
             }
           },
           "503": {
-            "description": "Station catalog not imported",
+            "description": "Missing station catalog, city gazetteer, or any approximate station locations",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "status",
+                    "stations",
+                    "cities",
+                    "located_stations",
+                    "routing_key_present",
+                    "location_quality"
+                  ],
                   "properties": {
                     "status": {
                       "type": "string",
-                      "const": "catalog_missing"
+                      "enum": [
+                        "ok",
+                        "catalog_missing",
+                        "gazetteer_missing",
+                        "station_locations_missing"
+                      ]
                     },
                     "stations": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "cities": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "located_stations": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "routing_key_present": {
+                      "type": "boolean",
+                      "description": "Key env var present but validity not verified"
+                    },
+                    "location_quality": {
+                      "type": "string",
+                      "const": "city_centroids_only"
                     }
                   }
                 }

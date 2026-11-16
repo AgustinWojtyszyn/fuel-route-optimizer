@@ -50,7 +50,25 @@ class OptimizeView(APIView):
         return Response(result)
 
 def health(request):
-    count=Station.objects.count()
-    return JsonResponse({'status':'ok' if count else 'catalog_missing','stations':count},status=200 if count else 503)
+    """Local dataset readiness: presence of an API key is NOT provider verification."""
+    import os
+    from routes.models import City
+    station_count = Station.objects.count()
+    city_count = City.objects.count()
+    located_count = Station.objects.filter(latitude__isnull=False, longitude__isnull=False).count()
+    if not station_count:
+        state = 'catalog_missing'
+    elif not city_count:
+        state = 'gazetteer_missing'
+    elif not located_count:
+        state = 'station_locations_missing'
+    else:
+        state = 'ok'
+    return JsonResponse({
+        'status': state, 'stations': station_count, 'cities': city_count,
+        'located_stations': located_count,
+        'routing_key_present': bool(os.getenv('ORS_API_KEY')),
+        'location_quality': 'city_centroids_only',
+    }, status=200 if state == 'ok' else 503)
 
 def demo(request): return render(request,'routes/demo.html')

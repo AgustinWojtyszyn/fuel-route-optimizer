@@ -19,7 +19,7 @@ export ORS_API_KEY='your-key-from-account.heigit.org'
 python manage.py runserver
 ```
 
-Open `http://127.0.0.1:8000/demo/` for a responsive, accessible Leaflet viewer showing road geometry, estimated purchases, receipts and explicit station-location uncertainty. `GET /health/` checks that the catalog is loaded without contacting the provider. `POST /api/v1/routes/optimize/` accepts:
+Open `http://127.0.0.1:8000/demo/` for a responsive, accessible Leaflet viewer showing road geometry, estimated purchases, receipts and explicit station-location uncertainty. `GET /health/` checks local station/catalog readiness without contacting the provider. It reports station, city and approximate-location counts plus whether a HeiGIT key is present (not whether that key is valid). It returns 503 if the local data cannot support route planning. `POST /api/v1/routes/optimize/` accepts:
 
 ```json
 {"start":{"city":"Chicago","state":"IL"},"finish":{"city":"Denver","state":"CO"}}
@@ -101,3 +101,5 @@ That is **not** an end-to-end HeiGIT check; the real provider, current fuel pric
 station-entrance coordinates, and driving route availability remain unverified.
 The code fails closed when a waypoint route cannot be validated. The validation
 also rejects degenerate provider geometry instead of exposing an HTTP 500.
+
+The readiness endpoint intentionally does not call HeiGIT or claim provider connectivity; use the live route verification script for that. Import both cities and station data before accepting a `200` on `/health/`.

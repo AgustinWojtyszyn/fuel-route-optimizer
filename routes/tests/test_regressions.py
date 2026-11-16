@@ -127,3 +127,37 @@ class InvalidGeometryTests(SimpleTestCase):
         self.assertIn('textContent =', page)
         self.assertIn('pump access NOT verified', page)
         self.assertIn('Fuel Route Optimizer', page)
+
+
+class ReadinessTests(TestCase):
+    @patch.dict('os.environ', {'ORS_API_KEY': ''})
+    def test_health_requires_stations_cities_and_geolocated_candidates(self):
+        from rest_framework.test import APIClient
+        client = APIClient()
+        response = client.get('/health/')
+        self.assertEqual(response.status_code, 503)
+        self.assertEqual(response.json()['status'], 'catalog_missing')
+        Station.objects.create(
+            opis_id='health-test', name='Sample', address='Exit',
+            city='Test', state='IL', rack_id='3',
+            price=Decimal('3.00'), price_min=Decimal('3.00'),
+            price_max=Decimal('3.00'), price_observations=1, price_conflict=False
+        )
+        response = client.get('/health/')
+        self.assertEqual(response.status_code, 503)
+        self.assertEqual(response.json()['status'], 'gazetteer_missing')
+        City.objects.create(name='Test', state='IL', latitude=40, longitude=-100)
+        response = client.get('/health/')
+        self.assertEqual(response.status_code, 503)
+        self.assertEqual(response.json()['status'], 'station_locations_missing')
+        station = Station.objects.get(opis_id='health-test')
+        station.latitude = 40
+        station.longitude = -100
+        station.location_quality = 'city_approx'
+        station.save()
+        response = client.get('/health/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['status'], 'ok')
+        self.assertEqual(response.json()['located_stations'], 1)
+        self.assertFalse(response.json()['routing_key_present'])
+        self.assertEqual(response.json()['location_quality'], 'city_centroids_only')
