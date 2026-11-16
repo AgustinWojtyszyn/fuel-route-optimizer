@@ -27,7 +27,10 @@ class LandingExperienceTests(SimpleTestCase):
         self.assertIn('class="brand-type"', page)
         self.assertIn('href="/static/routes/favicon.svg"', page)
         self.assertNotIn("data:image/png;base64,", page)
-        self.assertIn('class="instrument__scale"', page)
+        self.assertIn('class="journey-route"', page)
+        self.assertIn('id="journeySvgTitle"', page)
+        self.assertIn('data-i18n="journeyDisclaimer"', page)
+        self.assertNotIn('class="instrument__scale"', page)
         self.assertEqual(page.count('class="lab__preset"'), 3)
 
 
@@ -68,13 +71,18 @@ class LandingExperienceTests(SimpleTestCase):
         self.assertIn(':root[data-theme="light"]', landing_css)
         self.assertIn("prefers-reduced-motion", landing_css)
 
-    def test_range_instrument_explains_assumptions_once(self):
+    def test_journey_graphic_shows_five_intervals_and_honest_scope(self):
         html = self.client.get("/").content.decode("utf-8")
-        self.assertIn('data-i18n="instrumentTitle">Assumed driving range', html)
-        self.assertIn('data-i18n="instrumentCaption">Based on a full 50-gallon tank', html)
+        self.assertIn('data-i18n="instrumentTitle">One full tank. Up to 500 miles.', html)
+        self.assertIn('data-i18n="journeyDisclaimer"', html)
+        self.assertIn('data-i18n="journeyTank"', html)
+        self.assertIn('data-i18n="journeyEfficiency"', html)
+        for mileage in ("0", "100", "200", "300", "400", "500 mi"):
+            self.assertIn(f">{mileage}</text>", html)
+        self.assertEqual(html.count('class="journey-road"'), 1)
+        self.assertEqual(html.count('class="journey-roadbed"'), 1)
         self.assertNotIn('data-i18n="instrumentFormula"', html)
-        self.assertNotIn('class="instrument__bottom"', html)
-        self.assertNotIn('A calibrated 500-mile reference scale', html)
+        self.assertNotIn('class="instrument__scale"', html)
 
     def test_own_brand_is_used_consistently_across_both_pages(self):
         for route in ("/", "/demo/"):
@@ -87,7 +95,8 @@ class LandingExperienceTests(SimpleTestCase):
 
     def test_landing_illustrations_remain_arithmetic_only(self):
         html = self.client.get("/").content.decode("utf-8")
-        self.assertIn('aria-valuenow="500"', html)
+        self.assertIn('data-i18n="journeySvgTitle"', html)
+        self.assertIn("not an actual road route", html)
         self.assertIn('data-i18n="labWarning"', html)
         self.assertIn('id="distanceSlider"', html)
         self.assertNotIn('api/v1/routes/optimize/', html)
