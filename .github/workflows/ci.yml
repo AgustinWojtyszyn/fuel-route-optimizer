@@ -35,5 +35,16 @@ jobs:
         run: python manage.py test routes -v 1
       - name: Validate OpenAPI reference
         run: python -m json.tool docs/openapi.json > /dev/null
+      - name: Verify demo JavaScript syntax
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          html = Path('routes/templates/routes/demo.html').read_text()
+          script = re.search(r'<script>\\s*(.*?)\\s*</script>', html, re.S)
+          assert script is not None
+          Path('/tmp/fuel_route_demo.js').write_text(script.group(1))
+          PY
+          node --check /tmp/fuel_route_demo.js
       - name: Compile source
         run: python -m compileall -q config routes scripts tests

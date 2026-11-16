@@ -19,7 +19,7 @@ export ORS_API_KEY='your-key-from-account.heigit.org'
 python manage.py runserver
 ```
 
-Open `http://127.0.0.1:8000/demo/` for a lightweight Leaflet viewer. `GET /health/` checks that the catalog is loaded without contacting the provider. `POST /api/v1/routes/optimize/` accepts:
+Open `http://127.0.0.1:8000/demo/` for a responsive, accessible Leaflet viewer showing road geometry, estimated purchases, receipts and explicit station-location uncertainty. `GET /health/` checks that the catalog is loaded without contacting the provider. `POST /api/v1/routes/optimize/` accepts:
 
 ```json
 {"start":{"city":"Chicago","state":"IL"},"finish":{"city":"Denver","state":"CO"}}

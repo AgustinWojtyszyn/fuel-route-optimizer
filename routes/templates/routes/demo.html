@@ -1,1 +1,189 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Fuel route planner</title><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"><style>body{font:16px system-ui;margin:1rem;max-width:1100px}form{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}input{width:9rem;padding:.5rem}button{padding:.5rem}#map{height:60vh;min-height:350px}#result{white-space:pre-wrap}</style></head><body><h1>Fuel route planner</h1><form id="form"><input name="sc" value="Chicago" aria-label="Start city"><input name="ss" value="IL" aria-label="Start state"><input name="fc" value="Denver" aria-label="Finish city"><input name="fs" value="CO" aria-label="Finish state"><button>Calculate</button></form><div id="map"></div><pre id="result"></pre><p>City centers approximate station locations; check station access before travel. Map data © OpenStreetMap contributors. City locations: GeoNames CC BY 4.0.</p><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script>const map=L.map('map').setView([39,-98],4);L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors',maxZoom:18}).addTo(map);let layer;document.querySelector('#form').onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target);const r=await fetch('/api/v1/routes/optimize/',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({start:{city:f.get('sc'),state:f.get('ss')},finish:{city:f.get('fc'),state:f.get('fs')}})});const data=await r.json();if(layer)map.removeLayer(layer);if(!r.ok){document.querySelector('#result').textContent=JSON.stringify(data,null,2);return}layer=L.featureGroup().addTo(map);L.geoJSON(data.route.geometry).addTo(layer);for(const s of data.stops)(()=>{const popup=document.createElement("span");popup.textContent=`${s.name}: $${s.price_usd_per_gallon}/gal; buy ${s.gallons_to_buy} gal (approximate city location)`;return L.marker([s.lat,s.lon]).bindPopup(popup).addTo(layer)})();map.fitBounds(layer.getBounds());document.querySelector('#result').textContent=`${data.route.distance_miles} mi · ${data.stops.length} fuel stops · $${data.fuel.purchased_en_route_usd} en route · $${data.fuel.estimated_total_trip_cost_usd} estimated consumed fuel\n${data.meta.warnings.join('\n')}`}</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Django API demo for cost-aware US fuel stops using HeiGIT routing.">
+  <title>Fuel Route Optimizer — Django API demo</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>
+    :root{color-scheme:light;--ink:#12233f;--muted:#576782;--line:#dce4ee;--accent:#165ee8;--bg:#f5f8fd;--card:#fff;--warning:#fff7e8}
+    [hidden]{display:none!important}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,Arial,sans-serif}
+    a{color:var(--accent)}.shell{max-width:1440px;margin:auto;padding:0 22px}
+    header{background:#0d2345;color:#fff;padding:26px 0 30px}
+    header h1{font-size:clamp(26px,3vw,38px);margin:0;font-weight:760;letter-spacing:-.04em}
+    header p{color:#d1ddf3;margin:7px 0 0;max-width:760px}
+    .eyebrow{font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:#96c0ff;font-weight:750;margin-bottom:9px}
+    .layout{display:grid;grid-template-columns:minmax(290px,380px) minmax(0,1fr);gap:18px;margin-top:22px}
+    .panel,.card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 6px 22px rgba(18,35,63,.035)}
+    .panel{padding:22px}.panel h2{margin:0 0 5px;font-size:21px;letter-spacing:-.025em}.hint{margin:0 0 23px;color:var(--muted);font-size:13px}
+    .row{display:grid;grid-template-columns:minmax(0,1fr) 76px;gap:10px}.fields{margin-bottom:16px}
+    label{display:block;font-weight:680;font-size:13px;margin-bottom:6px}
+    input{width:100%;min-height:43px;padding:10px 12px;border:1px solid #c6d2e3;border-radius:8px;background:#fff;color:var(--ink);font:inherit}
+    input:focus-visible,button:focus-visible{outline:3px solid #9ac4ff;outline-offset:2px}
+    button{width:100%;border:0;border-radius:9px;padding:13px;font:inherit;font-weight:750;background:var(--accent);color:#fff;cursor:pointer;transition:background .15s}
+    button:hover{background:#0749c0}button:disabled{opacity:.6;cursor:wait}
+    #status{min-height:46px;margin:14px 0 0;padding:12px;border-radius:8px;font-size:13px;background:#eff5ff;color:#314f7e}
+    #status.error{color:#8b1d29;background:#fff0f2}
+    .notice{border:1px solid #f0c988;background:var(--warning);border-radius:10px;padding:14px 15px;margin-top:17px;color:#704d20;font-size:13px}
+    .notice strong{display:block;margin-bottom:4px}
+    .map-panel{overflow:hidden;min-height:510px}.map-heading{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:15px 20px;border-bottom:1px solid var(--line)}
+    .map-heading h2{margin:0;font-size:16px}.subtle{font-size:12px;color:var(--muted)}
+    #map{height:460px;background:#e8f0fc}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:18px 0}
+    .metric{padding:17px}.metric-label{color:var(--muted);font-size:12px;font-weight:650}.metric-value{font-size:clamp(20px,2.5vw,27px);font-weight:790;margin-top:3px;letter-spacing:-.045em;overflow-wrap:anywhere}
+    .details{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr);gap:16px;margin-bottom:18px}
+    .details h2{margin:0 0 13px;font-size:19px}.stops{display:grid;gap:10px}
+    .stop{border:1px solid var(--line);border-radius:10px;padding:15px;background:#fff}
+    .stop h3{font-size:15px;margin:0}.stop p{margin:3px 0 0;color:var(--muted);font-size:13px}
+    .stop .cost{font-size:18px;font-weight:800;margin-top:8px}.empty{padding:16px;border:1px dashed #c7d4e7;border-radius:10px;color:var(--muted)}
+    .facts{margin:0;padding-left:18px;color:var(--muted);font-size:13px}.facts li{margin-bottom:8px}
+    footer{color:var(--muted);font-size:12px;padding:0 0 26px}
+    @media(max-width:920px){.layout,.details{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.map-panel{min-height:380px}#map{height:420px}}
+    @media(max-width:500px){.shell{padding:0 14px}.panel{padding:17px}.grid{gap:8px}.metric{padding:12px}}
+  </style>
+</head>
+<body>
+  <header><div class="shell">
+    <div class="eyebrow">Django REST API · HeiGIT · OpenStreetMap</div>
+    <h1>Fuel Route Optimizer</h1>
+    <p>Plan a US driving route, estimate how much fuel to buy along the way, and see the cost of each stop.</p>
+  </div></header>
+  <main class="shell">
+    <div class="layout">
+      <section class="panel" aria-labelledby="formTitle">
+        <h2 id="formTitle">Plan your route</h2>
+        <p class="hint">Choose two US cities. Each trip assumes a full 50-gallon tank and 10 mpg.</p>
+        <form id="routeForm">
+          <div class="fields"><label for="startCity">Origin</label><div class="row">
+            <input id="startCity" name="startCity" value="Chicago" required maxlength="160" autocomplete="off">
+            <input id="startState" name="startState" aria-label="Origin state" value="IL" required maxlength="2" pattern="[A-Za-z]{2}">
+          </div></div>
+          <div class="fields"><label for="finishCity">Destination</label><div class="row">
+            <input id="finishCity" name="finishCity" value="Denver" required maxlength="160" autocomplete="off">
+            <input id="finishState" name="finishState" aria-label="Destination state" value="CO" required maxlength="2" pattern="[A-Za-z]{2}">
+          </div></div>
+          <button id="submitButton" type="submit">Calculate optimal fuel stops</button>
+        </form>
+        <div id="status" role="status" aria-live="polite">Enter two cities and calculate to see the suggested route.</div>
+        <div class="notice"><strong>Station locations are approximate</strong>
+          The source has no verified pump coordinates. Markers may represent city centers rather than station entrances. Confirm every stop before traveling.
+        </div>
+      </section>
+      <section class="map-panel panel" aria-label="Route map">
+        <div class="map-heading"><h2>Route map</h2><span class="subtle">© OpenStreetMap contributors</span></div>
+        <div id="map" aria-label="Interactive map of driving route and approximate fuel stops"></div>
+      </section>
+    </div>
+    <section id="metrics" class="grid" aria-live="polite" hidden></section>
+    <section id="details" class="details" hidden>
+      <div class="panel"><h2>Suggested fuel stops</h2><div id="stops" class="stops"></div></div>
+      <div class="panel"><h2>How to read this result</h2><ul id="warnings" class="facts"></ul></div>
+    </section>
+  </main>
+  <footer class="shell">Fuel prices are undated assumptions in USD/gallon. The total includes the estimated value of fuel in the starting tank; it is not entirely new spending. <a href="https://github.com/AgustinWojtyszyn/fuel-route-optimizer">Source and API documentation</a>.</footer>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    'use strict';
+    const select = name => document.getElementById(name);
+    const availableMap = typeof L !== 'undefined';
+    const map = availableMap ? L.map('map', {scrollWheelZoom:false}).setView([39,-98],4) : null;
+    if (map) L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution:'© OpenStreetMap contributors', maxZoom:18
+    }).addTo(map);
+    let activeLayer = null;
+    function status(message, isError) {
+      const element = select('status');
+      element.textContent = message;
+      element.className = isError ? 'error' : '';
+    }
+    function addMetric(label, value) {
+      const card = document.createElement('div'); card.className = 'card metric';
+      const head = document.createElement('div'); head.className = 'metric-label'; head.textContent = label;
+      const body = document.createElement('div'); body.className = 'metric-value'; body.textContent = value;
+      card.append(head, body); select('metrics').append(card);
+    }
+    function renderStops(stops) {
+      const parent = select('stops'); parent.replaceChildren();
+      if (!stops.length) {
+        const note = document.createElement('p'); note.className = 'empty';
+        note.textContent = 'No new fuel purchase is required with the assumed full starting tank.';
+        parent.append(note); return;
+      }
+      stops.forEach((stop, index) => {
+        const item = document.createElement('article'); item.className = 'stop';
+        const title = document.createElement('h3'); title.textContent = String(index+1) + '. ' + stop.name;
+        const place = document.createElement('p'); place.textContent = stop.city + ', ' + stop.state + ' · ' + stop.address;
+        const gallons = document.createElement('p'); gallons.textContent = 'Buy ' + stop.gallons_to_buy + ' gal at $' + stop.price_usd_per_gallon + '/gal';
+        const cost = document.createElement('div'); cost.className = 'cost'; cost.textContent = '$' + stop.stop_cost_usd;
+        const note = document.createElement('p'); note.textContent = 'Approximate city location · pump access NOT verified';
+        item.append(title, place, gallons, cost, note); parent.append(item);
+      });
+    }
+    function renderMap(data) {
+      if (!map) return;
+      if (activeLayer) map.removeLayer(activeLayer);
+      activeLayer = L.featureGroup().addTo(map);
+      L.geoJSON(data.route.geometry, {style:{color:'#1662e7',weight:5,opacity:0.9}}).addTo(activeLayer);
+      const coords = data.route.geometry.coordinates;
+      const endpoints = [coords[0],coords[coords.length-1]];
+      endpoints.forEach((point,index) => L.circleMarker([point[1],point[0]], {
+        radius:7, color:index===0?'#128056':'#af2545',fillOpacity:1,weight:2
+      }).bindTooltip(index===0?'Start':'Finish').addTo(activeLayer));
+      data.stops.forEach((stop,index) => {
+        const popup = document.createElement('span');
+        popup.textContent = String(index+1) + '. ' + stop.name + ' · $' + stop.stop_cost_usd + ' · city-center approximation';
+        L.marker([stop.lat,stop.lon]).bindPopup(popup).addTo(activeLayer);
+      });
+      map.fitBounds(activeLayer.getBounds(),{padding:[25,25],maxZoom:12});
+    }
+    function showResult(data) {
+      select('metrics').replaceChildren();
+      const totalMinutes = Math.round(data.route.duration_minutes);
+      const hours = Math.floor(totalMinutes/60);
+      const minutes = totalMinutes%60;
+      addMetric('Road distance', data.route.distance_miles.toLocaleString() + ' mi');
+      addMetric('Driving time', hours + 'h ' + minutes + 'm');
+      addMetric('Fuel stops', String(data.stops.length));
+      addMetric('New fuel purchases', '$' + data.fuel.purchased_en_route_usd);
+      select('metrics').hidden = false;
+      renderStops(data.stops);
+      const warnings = select('warnings'); warnings.replaceChildren();
+      const messages = [
+        'Estimated total consumed-fuel value: $' + data.fuel.estimated_total_trip_cost_usd + ' (includes the estimated $' + data.fuel.initial_fuel_estimated_cost_usd + ' of starting fuel).',
+        'Route-provider requests this time: ' + data.meta.routing_api_calls + (data.meta.cache_hit ? ' (cached result)' : '.'),
+      ].concat(data.meta.warnings || []);
+      messages.forEach(value => {const item=document.createElement('li');item.textContent=value;warnings.append(item)});
+      select('details').hidden = false;
+      renderMap(data);
+    }
+    select('routeForm').addEventListener('submit', async event => {
+      event.preventDefault();
+      const fields = new FormData(event.currentTarget);
+      const payload = {
+        start: {city:String(fields.get('startCity')).trim(),state:String(fields.get('startState')).trim().toUpperCase()},
+        finish: {city:String(fields.get('finishCity')).trim(),state:String(fields.get('finishState')).trim().toUpperCase()},
+      };
+      const button = select('submitButton'); button.disabled=true;
+      select('metrics').hidden = true; select('details').hidden = true;
+      if (map && activeLayer) {map.removeLayer(activeLayer); activeLayer = null;}
+      status('Requesting road geometry and validating fuel purchases…', false);
+      try {
+        const response = await fetch('/api/v1/routes/optimize/', {
+          method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          status((data.error && data.error.message) || 'The route could not be calculated.',true);
+          return;
+        }
+        showResult(data);
+        status('Route calculated. Stop markers are approximate; verify access before traveling.' + (availableMap?'':' Map assets did not load.'),false);
+      } catch (_error) {
+        status('Could not request or display the route. Check the API server and your connection.',true);
+      } finally {
+        button.disabled=false;
+      }
+    });
+  </script>
+</body>
+</html>
