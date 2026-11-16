@@ -58,3 +58,21 @@ The city gazetteer and CSV have no dates for station price observations or exact
 With a valid `ORS_API_KEY` in the environment, run `python scripts/run_live_checks.py`. It makes cold requests for Los Angeles→Las Vegas, Chicago→Denver, and New York City→Miami; prints HTTP status, distance, duration, stops, gallons, costs, actual provider request count and wall times, and checks the tank against each returned leg. Full JSON results are saved under ignored `live_results/` for private review. Do not publish these derived OPIS prices without permission. Without the key, the script exits before any external request.
 
 The supplied encoded metadata string is not an ORS key. Supply the actual secret through the host environment. For deployment, set `DJANGO_DEBUG=0`, a long random `DJANGO_SECRET_KEY`, allowed hosts, and HTTPS. Production settings enable secure cookies, redirect and HSTS. If behind a trusted TLS reverse proxy, configure its forwarded scheme securely before enabling redirect. Authentication and quota protection are not included; do not expose the development API publicly as-is.
+
+
+## Quality gates and financial precision (November 2026 update)
+
+GitHub Actions runs the Django integration tests, a separate standard-library test suite, Python compilation and a migration check for **Python 3.12 and 3.13** on every push to `main`. The independent suite includes 1,000 deterministic random cases checked against exhaustive integer-gallon dynamic programming, 7,000-station scalability coverage, and deliberate accounting failures. Run locally:
+
+```bash
+python -m unittest discover -s tests -v
+python manage.py check
+python manage.py makemigrations --check --dry-run
+python manage.py test routes -v 1
+```
+
+For small fractional purchases, the API now preserves exact decimal gallons instead of rounding to four places. Each stop exposes `fuel_before_stop_gallons` and `fuel_after_stop_gallons`; station charges round independently to cents, and `purchased_en_route_usd` exactly equals the sum of these displayed receipts. `initial_fuel_estimated_cost_usd` separates the **notional** cost of fuel already in the tank from money spent at new stops. API cache keys were incremented to avoid returning stale response formats. Stations still use **approximate city centers, not verified pumps**.
+
+`python scripts/run_live_checks.py` requires a real HeiGIT key, validates every returned road segment, reconciles all gallons/cents and provider calls, continues after a failed route, and **exits nonzero if any check fails**. Do not use local mocked tests as evidence of real provider availability or driving feasibility.
+
+Sources: [Django security releases](https://www.djangoproject.com/weblog/2026/nov/03/security-releases/), [DRF 3.18.3](https://www.django-rest-framework.org/community/release-notes/), [openrouteservice return formats](https://github.com/GIScience/openrouteservice/blob/main/docs/api-reference/endpoints/directions/requests-and-return-types.md), [hosted limits](https://giscience.github.io/openrouteservice/hosted-api-restrictions).
