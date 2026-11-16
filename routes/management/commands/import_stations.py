@@ -26,9 +26,21 @@ class Command(BaseCommand):
                     count += 1
                     if None in row or any(v is None or not v.strip() for v in row.values()): raise ValueError(f'Invalid row {line}')
                     price = Decimal(row['Retail Price'].strip())
-                    if not price.is_finite() or price <= 0: raise ValueError(f'Invalid price at row {line}')
-                    ident, rack = row['OPIS Truckstop ID'].strip(),row['Rack ID'].strip()
-                    if not ident.isdecimal() or not rack.isdecimal(): raise ValueError(f'Invalid ID at row {line}')
+                    # DecimalField(max_digits=12, decimal_places=8) must never
+                    # silently round an imported price or overflow on write.
+                    if (not price.is_finite() or price <= 0 or
+                            price > Decimal('9999.99999999') or
+                            price != price.quantize(Decimal('0.00000001'))):
+                        raise ValueError(f'Invalid or overprecise price at row {line}')
+                    ident, rack = row['OPIS Truckstop ID'].strip(), row['Rack ID'].strip()
+                    if (not ident.isascii() or not ident.isdecimal() or len(ident) > 32 or
+                            not rack.isascii() or not rack.isdecimal() or len(rack) > 32):
+                        raise ValueError(f'Invalid ID at row {line}')
+                    if (len(row['Truckstop Name'].strip()) > 200 or
+                            len(row['Address'].strip()) > 250 or
+                            len(row['City'].strip()) > 160 or
+                            len(row['State'].strip()) != 2):
+                        raise ValueError(f'Invalid text length at row {line}')
                     seen.add(tuple(row.items()))
                     state = row['State'].strip().upper()
                     if state not in US_STATES: continue
