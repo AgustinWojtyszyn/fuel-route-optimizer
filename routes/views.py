@@ -1,6 +1,7 @@
 import hashlib, json
 from django.core.cache import cache
 from django.http import JsonResponse
+from django.views.decorators.http import require_GET
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -9,7 +10,7 @@ from rest_framework.exceptions import UnsupportedMediaType
 from rest_framework.parsers import JSONParser
 from rest_framework.exceptions import Throttled
 from rest_framework.throttling import ScopedRateThrottle
-from routes.models import Station, DatasetState
+from routes.models import City, Station, DatasetState
 from routes.serializers import RouteSerializer
 from routes.services.route_planner import plan, InputError
 from routes.services.routing_client import RoutingError
@@ -71,4 +72,28 @@ def health(request):
         'location_quality': 'city_centroids_only',
     }, status=200 if state == 'ok' else 503)
 
-def demo(request): return render(request,'routes/demo.html')
+@require_GET
+def city_search(request):
+    """Autocomplete only against cities the optimizer can resolve locally.
+
+    The API never invents locations or makes per-keystroke routing-provider calls.
+    The base GeoNames import is not an exhaustive list of all US settlements.
+    """
+    query = request.GET.get('q', '').strip()
+    state = request.GET.get('state', '').strip().upper()
+    if len(query) > 80 or (state and (len(state) != 2 or not state.isascii() or not state.isalpha())):
+        return JsonResponse(error('invalid_input', 'Provide a city query up to 80 characters and a two-letter state.'), status=400)
+    if len(query) < 2:
+        return JsonResponse({'results': []})
+    places = City.objects.filter(name__istartswith=query)
+    if state:
+        places = places.filter(state=state)
+    # Only a small page is sent; the browser must not download the entire catalog.
+    matches = list(places.order_by('-population', 'name', 'state').values('name', 'state')[:12])
+    return JsonResponse({'results': matches})
+
+def landing(request):
+    return render(request, 'routes/landing.html')
+
+def demo(request):
+    return render(request, 'routes/demo.html')
