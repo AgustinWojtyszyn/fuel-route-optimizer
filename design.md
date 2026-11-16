@@ -12,10 +12,11 @@ This is the locked direction for future Hallmark redesigns. It supersedes the fo
 
 - Dark is the first-load default; light mode is selected manually using the shared toggle. Store the choice as `fuel-route-theme`.
 - English is the first-load default. Spanish, French and Portuguese are optional, manual and persistent via `fuel-route-language-v2`.
-- Keep the existing fuel-pump mark. Use Bricolage Grotesque for display and Manrope for prose and controls; prefer locally hosted fonts.
+- The old Flaticon fuel-pump asset is permanently retired. Keep the original typographic Fuel/Route wordmark and locally owned FR SVG favicon. Use Bricolage Grotesque for display and Manrope for prose and controls; prefer locally hosted fonts.
 - Dark charcoal-green surfaces and warm amber actions. Light theme uses warm off-white and dark text. Use accessible contrast and high-visibility keyboard focus.
 - Clear typographic hierarchy, generous negative space, factual illustrations and lightly ruled information groups. Avoid generic three-card grids, gradients, glow effects, eyebrow labels and ornamental metrics.
-- Keep user-facing copy brief. Every numeric claim must derive from the real application or the explicit 500-mile / 10 mpg assumptions. The five sections of the hero range instrument represent 100 miles each; the illustration makes no routing API calls.
+- Keep user-facing copy brief. Every numeric claim must derive from the real application or the explicit 500-mile / 10 mpg assumptions. The calibrated hero scale marks the 0 to 500-mile assumption in 100-mile increments; the illustration makes no routing API calls.
+- Use restrained Hallmark interaction polish: consistent hover, keyboard focus, mobile spacing and accessible, genuinely functional distance presets. Never add icons merely for decoration.
 - The landing stylesheet is `routes/static/routes/landing.css`; the planner uses `routes/static/routes/product.css`, `tokens.css` and `theme.css`. Both load `theme.js`.
 
 ## Quality and functionality
