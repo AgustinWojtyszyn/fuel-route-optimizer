@@ -14,12 +14,13 @@ python -m venv .venv
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py import_cities
+python manage.py import_census_places  # optional: expand cities with official 2026 Census places
 python manage.py import_stations /private/path/fuel-prices-for-be-assessment.csv
 export ORS_API_KEY='your-key-from-account.heigit.org'
 python manage.py runserver
 ```
 
-Open `http://127.0.0.1:8000/demo/` for a responsive, accessible Leaflet viewer showing road geometry, estimated purchases, receipts and explicit station-location uncertainty. `GET /health/` checks local station/catalog readiness without contacting the provider. It reports station, city and approximate-location counts plus whether a HeiGIT key is present (not whether that key is valid). It returns 503 if the local data cannot support route planning. `POST /api/v1/routes/optimize/` accepts:
+Open `http://127.0.0.1:8000/` for the multilingual product introduction, or `http://127.0.0.1:8000/demo/` for the responsive, accessible Leaflet route planner showing road geometry, estimated purchases, receipts and explicit station-location uncertainty. `GET /health/` checks local station/catalog readiness without contacting the provider. It reports station, city and approximate-location counts plus whether a HeiGIT key is present (not whether that key is valid). It returns 503 if the local data cannot support route planning. `POST /api/v1/routes/optimize/` accepts:
 
 ```json
 {"start":{"city":"Chicago","state":"IL"},"finish":{"city":"Denver","state":"CO"}}
@@ -32,6 +33,24 @@ curl -X POST http://127.0.0.1:8000/api/v1/routes/optimize/ \
 ```
 
 Import `postman/Fuel-Routes.postman_collection.json` into Postman and set `baseUrl` to your local server. Run `python manage.py test routes -v 1` for offline tests. Set `DJANGO_SECRET_KEY`, `DJANGO_ALLOWED_HOSTS`, `DJANGO_DEBUG=0`, `ORS_TIMEOUT_SECONDS` through the environment for deployment; `.env.example` is a reference, not loaded automatically.
+
+## City search and expanded U.S. place coverage
+
+The planner's origin and destination inputs have an **accessible, keyboard-operated autocomplete**. They query `GET /api/v1/cities/?q=new` (optional `&state=NY`); responses contain at most 12 existing `{name,state}` records per request. The dropdown never downloads the entire catalog or calls HeiGIT while typing. Selecting a match fills both city and state; manually typed city + two-letter state remains supported.
+
+The base `import_cities` command uses the bundled GeoNames snapshot (population >=500; originally excludes AK and HI). This is **not every town or settlement**. To expand the searchable and routable location registry, run:
+
+```bash
+python manage.py import_census_places
+# Or with an official zip you downloaded yourself:
+python manage.py import_census_places --file /path/to/2026_Gaz_place_national.zip
+```
+
+This command downloads the official [2026 U.S. Census national Places gazetteer](https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.html) over HTTPS (unless `--file` is supplied) and merges recognized incorporated places and Census-designated places with existing GeoNames locations **without deleting existing cities or fuel stations**. It includes place candidates in Alaska and Hawaii, but a connected drivable itinerary and fuel-stop coverage there cannot be assumed. A subsequent `import_cities` refresh replaces the city table; rerun `import_census_places` afterwards to restore Census-only entries.
+
+The Census source lists official geographic "places," not every hamlet, address or unnamed road point. All coordinates are approximate representative city/place coordinates, **not verified fuel-pump entrances**. A selectable city is not a promise of a feasible route: the 500-mile tank limit, road connectivity, routing-provider coverage and limited fuel-price CSV still apply.
+
+The landing page at `/` introduces the assessment. The API and working planner remain at `/api/v1/routes/optimize/` and `/demo/`, respectively. Both pages support English, Spanish, French and Portuguese.
 
 ## Result contract
 
