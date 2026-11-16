@@ -24,6 +24,12 @@ class LandingExperienceTests(SimpleTestCase):
         self.assertNotIn("planner-map-preview.png", page)
         self.assertNotIn('id="routeForm"', page)
         self.assertNotIn('id="map"', page)
+        self.assertIn('class="brand-type"', page)
+        self.assertIn('href="/static/routes/favicon.svg"', page)
+        self.assertNotIn("data:image/png;base64,", page)
+        self.assertIn('class="instrument__scale"', page)
+        self.assertEqual(page.count('class="lab__preset"'), 3)
+
 
     def test_both_pages_offer_dark_light_control(self):
         for route in ("/", "/demo/"):
@@ -53,6 +59,7 @@ class LandingExperienceTests(SimpleTestCase):
             "routes/landing.js",
             "routes/theme.js",
             "routes/theme.css",
+            "routes/favicon.svg",
         ):
             with self.subTest(path=relative_path):
                 self.assertIsNotNone(finders.find(relative_path))
@@ -60,3 +67,23 @@ class LandingExperienceTests(SimpleTestCase):
         self.assertTrue(landing_css.startswith("/* Hallmark"))
         self.assertIn(':root[data-theme="light"]', landing_css)
         self.assertIn("prefers-reduced-motion", landing_css)
+
+    def test_own_brand_is_used_consistently_across_both_pages(self):
+        for route in ("/", "/demo/"):
+            with self.subTest(route=route):
+                html = self.client.get(route).content.decode("utf-8")
+                self.assertIn('class="brand-type__main"', html)
+                self.assertIn('href="/static/routes/favicon.svg"', html)
+                self.assertNotIn("data:image/png;base64,", html)
+                self.assertNotIn("bomba-de-gas.png", html)
+
+    def test_landing_illustrations_remain_arithmetic_only(self):
+        html = self.client.get("/").content.decode("utf-8")
+        self.assertIn('aria-valuenow="500"', html)
+        self.assertIn('data-i18n="labWarning"', html)
+        self.assertIn('id="distanceSlider"', html)
+        self.assertNotIn('api/v1/routes/optimize/', html)
+        js_path = Path(finders.find("routes/landing.js"))
+        script = js_path.read_text(encoding="utf-8")
+        self.assertIn("button.dataset.distance", script)
+        self.assertIn("Math.ceil(distance/500)-1", script)
