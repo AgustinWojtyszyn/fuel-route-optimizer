@@ -1,11 +1,31 @@
-# Fuel Route Optimizer visual system
+# Fuel Route Optimizer — visual system
 
-Both routes use the same system: mineral paper, navy ink, a cobalt action, and a real road map. The existing pump logo is retained. Bricolage Grotesque provides the display face; Manrope handles controls and reading. Both variable fonts are self-hosted with their OFL licenses.
+This is the locked direction for future Hallmark redesigns. It supersedes the former light, screenshot-led landing system.
 
-The canonical files are `routes/static/routes/tokens.css`, `base.css`, and `product.css`. Root CSS files are compatibility imports. The existing Hallmark scaffold has been integrated; it has not been reinstalled. No UI framework is required.
+## Two distinct experiences
 
-The landing opens with a short product statement and a real screenshot of the empty planner. It never presents test fixtures, prices, a claimed computed route, or commercial source data. Its factual capability section stays compact rather than multiplying the same facts across marketing sections.
+**Landing (/):** Editorial, dark-first introduction to the range and fuel assumptions. Its signature is a typographic 500-mile instrument plus an **arithmetic-only** distance illustration. Never embed the planner itself, map preview, screenshot of the application, invented route, imaginary station, testimonials or metrics.
 
-The planner is a continuous workspace: input rail on the left, map on the right, numeric results below. On narrow screens the form precedes the map. Inputs have 48px targets, visible focus and keyboard city selection. Async regions show progress, empty, error and successful states. Result figures always distinguish new purchases from fuel already in the starting tank.
+**Planner (/demo/):** A dense, usable cartographic workspace with city autocomplete, road map, route stats, estimated purchases and explicit safety caveats. Do not rework the Django backend to polish the UI.
 
-Use semantic color tokens, the shared spacing scale, tabular numerals for comparable values, sentence case for labels, and reduced motion fallbacks. Keep the vehicle assumptions, source caveats, multilingual catalogs, city lookup, endpoint payloads, and mapping providers intact.
+## Visual language
+
+- Dark is the first-load default; light mode is selected manually using the shared toggle. Store the choice as `fuel-route-theme`.
+- English is the first-load default. Spanish, French and Portuguese are optional, manual and persistent via `fuel-route-language-v2`.
+- Keep the existing fuel-pump mark. Use Bricolage Grotesque for display and Manrope for prose and controls; prefer locally hosted fonts.
+- Dark charcoal-green surfaces and warm amber actions. Light theme uses warm off-white and dark text. Use accessible contrast and high-visibility keyboard focus.
+- Clear typographic hierarchy, generous negative space, factual illustrations and lightly ruled information groups. Avoid generic three-card grids, gradients, glow effects, eyebrow labels and ornamental metrics.
+- Keep user-facing copy brief. Every numeric claim must derive from the real application or the explicit 500-mile / 10 mpg assumptions. The five sections of the hero range instrument represent 100 miles each; the illustration makes no routing API calls.
+- The landing stylesheet is `routes/static/routes/landing.css`; the planner uses `routes/static/routes/product.css`, `tokens.css` and `theme.css`. Both load `theme.js`.
+
+## Quality and functionality
+
+- No removal of current links, interactive elements, map controls, destination field, translations, provider integrations, calculated fuel stops, cost breakdowns or warnings.
+- No claims of verified pump entrances or live prices: positions are city-level approximations and price observations are undated.
+- Mobile from 320px, 1280px/1440px desktop, and 1920px widescreen, with no horizontal document scrolling.
+- Respect `prefers-reduced-motion`, semantic HTML, readable labels and keyboard navigation.
+- Before publishing, run Django tests, Node JavaScript syntax checks and the Hallmark visual audit where a local browser is available. Do not claim a successful screenshot/render audit without actually performing it.
+
+## Acceptance
+
+A reviewer can understand the product without seeing the same map twice; the landing and tool remain recognizable as one brand, and either page can switch themes and language without breaking the route calculator.
