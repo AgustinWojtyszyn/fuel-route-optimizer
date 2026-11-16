@@ -2,6 +2,8 @@
 from decimal import Decimal, ROUND_HALF_UP
 
 TOLERANCE = Decimal('0')
+DISTANCE_DISPLAY_TOLERANCE = Decimal('0.00051')
+STOP_POSITION_TOLERANCE = Decimal('0.000001')
 
 
 def decimal(value):
@@ -38,12 +40,16 @@ def verify_plan(result, actual_requests):
     initial = tank
     spent = Decimal(0)
     purchased = Decimal(0)
+    progress = Decimal(0)
     for index, leg in enumerate(legs):
+        progress += leg
         tank -= leg / mpg
         require(tank >= -TOLERANCE, f'Ran out of fuel on leg {index + 1}')
         tank = max(tank, Decimal(0))
         if index < len(stops):
             stop = stops[index]
+            require(abs(decimal(stop['route_mile']) - progress) <= STOP_POSITION_TOLERANCE,
+                    f'Stop mile does not match leg geometry at stop {index + 1}')
             require(abs(decimal(stop['fuel_before_stop_gallons']) - tank) <= TOLERANCE,
                     f'Incorrect pre-purchase fuel at stop {index + 1}')
             gallons = decimal(stop['gallons_to_buy'])
@@ -60,6 +66,10 @@ def verify_plan(result, actual_requests):
                     f'Incorrect receipt at stop {index + 1}')
             spent += receipt
             purchased += gallons
+    # The public distance is rounded to three decimals; the individual legs
+    # remain unrounded for independent fuel accounting.
+    require(abs(decimal(route['distance_miles']) - progress) <= DISTANCE_DISPLAY_TOLERANCE,
+            'Route total does not match leg distances')
     consumed = sum(legs, Decimal(0)) / mpg
     require(abs(decimal(fuel['consumed_gallons']) - consumed) <= TOLERANCE,
             'Fuel consumption differs from route legs')
@@ -71,6 +81,13 @@ def verify_plan(result, actual_requests):
             'Final fuel does not balance')
     require(abs(initial + purchased - consumed - tank) <= TOLERANCE,
             'Fuel mass balance is inconsistent')
+    reference = decimal(fuel['initial_fuel_reference_price_usd_per_gallon'])
+    require(reference > 0, 'Invalid initial fuel reference price')
+    initial_cost = (min(consumed, initial) * reference).quantize(
+        Decimal('0.01'), rounding=ROUND_HALF_UP
+    )
+    require(decimal(fuel['initial_fuel_estimated_cost_usd']) == initial_cost,
+            'Estimated initial-fuel cost is inconsistent with reference price')
     require(decimal(fuel['estimated_total_trip_cost_usd']) ==
             decimal(fuel['initial_fuel_estimated_cost_usd']) + spent,
             'Estimated total cost does not reconcile')
