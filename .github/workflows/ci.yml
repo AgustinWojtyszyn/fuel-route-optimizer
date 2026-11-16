@@ -41,7 +41,7 @@ jobs:
           from pathlib import Path
           import re
           html = Path('routes/templates/routes/demo.html').read_text()
-          script = re.search(r'<script>\\s*(.*?)\\s*</script>', html, re.S)
+          script = re.search(r'<script>\s*(.*?)\s*</script>', html, re.S)
           assert script is not None
           Path('/tmp/fuel_route_demo.js').write_text(script.group(1))
           PY
