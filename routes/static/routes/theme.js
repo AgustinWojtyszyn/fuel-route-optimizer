@@ -12,6 +12,8 @@
   };
   function redraw(){
     root.dataset.theme=mode;
+    const browserThemeColor=document.querySelector('meta[name="theme-color"]');
+    if(browserThemeColor)browserThemeColor.content=mode==='dark'?'#101817':'#f5f3ee';
     if(!button)return;
     const language=(root.lang||'en').slice(0,2).toLowerCase();
     const translations=labels[language]||labels.en;
