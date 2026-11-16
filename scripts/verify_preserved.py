@@ -1,9 +1,18 @@
 """Check the redesign against the original committed UI contract."""
+from collections import Counter
 from html.parser import HTMLParser
 from pathlib import Path
 import json
 import re
 import subprocess
+
+# The redesign may only add these script tags on top of the original contract:
+# the theme bootstrap (inline), the theme runtime and the landing runtime.
+ALLOWED_EXTRA_SCRIPTS = Counter({
+    (None, None): 1,                          # inline theme bootstrap
+    (None, '/static/routes/theme.js'): 1,
+    (None, '/static/routes/landing.js'): 1,
+})
 
 class Contract(HTMLParser):
     def __init__(self, source):
@@ -30,7 +39,10 @@ for page in ('landing', 'demo'):
     assert old.links <= new.links, (page, 'lost links', old.links-new.links)
     assert old.fields <= new.fields, (page, 'lost fields', old.fields-new.fields)
     assert old.ids - {'grid'} <= new.ids, (page, 'lost ids', old.ids-new.ids)
-    assert old.scripts == new.scripts, (page, 'changed script loading')
+    old_scripts, new_scripts = Counter(old.scripts), Counter(new.scripts)
+    assert not (old_scripts - new_scripts), (page, 'lost script loading', list(old_scripts - new_scripts))
+    extras = new_scripts - old_scripts
+    assert not (extras - ALLOWED_EXTRA_SCRIPTS), (page, 'unexpected extra script', list(extras - ALLOWED_EXTRA_SCRIPTS))
     assert source.count('<option value=') == 4
     if page == 'demo':
         for endpoint in ('/api/v1/cities/?q=', '/api/v1/routes/optimize/', 'https://tiles.openfreemap.org/styles/liberty'):
