@@ -49,7 +49,7 @@ class DemoPresentationTests(SimpleTestCase):
 
     def test_translation_catalogs_cover_all_four_languages(self):
         html = self.get_page()
-        match = re.search(r"const translations = (\\{.*?\\});\\s*const supported", html, re.S)
+        match = re.search(r"const translations = (\{.*?\});\s*const supported", html, re.S)
         self.assertIsNotNone(match)
         catalog = json.loads(match.group(1))
         self.assertEqual(set(catalog), {"en", "es", "fr", "pt"})
@@ -62,7 +62,7 @@ class DemoPresentationTests(SimpleTestCase):
 
     def test_accessible_page_heading_and_landmark(self):
         html = self.get_page()
-        self.assertEqual(len(re.findall(r"<h1\\b", html)), 1)
+        self.assertEqual(len(re.findall(r"<h1\b", html)), 1)
         self.assertIn('<h1 data-i18n="plannerTitle">', html)
         self.assertIn('role="status"', html)
         self.assertIn('aria-live="polite"', html)
