@@ -1,0 +1,41 @@
+[
+  {
+    "mode": "redesign",
+    "depth": "full",
+    "scope": "site",
+    "theme": "custom",
+    "shape": "product atlas and cartographic workspace",
+    "signature": "real OpenFreeMap workbench",
+    "hero": "editorial product heading over real capture",
+    "nav": "wordmark, product links and language",
+    "footer": "source caveat and existing action",
+    "imagery": "actual local planner capture without computed results",
+    "photos": [],
+    "entry": "routes/templates/routes/landing.html",
+    "sections": [
+      "product",
+      "capabilities",
+      "source limitations"
+    ],
+    "waived": [],
+    "prompt": "Total premium redesign including palette; preserve routing accuracy and product wiring",
+    "sweep": {
+      "landing": {
+        "FAIL": 0,
+        "REFLEX": 0,
+        "WARN": 2
+      },
+      "planner": {
+        "FAIL": 0,
+        "REFLEX": 0,
+        "WARN": 2
+      },
+      "review": "in-thread; map sizing, mobile capture, focus contrast and attribution resolved",
+      "tests": {
+        "django": 46,
+        "independent": 21,
+        "browser_assertions": 138
+      }
+    }
+  }
+]

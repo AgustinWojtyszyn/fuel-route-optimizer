@@ -1,0 +1,29 @@
+{
+  "scanned": "2026-11-16",
+  "findings": {
+    "fonts": "Original HTML used inline Inter/system stacks; existing scaffold unused",
+    "palette": "Original green/coral explicitly superseded by user request",
+    "framework": "Django templates, native JavaScript, Leaflet and MapLibre",
+    "source": "main f1a7602; clean before implementation",
+    "pages": {
+      "/": "routes/templates/routes/landing.html",
+      "/demo/": "routes/templates/routes/demo.html"
+    }
+  },
+  "preserve": [
+    "logo",
+    "all endpoints and request payloads",
+    "optimizer",
+    "4 locales",
+    "map providers",
+    "500 mi / 10 MPG",
+    "approximate station caveats"
+  ],
+  "introduce": [
+    "shared CSS actually loaded",
+    "self-hosted fonts",
+    "real planner capture",
+    "visible async city states",
+    "responsive map resizing"
+  ]
+}

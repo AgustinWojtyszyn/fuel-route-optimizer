@@ -1,0 +1,7 @@
+render tier: 10 screenshots in /home/aggustin/fuel-route-optimizer/docs/redesign/audit/.hallmark/shots (1280x800, 1440x900, 1920x1080 folds; 1440 and 375 full pages)
+.hallmark/before.json
+  WARN kept :1 not compared, because this run did not render them: routes/templates/routes/landing.html, routes/templates/routes/demo.html, http://127.0.0.1:8127/ | fix: Render the same pages or URLs the before record holds
+  WARN kept :1 not compared, because this run did not read them: routes/templates/routes/landing.html, routes/templates/routes/demo.html | fix: Run --kept on the same target as --before
+sloplint: 0 FAIL, 2 WARN across 1 file(s) and 1 URL(s).
+kept: links 6/6, fields 5/5, headings 6/6; before 352 FAIL, 133 REFLEX, now 0 FAIL, 0 REFLEX
+compare: .hallmark/compare.html shows before and after side by side

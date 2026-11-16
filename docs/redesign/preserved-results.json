@@ -1,0 +1,14 @@
+{
+  "landing": {
+    "links_preserved": 4,
+    "controls_preserved": 1,
+    "ids_preserved": 3,
+    "scripts_preserved": 1
+  },
+  "demo": {
+    "links_preserved": 2,
+    "controls_preserved": 10,
+    "ids_preserved": 26,
+    "scripts_preserved": 3
+  }
+}

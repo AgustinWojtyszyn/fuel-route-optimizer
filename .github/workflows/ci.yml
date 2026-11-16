@@ -35,26 +35,7 @@ jobs:
         run: python manage.py test routes -v 1
       - name: Validate OpenAPI reference
         run: python -m json.tool docs/openapi.json > /dev/null
-      - name: Verify all inline demo JavaScript syntax
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          import re
-          for template in Path('routes/templates/routes').glob('*.html'):
-              html = template.read_text(encoding='utf-8')
-              scripts = re.findall(r'<script(?:\s+type="(module|importmap)")?>(.*?)</script>', html, re.S)
-              assert scripts, f'Missing JavaScript in {template.name}'
-              for index, (script_type, source) in enumerate(scripts):
-                  if script_type == 'importmap':
-                      import json
-                      json.loads(source)
-                      continue
-                  extension = '.mjs' if script_type == 'module' else '.js'
-                  Path(f'/tmp/fuel_route_{template.stem}_{index}{extension}').write_text(source, encoding='utf-8')
-          PY
-          for file in /tmp/fuel_route_demo_*.js /tmp/fuel_route_demo_*.mjs; do
-            [ -e "$file" ] || continue
-            node --check "$file"
-          done
+      - name: Verify all inline page JavaScript syntax
+        run: python scripts/check_javascript.py
       - name: Compile source
         run: python -m compileall -q config routes scripts tests
