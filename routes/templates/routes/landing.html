@@ -61,11 +61,12 @@
             <div class="instrument__number"><strong>500</strong><span data-i18n="instrumentUnit">mi</span></div>
             <p class="instrument__caption" data-i18n="instrumentCaption">An assumed full tank covers up to 500 miles at 10 mpg.</p>
           </div>
-          <div class="instrument__track" aria-hidden="true">
-            <div class="instrument__glyph">
-              <span style="--h:68%"></span><span style="--h:68%"></span><span style="--h:68%"></span><span style="--h:68%"></span><span style="--h:68%"></span>
+          <div class="instrument__track">
+            <div class="instrument__scale" role="meter" aria-valuemin="0" aria-valuemax="500" aria-valuenow="500" aria-label="Assumed maximum range of 500 miles" data-i18n-aria="maxRangeLabel">
+              <span class="instrument__scale-rail" aria-hidden="true"></span>
+              <span class="instrument__scale-point" aria-hidden="true"></span>
             </div>
-            <div class="instrument__ruler"><span>0 mi</span><span>125</span><span>250</span><span>375</span><span>500 mi</span></div>
+            <div class="instrument__ruler" aria-hidden="true"><span>0</span><span>100</span><span>200</span><span>300</span><span>400</span><span>500 mi</span></div>
           </div>
           <figcaption class="instrument__bottom">
             <span data-i18n="instrumentBottom">50 gallons in the starting tank, assumed full.</span>
@@ -94,6 +95,11 @@
           <div class="lab__work">
             <label class="lab__label" for="distanceSlider"><span data-i18n="distanceLabel">Hypothetical distance</span><span><output id="distanceValue" for="distanceSlider">1,050</output> <span data-i18n="distanceUnit">miles</span></span></label>
             <input class="lab__slider" type="range" id="distanceSlider" min="100" max="1500" step="50" value="1050">
+            <div class="lab__presets" role="group" aria-label="Example distances" data-i18n-aria="presetsLabel">
+              <button type="button" class="lab__preset" data-distance="250" aria-pressed="false">250 mi</button>
+              <button type="button" class="lab__preset" data-distance="750" aria-pressed="false">750 mi</button>
+              <button type="button" class="lab__preset" data-distance="1250" aria-pressed="false">1250 mi</button>
+            </div>
             <div class="lab__scale" aria-hidden="true"><span>100 mi</span><span>750 mi</span><span>1500 mi</span></div>
             <div class="lab__segments" id="rangeSegments" aria-hidden="true"><span class="lab__segment"></span></div>
             <div class="lab__results" aria-live="polite">
