@@ -103,3 +103,18 @@ The code fails closed when a waypoint route cannot be validated. The validation
 also rejects degenerate provider geometry instead of exposing an HTTP 500.
 
 The readiness endpoint intentionally does not call HeiGIT or claim provider connectivity; use the live route verification script for that. Import both cities and station data before accepting a `200` on `/health/`.
+
+## Dataset preflight and import safety (November 2026)
+
+Before requesting any paid/quota-limited routing-provider operation, the optimize
+endpoint checks that the local US station catalog is populated and that at least
+one station has an approximate city location. Missing data returns HTTP 422 with
+`error.code=empty_catalog` or `error.code=station_locations_missing`, with
+**zero requests to HeiGIT**. The `/health/` endpoint remains the local readiness
+check and does not authenticate with the provider.
+
+The CSV importer validates OPIS/rack identifiers, text-field lengths, finite
+prices and database-storable decimal precision before replacing existing rows.
+A rejected import leaves the previous station catalog and dataset digest
+untouched. Neither check turns city centroids into verified truckstop locations:
+pump access and actual ORS route results still require independent verification.
