@@ -1,0 +1,17 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.sqlite3
+.env
+.env.*
+!.env.example
+*.csv
+*.zip
+live_results/
+.coverage
+htmlcov/
+.DS_Store

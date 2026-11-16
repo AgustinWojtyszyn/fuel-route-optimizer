@@ -11,8 +11,13 @@ class InputError(Exception):
         self.code, self.message = code, message
         super().__init__(message)
 
-def money(value): return str(D(value).quantize(D('.01'), rounding=ROUND_HALF_UP))
-def amount(value): return str(D(value).quantize(D('.0001'), rounding=ROUND_HALF_UP))
+def cents(value): return D(value).quantize(D('.01'), rounding=ROUND_HALF_UP)
+def money(value): return str(cents(value))
+def amount(value):
+    """Never round away fuel that the itinerary actually needs."""
+    number = D(value)
+    four_places = number.quantize(D('.0001'))
+    return format(four_places, '.4f') if number == four_places else format(number, 'f')
 
 def plan(start, finish):
     source=find_city(start['city'],start['state'])
@@ -23,12 +28,12 @@ def plan(start, finish):
     direct=get_route(points)
     calls=1
     found=candidates(direct)
-    try: preliminary,_=optimize(direct['distance_miles'],[o for o,_,_ in found])
+    try: preliminary,preliminary_left=optimize(direct['distance_miles'],[o for o,_,_ in found])
     except Infeasible as exc: raise InputError('no_feasible_fuel_plan',str(exc)) from exc
     station_by_id={s.opis_id:(s,lateral) for _,s,lateral in found}
     chosen=[station_by_id[o.ident][0] for o,_ in preliminary]
     route=direct
-    purchases,left=preliminary,D(50)-D(direct['distance_miles'])/MPG if not chosen else D(0)
+    purchases,left=preliminary,preliminary_left
     if len(chosen)>48: raise InputError('too_many_stops','More than 48 stops would exceed the routing provider limit.')
     for attempt in range(2 if chosen else 0):
         route=get_route([points[0]]+[[s.longitude,s.latitude] for s in chosen]+[points[1]])
@@ -37,7 +42,7 @@ def plan(start, finish):
         for station,leg in zip(chosen,route['legs_miles']):
             distance+=D(leg)
             positions.append(Offer(distance,station.price,station.opis_id))
-        try: purchases,left=optimize(route['distance_miles'],positions)
+        try: purchases,left=optimize(sum(map(D,route['legs_miles']),D(0)),positions)
         except Infeasible as exc: raise InputError('unverified_fuel_plan','Verified road segments exceed vehicle range.') from exc
         bought_ids={offer.ident for offer,_ in purchases}
         if len(bought_ids)==len(chosen): break
@@ -55,15 +60,28 @@ def plan(start, finish):
         if not national: raise InputError('empty_catalog','Import the station CSV before routing.')
         reference=D(median(national)); reference_source='us_median'
     stops=[]; spent=D(0); bought=D(0)
-    for offer,gallons in purchases:
+    legs=[D(leg) for leg in route['legs_miles']]
+    tank=CAPACITY
+    for index,(offer,gallons) in enumerate(purchases):
+        tank-=legs[index]/MPG
+        if tank < -D('.00000001'):
+            raise InputError('fuel_accounting','Fuel ran out before a stop.')
+        before=max(D(0),tank)
+        tank=before+gallons
+        if tank > CAPACITY+D('.00000001'):
+            raise InputError('fuel_accounting','Tank was overfilled.')
         station=station_lookup[offer.ident]
-        charge=gallons*station.price;spent+=charge;bought+=gallons
-        stops.append({'opis_id':station.opis_id,'name':station.name,'address':station.address,'city':station.city,'state':station.state,'lat':station.latitude,'lon':station.longitude,'location_quality':station.location_quality,'station_access_verified':False,'route_mile':float(offer.mile),'price_usd_per_gallon':str(station.price),'gallons_to_buy':amount(gallons),'stop_cost_usd':money(charge)})
-    consumed=D(route['distance_miles'])/MPG
-    # The optimizer reaches the finish empty whenever refueling was required.
-    if purchases and abs(left) > D('.00001'):
-        raise InputError('fuel_accounting','Unexpected fuel balance at destination.')
-    estimated=min(consumed,CAPACITY)*reference+spent
+        # Each station rounds its own receipt to cents. Sum those receipts,
+        # rather than rounding the aggregated unrounded charges.
+        charge=cents(gallons*station.price);spent+=charge;bought+=gallons
+        stops.append({'opis_id':station.opis_id,'name':station.name,'address':station.address,'city':station.city,'state':station.state,'lat':station.latitude,'lon':station.longitude,'location_quality':station.location_quality,'station_access_verified':False,'route_mile':float(offer.mile),'price_usd_per_gallon':str(station.price),'gallons_to_buy':amount(gallons),'fuel_before_stop_gallons':amount(before),'fuel_after_stop_gallons':amount(tank),'stop_cost_usd':money(charge)})
+    tank-=legs[len(purchases)]/MPG
+    if tank < -D('.00000001') or abs(tank-left) > D('.00000001'):
+        raise InputError('fuel_accounting','The route and fuel balances disagree.')
+    tank=max(D(0),tank)
+    consumed=sum(legs,D(0))/MPG
+    initial_cost=cents(min(consumed,CAPACITY)*reference)
+    estimated=initial_cost+spent
     warnings=['Station coordinates are approximate city centers, not verified fuel-pump locations or confirmed station access.', 'Prices are undated observations; USD per gallon is assumed.']
     if chosen: warnings.append('Route visits approximate city waypoints; actual station access remains unverified.')
-    return {'route':{'distance_miles':round(route['distance_miles'],3),'duration_minutes':round(route['duration_minutes'],2),'leg_distances_miles':[round(x,6) for x in route['legs_miles']],'geometry':route['geometry'],'provider':'openrouteservice'},'vehicle':{'max_range_miles':500,'mpg':10,'assumed_tank_gallons':50,'initial_fuel_gallons':50},'fuel':{'consumed_gallons':amount(consumed),'purchased_en_route_gallons':amount(bought),'purchased_en_route_usd':money(spent),'estimated_total_trip_cost_usd':money(estimated),'remaining_at_destination_gallons':amount(left),'initial_fuel_reference_price_usd_per_gallon':str(reference),'initial_price_source':reference_source},'stops':stops,'meta':{'routing_api_calls':calls,'station_access_verified':False,'price_policy':'observed_lower_median','warnings':warnings}}
+    return {'route':{'distance_miles':round(route['distance_miles'],3),'duration_minutes':round(route['duration_minutes'],2),'leg_distances_miles':list(route['legs_miles']),'geometry':route['geometry'],'provider':'openrouteservice'},'vehicle':{'max_range_miles':500,'mpg':10,'assumed_tank_gallons':50,'initial_fuel_gallons':50},'fuel':{'consumed_gallons':amount(consumed),'purchased_en_route_gallons':amount(bought),'purchased_en_route_usd':money(spent),'initial_fuel_estimated_cost_usd':money(initial_cost),'estimated_total_trip_cost_usd':money(estimated),'remaining_at_destination_gallons':amount(tank),'initial_fuel_reference_price_usd_per_gallon':str(reference),'initial_price_source':reference_source},'stops':stops,'meta':{'routing_api_calls':calls,'station_access_verified':False,'price_policy':'observed_lower_median','warnings':warnings}}

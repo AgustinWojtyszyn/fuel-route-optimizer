@@ -30,8 +30,8 @@ class PolylineProjector:
     def project(self, point):
         px,py = point
         cell = (math.floor(px/CELL_DEGREES),math.floor(py/CELL_DEGREES))
-        best = (float('inf'),0.0)
-        for i in self.cells.get(cell,()):
+        best_lateral, best_progress = float('inf'), float('inf')
+        for i in sorted(self.cells.get(cell,())):
             a,b = self.coordinates[i:i+2]
             scale = math.cos(math.radians((py+a[1]+b[1])/3))
             ax,ay = a[0]*scale,a[1]
@@ -40,10 +40,14 @@ class PolylineProjector:
             dx,dy = bx-ax,by-ay
             t = max(0,min(1,((x-ax)*dx+(y-ay)*dy)/(dx*dx+dy*dy))) if dx*dx+dy*dy else 0
             lateral = math.hypot(x-(ax+t*dx),y-(ay+t*dy))*69.05
-            if lateral < best[0]:
-                progress = self.cumulative[i]+t*(self.cumulative[i+1]-self.cumulative[i])
-                best = lateral,progress/self.cumulative[-1]*self.distance
-        return best
+            progress = self.cumulative[i]+t*(self.cumulative[i+1]-self.cumulative[i])
+            # Crossing a loop twice must select the earliest equal-distance pass.
+            if (lateral < best_lateral - 1e-9 or
+                (abs(lateral-best_lateral) <= 1e-9 and progress < best_progress)):
+                best_lateral, best_progress = lateral, progress
+        if not math.isfinite(best_lateral):
+            return float('inf'), 0.0
+        return best_lateral, best_progress/self.cumulative[-1]*self.distance
 
 def project(point, geometry, distance):
     return PolylineProjector(geometry,distance).project(point)
