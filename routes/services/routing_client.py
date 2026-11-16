@@ -30,13 +30,26 @@ def get_route(points):
         geometry, props = feature['geometry'], feature['properties']
         segments = props['segments']
         coords = geometry['coordinates']
-        if geometry['type'] != 'LineString' or len(coords) < 2 or len(segments) != len(points)-1:
+        if (geometry['type'] != 'LineString' or not isinstance(coords, list)
+                or len(coords) < 2 or not isinstance(segments, list)
+                or len(segments) != len(points)-1):
             raise ValueError('Invalid geometry or segment count')
-        if not isinstance(coords, list):
-            raise ValueError('Invalid coordinate array')
-        if any(len(p) < 2 or not all(math.isfinite(float(v)) for v in p[:2])
-               or not -180 <= float(p[0]) <= 180 or not -90 <= float(p[1]) <= 90
-               for p in coords):
+        # GeoJSON positions must contain actual finite JSON numbers. Accepting
+        # numeric strings or booleans would let data through this boundary,
+        # then crash the map projector with an unhandled TypeError downstream.
+        def valid_position(position):
+            if not isinstance(position, list) or len(position) not in (2, 3):
+                return False
+            for value in position:
+                if type(value) not in (int, float):
+                    return False
+                try:
+                    if not math.isfinite(value):
+                        return False
+                except (OverflowError, ValueError):
+                    return False
+            return -180 <= position[0] <= 180 and -90 <= position[1] <= 90
+        if not all(valid_position(position) for position in coords):
             raise ValueError('Invalid geometry coordinates')
         # A provider may return a positive summary with collapsed coordinates.
         # Reject it here instead of crashing the station projector with HTTP 500.
@@ -54,5 +67,5 @@ def get_route(points):
         raise RoutingError('routing_timeout','Routing provider timed out.',504) from exc
     except httpx.RequestError as exc:
         raise RoutingError('routing_network','Routing provider is unavailable.',502) from exc
-    except (ValueError, KeyError, IndexError, TypeError) as exc:
+    except (ValueError, KeyError, IndexError, TypeError, OverflowError) as exc:
         raise RoutingError('routing_response','Routing provider returned an invalid response.',502) from exc
