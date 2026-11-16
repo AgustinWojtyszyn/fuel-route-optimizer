@@ -84,6 +84,25 @@ class ImportSafetyTests(TestCase):
                     )
 
 
+    def test_duplicate_rows_do_not_bias_observed_median(self):
+        with TemporaryDirectory() as directory:
+            file = Path(directory) / 'stations.csv'
+            file.write_text(
+                self.HEADER +
+                '1,Alpha,Exit 1,Origin,IL,1,2.00\n' +
+                '1,Alpha,Exit 1,Origin,IL,1,10.00\n' +
+                '1,Alpha,Exit 1,Origin,IL,1,10.00\n' +
+                '1,Alpha,Exit 1,Origin,IL,1,10.00\n',
+                encoding='utf-8',
+            )
+            call_command('import_stations', str(file), verbosity=0)
+            imported = Station.objects.get(pk='1')
+            self.assertEqual(Station.objects.count(), 1)
+            self.assertEqual(imported.price_observations, 2)
+            self.assertEqual(imported.price, 2)
+            self.assertTrue(imported.price_conflict)
+
+
 if __name__ == '__main__':
     import unittest
     unittest.main()
