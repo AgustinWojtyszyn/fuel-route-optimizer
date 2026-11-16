@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111d1b">
+  <meta name="description" content="Explore a US fuel-aware route planning API built with Django, HeiGIT and OpenFreeMap.">
+  <title>Fuel Route Optimizer — Explore the route</title>
+  <style>
+    :root{--bg:#111d1b;--panel:#1b2b28;--muted:#9eaea7;--text:#f4f5f0;--accent:#ed745a;--line:rgba(211,228,216,.17);--cream:#f1f0e8}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 Inter,"Segoe UI",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    button,select{font:inherit}
+    :where(a,button,select):focus-visible{outline:3px solid #f4ab88;outline-offset:4px}
+    .wrap{width:min(1180px,calc(100% - 64px));margin:auto}
+    .top{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:86px;border-bottom:1px solid var(--line)}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:810;font-size:12px;letter-spacing:.08em}
+    .logo{width:34px;height:34px;border-radius:9px;border:1px solid rgba(255,255,255,.32);background:#f8f7ef;display:grid;place-items:center;color:#db563e;font-size:20px}
+    .nav{display:flex;align-items:center;gap:23px;font-size:12px;font-weight:740}
+    .nav a{color:#cad7cf}.nav a:hover{text-decoration:underline}
+    .nav select{max-width:135px;color:#ecf2ea;border:1px solid #40534c;background:#263b35;padding:9px 10px;border-radius:7px}
+    .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,.93fr);align-items:center;gap:58px;padding:92px 0 92px}
+    .eyebrow{margin:0 0 23px;color:#f69c85;font-size:11px;font-weight:830;letter-spacing:.17em;text-transform:uppercase}
+    h1{font-size:clamp(41px,5vw,70px);line-height:1.07;letter-spacing:-.065em;margin:0 0 27px;font-weight:770}
+    h1 em{font-style:normal;color:var(--accent)}
+    .lead{max-width:550px;font-size:17px;line-height:1.75;color:#bac9bf;margin:0 0 30px}
+    .actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+    .button{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:13px 20px;border-radius:8px;font-size:12px;font-weight:820;min-height:49px;transition:transform .15s,background .15s}
+    .button:active{transform:translateY(1px)}
+    .button.primary{background:var(--accent);color:#1c2520}.button.primary:hover{background:#f78b71}
+    .button.secondary{border:1px solid #52665a;color:#f5f5ee;background:#23352d}.button.secondary:hover{background:#304638}
+    .notes{display:flex;flex-wrap:wrap;gap:8px 20px;margin:33px 0 0;color:#92aaa0;font-size:11px}
+    .notes span:before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:#b7d5c3;margin:0 9px 1px 0}
+    .route-figure{border:1px solid #3b5046;border-radius:15px;padding:21px;background:linear-gradient(145deg,#24382f,#1a2a25);box-shadow:0 33px 66px rgba(0,0,0,.14)}
+    .figure-top{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid rgba(229,239,226,.12);padding:0 0 16px;color:#f1f3ed;font-size:12px;font-weight:740}
+    .figure-top span:last-child{font-size:10px;color:#aac2b3;font-weight:580}
+    .route-canvas{position:relative;overflow:hidden;padding:22px 0 13px}
+    .route-canvas svg{width:100%;height:auto;display:block}
+    .route-foot{border-top:1px solid rgba(229,239,226,.12);display:flex;flex-wrap:wrap;gap:8px 17px;padding-top:13px;font-size:10px;color:#afc3b6}
+    .route-foot b{color:#ecf3e9}
+    .visual-note{font-size:10px;color:#8ca295;margin-top:11px;text-align:right}
+    .section{padding:67px 0 80px;border-top:1px solid var(--line);display:grid;grid-template-columns:270px 1fr;gap:45px}
+    .section h2{font-size:clamp(26px,3vw,36px);letter-spacing:-.04em;line-height:1.15;margin:0 0 14px}
+    .section p{color:#9fafa5;font-size:13px;max-width:270px;margin:0}
+    .features{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .feature{border:1px solid var(--line);border-radius:10px;padding:22px;background:#182622}
+    .index{font:780 11px/1.2 system-ui;color:#ec9279;letter-spacing:.1em;margin-bottom:26px}
+    .feature h3{font-size:15px;letter-spacing:-.025em;margin:0 0 9px}
+    .feature p{font-size:12px;line-height:1.65;color:#aebfb4;margin:0}
+    .bottom{display:flex;align-items:center;justify-content:space-between;gap:25px;border-top:1px solid var(--line);padding:24px 0 35px;font-size:11px;color:#91a99e}
+    .bottom a{color:#e8f0e7;font-weight:720}
+    @media(max-width:950px){.hero{grid-template-columns:1fr;padding:70px 0;gap:40px}.route-figure{max-width:650px;width:100%}.section{grid-template-columns:1fr;gap:25px}.section p{max-width:650px}}
+    @media(max-width:650px){.wrap{width:calc(100% - 34px)}.top{min-height:76px}.brand{font-size:10px;gap:8px}.logo{width:30px;height:30px}.nav{gap:10px}.nav a{display:none}.nav select{max-width:112px;font-size:11px}.hero{padding:55px 0 62px}h1{font-size:clamp(39px,10vw,58px)}.lead{font-size:15px}.actions{align-items:stretch}.button{width:100%}.route-figure{padding:14px}.features{grid-template-columns:1fr}.section{padding:50px 0}.bottom{flex-direction:column;align-items:start;gap:11px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <a class="brand" href="/" aria-label="Fuel Route Optimizer home"><span class="logo" aria-hidden="true">⛽</span> FUEL ROUTE / OPTIMIZER</a>
+      <nav class="nav" aria-label="Primary navigation"><a href="#features" data-i18n="navHow">How it works</a><a href="/demo/" data-i18n="navPlanner">Planner</a>
+        <label><span class="sr-only" style="position:absolute;clip-path:inset(50%);width:1px;height:1px;overflow:hidden">Language</span>
+          <select id="language" aria-label="Language">
+            <option value="en">EN · English</option><option value="es">ES · Español</option><option value="fr">FR · Français</option><option value="pt">PT · Português</option>
+          </select>
+        </label>
+      </nav>
+    </header>
+    <main>
+      <section class="hero" aria-labelledby="pageTitle">
+        <div>
+          <p class="eyebrow" data-i18n="overline">A ROUTE PLANNER BUILT FOR CLARITY</p>
+          <h1 id="pageTitle"><span data-i18n="headline1">Go further.</span><em data-i18n="headline2"> Know the cost.</em></h1>
+          <p class="lead" data-i18n="description">Explore driving routes across the United States, identify estimated fuel stops and see what each purchase could cost — all in one clear view.</p>
+          <div class="actions">
+            <a class="button primary" href="/demo/"><span data-i18n="cta">Open the route planner</span><span aria-hidden="true">↗</span></a>
+            <a class="button secondary" href="https://github.com/AgustinWojtyszyn/fuel-route-optimizer" target="_blank" rel="noopener noreferrer"><span data-i18n="source">Explore the code</span><span aria-hidden="true">↗</span></a>
+          </div>
+          <p class="notes"><span data-i18n="pill1">500-mile assumed range</span><span data-i18n="pill2">10 miles per gallon</span><span data-i18n="pill3">Django REST API</span></p>
+        </div>
+        <div aria-label="Schematic example of a US route">
+          <div class="route-figure">
+            <div class="figure-top"><span data-i18n="visualTitle">A clearer way to plan</span><span>CHICAGO · DENVER</span></div>
+            <div class="route-canvas">
+              <svg viewBox="0 0 520 340" role="img" aria-label="Illustrative curved route between Chicago and Denver, with two estimated stop markers">
+                <defs><pattern id="grid" width="26" height="26" patternUnits="userSpaceOnUse"><path d="M26 0H0V26" stroke="#6f8d78" stroke-width=".5" opacity=".27" fill="none"/></pattern></defs>
+                <rect width="520" height="340" fill="url(#grid)"/>
+                <path d="M30 40L138 80L196 30L350 81L490 47M25 262L140 227L274 280L500 235" fill="none" stroke="#688878" stroke-width="1.5" opacity=".3" stroke-dasharray="4 9"/>
+                <path d="M453 75C386 79 404 156 321 148C251 143 281 221 203 229C138 239 140 281 75 268" stroke="#6b8876" stroke-width="12" opacity=".24" fill="none" stroke-linecap="round"/>
+                <path d="M453 75C386 79 404 156 321 148C251 143 281 221 203 229C138 239 140 281 75 268" stroke="#f38a6f" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <g fill="#f1f6ed" stroke="#f38a6f" stroke-width="3"><circle cx="453" cy="75" r="9"/><circle cx="75" cy="268" r="9"/></g>
+                <g fill="#f38a6f" stroke="#1b2d25" stroke-width="4"><circle cx="330" cy="146" r="8"/><circle cx="204" cy="229" r="8"/></g>
+                <g fill="#eef6ed" font-family="system-ui,sans-serif"><text x="402" y="48" font-size="15" font-weight="700">Chicago</text><text x="56" y="307" font-size="15" font-weight="700">Denver</text><text x="345" y="185" font-size="11" fill="#c3d6c7">Stop 01</text><text x="211" y="262" font-size="11" fill="#c3d6c7">Stop 02</text></g>
+              </svg>
+            </div>
+            <div class="route-foot"><span data-i18n="legend1"><b>01</b> Route geometry</span><span data-i18n="legend2"><b>02</b> Fuel estimates</span><span data-i18n="legend3"><b>03</b> Clear breakdown</span></div>
+          </div>
+          <div class="visual-note" data-i18n="visualNote">Illustration only · Not a computed route or verified station map</div>
+        </div>
+      </section>
+      <section class="section" id="features">
+        <div><p class="eyebrow" data-i18n="overline2">THE APPROACH</p><h2 data-i18n="featuresTitle">Built around the journey.</h2><p data-i18n="featuresIntro">One API, a real road route and transparent fuel assumptions.</p></div>
+        <div class="features">
+          <article class="feature"><div class="index">01 / ROUTING</div><h3 data-i18n="f1Title">Real driving geometry</h3><p data-i18n="f1Text">Route distances and road shapes come from HeiGIT openrouteservice, not straight-line guesses.</p></article>
+          <article class="feature"><div class="index">02 / PLANNING</div><h3 data-i18n="f2Title">Fuel purchase estimates</h3><p data-i18n="f2Text">See suggested purchase quantities and new spending with a fixed 500-mile vehicle range.</p></article>
+          <article class="feature"><div class="index">03 / TRANSPARENCY</div><h3 data-i18n="f3Title">Understand the limits</h3><p data-i18n="f3Text">Station markers are approximate city locations, not verified pump entrances. Price observations have no dates.</p></article>
+        </div>
+      </section>
+    </main>
+    <footer class="bottom"><span data-i18n="footer">A Django / HeiGIT technical demonstration · Estimated fuel costs, not live pump prices.</span><a href="/demo/" data-i18n="footerCta">Start planning ↗</a></footer>
+  </div>
+  <script>
+    (function(){
+      const locales={
+        en:{navHow:"How it works",navPlanner:"Planner",overline:"A ROUTE PLANNER BUILT FOR CLARITY",headline1:"Go further.",headline2:" Know the cost.",description:"Explore driving routes across the United States, identify estimated fuel stops and see what each purchase could cost — all in one clear view.",cta:"Open the route planner",source:"Explore the code",pill1:"500-mile assumed range",pill2:"10 miles per gallon",pill3:"Django REST API",visualTitle:"A clearer way to plan",legend1:"01  Route geometry",legend2:"02  Fuel estimates",legend3:"03  Clear breakdown",visualNote:"Illustration only · Not a computed route or verified station map",overline2:"THE APPROACH",featuresTitle:"Built around the journey.",featuresIntro:"One API, a real road route and transparent fuel assumptions.",f1Title:"Real driving geometry",f1Text:"Route distances and road shapes come from HeiGIT openrouteservice, not straight-line guesses.",f2Title:"Fuel purchase estimates",f2Text:"See suggested purchase quantities and new spending with a fixed 500-mile vehicle range.",f3Title:"Understand the limits",f3Text:"Station markers are approximate city locations, not verified pump entrances. Price observations have no dates.",footer:"A Django / HeiGIT technical demonstration · Estimated fuel costs, not live pump prices.",footerCta:"Start planning ↗"},
+        es:{navHow:"Cómo funciona",navPlanner:"Planificador",overline:"UN PLANIFICADOR PENSADO PARA LA CLARIDAD",headline1:"Llegá más lejos.",headline2:" Conocé el costo.",description:"Explorá rutas por Estados Unidos, encontrá paradas estimadas para cargar combustible y entendé cuánto podría costar cada carga.",cta:"Abrir el planificador",source:"Explorar el código",pill1:"Autonomía supuesta: 500 millas",pill2:"10 millas por galón",pill3:"API REST con Django",visualTitle:"Una forma más clara de planificar",legend1:"01  Recorrido",legend2:"02  Estimaciones",legend3:"03  Desglose",visualNote:"Ilustración · No es una ruta calculada ni un mapa de surtidores verificados",overline2:"EL ENFOQUE",featuresTitle:"Pensado para el viaje.",featuresIntro:"Una API, recorridos reales y supuestos transparentes.",f1Title:"Recorridos por carretera",f1Text:"Las distancias y geometrías provienen de HeiGIT openrouteservice, no de líneas rectas.",f2Title:"Estimaciones de combustible",f2Text:"Consultá cantidades sugeridas y nuevos gastos con una autonomía fija de 500 millas.",f3Title:"Limitaciones claras",f3Text:"Los marcadores son ubicaciones aproximadas por ciudad, no surtidores verificados. Los precios no tienen fecha.",footer:"Demostración técnica con Django y HeiGIT · Costos estimados, no precios actuales.",footerCta:"Planificar ruta ↗"},
+        fr:{navHow:"Fonctionnement",navPlanner:"Planificateur",overline:"PLANIFIEZ EN TOUTE CLARTÉ",headline1:"Allez plus loin.",headline2:" Connaissez le coût.",description:"Explorez des trajets aux États-Unis, trouvez des arrêts carburant estimés et comprenez le coût de chaque achat.",cta:"Ouvrir le planificateur",source:"Voir le code",pill1:"Autonomie supposée : 500 miles",pill2:"10 miles par gallon",pill3:"API REST Django",visualTitle:"Une planification plus claire",legend1:"01  Itinéraire",legend2:"02  Carburant",legend3:"03  Détails",visualNote:"Illustration uniquement · Ni trajet calculé ni stations vérifiées",overline2:"NOTRE APPROCHE",featuresTitle:"Centré sur le voyage.",featuresIntro:"Une API, de vraies routes et des hypothèses explicites.",f1Title:"Itinéraires routiers",f1Text:"Les distances et tracés proviennent de HeiGIT openrouteservice, pas de lignes droites.",f2Title:"Achats de carburant estimés",f2Text:"Consultez les quantités et dépenses estimées avec une autonomie fixe de 500 miles.",f3Title:"Limites explicites",f3Text:"Les marqueurs représentent des centres de villes, pas des pompes vérifiées. Les prix ne sont pas datés.",footer:"Démo technique Django / HeiGIT · Coûts estimés, pas de prix en temps réel.",footerCta:"Planifier un trajet ↗"},
+        pt:{navHow:"Como funciona",navPlanner:"Planejador",overline:"PLANEJAMENTO COM CLAREZA",headline1:"Vá mais longe.",headline2:" Conheça o custo.",description:"Explore rotas pelos Estados Unidos, encontre paradas estimadas para abastecer e entenda o custo de cada compra.",cta:"Abrir planejador",source:"Explorar o código",pill1:"Autonomia estimada: 500 milhas",pill2:"10 milhas por galão",pill3:"API REST Django",visualTitle:"Uma forma mais clara de planejar",legend1:"01  Rota",legend2:"02  Combustível",legend3:"03  Detalhamento",visualNote:"Ilustração apenas · Não é uma rota calculada nem um mapa de postos verificados",overline2:"A ABORDAGEM",featuresTitle:"Pensado para sua viagem.",featuresIntro:"Uma API, rotas reais e premissas transparentes.",f1Title:"Rotas rodoviárias reais",f1Text:"Distâncias e trajetos vêm do HeiGIT openrouteservice, não de linhas retas.",f2Title:"Estimativas de combustível",f2Text:"Veja quantidades e custos estimados com autonomia fixa de 500 milhas.",f3Title:"Limitações claras",f3Text:"Marcadores representam cidades aproximadas, não bombas verificadas. Os preços não têm data.",footer:"Demonstração técnica Django / HeiGIT · Custos estimados, não preços atuais.",footerCta:"Planejar rota ↗"}
+      };
+      let lang=(navigator.language||'en').slice(0,2).toLowerCase();
+      try{lang=localStorage.getItem('fuel-route-language')||lang}catch(_){}
+      if(!locales[lang])lang='en';
+      function apply(){
+        document.documentElement.lang=lang==='pt'?'pt-BR':lang;
+        document.getElementById('language').value=lang;
+        document.querySelectorAll('[data-i18n]').forEach(el=>{
+          const value=locales[lang][el.dataset.i18n];
+          if(value)el.textContent=value;
+        });
+      }
+      document.getElementById('language').addEventListener('change',e=>{
+        lang=e.target.value;
+        try{localStorage.setItem('fuel-route-language',lang)}catch(_){}
+        apply();
+      });
+      apply();
+    })();
+  </script>
+</body>
+</html>
