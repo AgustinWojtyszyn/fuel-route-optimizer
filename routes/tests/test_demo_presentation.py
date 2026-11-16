@@ -1,5 +1,6 @@
 """Regression tests for the self-contained multilingual route-planner demo."""
 import base64
+import json
 import re
 
 from django.test import SimpleTestCase
@@ -45,3 +46,23 @@ class DemoPresentationTests(SimpleTestCase):
         self.assertIn('class="map-canvas"', html)
         self.assertIn('class="style-switcher"', html)
         self.assertIn('data-i18n="plannerTitle"', html)
+
+    def test_translation_catalogs_cover_all_four_languages(self):
+        html = self.get_page()
+        match = re.search(r"const translations = (\\{.*?\\});\\s*const supported", html, re.S)
+        self.assertIsNotNone(match)
+        catalog = json.loads(match.group(1))
+        self.assertEqual(set(catalog), {"en", "es", "fr", "pt"})
+        english_keys = set(catalog["en"])
+        self.assertGreaterEqual(len(english_keys), 80)
+        for language, messages in catalog.items():
+            with self.subTest(language=language):
+                self.assertEqual(set(messages), english_keys)
+                self.assertTrue(all(isinstance(value, str) and value.strip() for value in messages.values()))
+
+    def test_accessible_page_heading_and_landmark(self):
+        html = self.get_page()
+        self.assertEqual(len(re.findall(r"<h1\\b", html)), 1)
+        self.assertIn('<h1 data-i18n="plannerTitle">', html)
+        self.assertIn('role="status"', html)
+        self.assertIn('aria-live="polite"', html)
