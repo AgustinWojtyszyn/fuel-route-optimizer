@@ -1,0 +1,2 @@
+
+42 static files copied to '/home/aggustin/fuel-route-optimizer/staticfiles'.

@@ -1,0 +1,5141 @@
+{
+  "rows": [
+    {
+      "name": "landing",
+      "width": 320,
+      "height": 720,
+      "theme": "dark",
+      "lang": "en",
+      "scrollWidth": 320,
+      "overflow": false,
+      "h1": {
+        "x": 16,
+        "y": 120,
+        "width": 288,
+        "height": 95.03125,
+        "top": 120,
+        "right": 304,
+        "bottom": 215.03125,
+        "left": 16
+      },
+      "hero": {
+        "x": 16,
+        "y": 72,
+        "width": 288,
+        "height": 996.265625,
+        "top": 72,
+        "right": 304,
+        "bottom": 1068.265625,
+        "left": 16
+      },
+      "cta": {
+        "x": 16,
+        "y": 381.03125,
+        "width": 222.6875,
+        "height": 48,
+        "top": 381.03125,
+        "right": 238.6875,
+        "bottom": 429.03125,
+        "left": 16
+      },
+      "heading": "Distance tells half the story.",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 38,
+          "width": 35
+        },
+        {
+          "id": "language",
+          "cls": "locale-select",
+          "height": 38,
+          "width": 77
+        },
+        {
+          "id": "distanceSlider",
+          "cls": "lab__slider",
+          "height": 30,
+          "width": 238
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 72.125
+        }
+      ]
+    },
+    {
+      "name": "landing",
+      "width": 320,
+      "height": 720,
+      "theme": "dark",
+      "lang": "es",
+      "scrollWidth": 320,
+      "overflow": false,
+      "h1": {
+        "x": 16,
+        "y": 120,
+        "width": 288,
+        "height": 142.546875,
+        "top": 120,
+        "right": 304,
+        "bottom": 262.546875,
+        "left": 16
+      },
+      "hero": {
+        "x": 16,
+        "y": 72,
+        "width": 288,
+        "height": 1043.78125,
+        "top": 72,
+        "right": 304,
+        "bottom": 1115.78125,
+        "left": 16
+      },
+      "cta": {
+        "x": 16,
+        "y": 428.546875,
+        "width": 200.546875,
+        "height": 48,
+        "top": 428.546875,
+        "right": 216.546875,
+        "bottom": 476.546875,
+        "left": 16
+      },
+      "heading": "La distancia cuenta solo la mitad.",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 38,
+          "width": 35
+        },
+        {
+          "id": "language",
+          "cls": "locale-select",
+          "height": 38,
+          "width": 77
+        },
+        {
+          "id": "distanceSlider",
+          "cls": "lab__slider",
+          "height": 30,
+          "width": 238
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 72.125
+        }
+      ]
+    },
+    {
+      "name": "landing",
+      "width": 320,
+      "height": 720,
+      "theme": "dark",
+      "lang": "fr",
+      "scrollWidth": 320,
+      "overflow": false,
+      "h1": {
+        "x": 16,
+        "y": 120,
+        "width": 288,
+        "height": 95.03125,
+        "top": 120,
+        "right": 304,
+        "bottom": 215.03125,
+        "left": 16
+      },
+      "hero": {
+        "x": 16,
+        "y": 72,
+        "width": 288,
+        "height": 996.265625,
+        "top": 72,
+        "right": 304,
+        "bottom": 1068.265625,
+        "left": 16
+      },
+      "cta": {
+        "x": 16,
+        "y": 381.03125,
+        "width": 214.203125,
+        "height": 48,
+        "top": 381.03125,
+        "right": 230.203125,
+        "bottom": 429.03125,
+        "left": 16
+      },
+      "heading": "La distance ne dit pas tout.",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 38,
+          "width": 35
+        },
+        {
+          "id": "language",
+          "cls": "locale-select",
+          "height": 38,
+          "width": 77
+        },
+        {
+          "id": "distanceSlider",
+          "cls": "lab__slider",
+          "height": 30,
+          "width": 238
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 72.125
+        }
+      ]
+    },
+    {
+      "name": "landing",
+      "width": 320,
+      "height": 720,
+      "theme": "dark",
+      "lang": "pt",
+      "scrollWidth": 320,
+      "overflow": false,
+      "h1": {
+        "x": 16,
+        "y": 120,
+        "width": 288,
+        "height": 142.546875,
+        "top": 120,
+        "right": 304,
+        "bottom": 262.546875,
+        "left": 16
+      },
+      "hero": {
+        "x": 16,
+        "y": 72,
+        "width": 288,
+        "height": 1043.78125,
+        "top": 72,
+        "right": 304,
+        "bottom": 1115.78125,
+        "left": 16
+      },
+      "cta": {
+        "x": 16,
+        "y": 428.546875,
+        "width": 188.53125,
+        "height": 48,
+        "top": 428.546875,
+        "right": 204.53125,
+        "bottom": 476.546875,
+        "left": 16
+      },
+      "heading": "A distância é só metade da história.",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 38,
+          "width": 35
+        },
+        {
+          "id": "language",
+          "cls": "locale-select",
+          "height": 38,
+          "width": 77
+        },
+        {
+          "id": "distanceSlider",
+          "cls": "lab__slider",
+          "height": 30,
+          "width": 238
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 72.125
+        }
+      ]
+    },
+    {
+      "name": "landing",
+      "width": 320,
+      "height": 720,
+      "theme": "light",
+      "lang": "en",
+      "scrollWidth": 320,
+      "overflow": false,
+      "h1": {
+        "x": 16,
+        "y": 120,
+        "width": 288,
+        "height": 95.03125,
+        "top": 120,
+        "right": 304,
+        "bottom": 215.03125,
+        "left": 16
+      },
+      "hero": {
+        "x": 16,
+        "y": 72,
+        "width": 288,
+        "height": 996.265625,
+        "top": 72,
+        "right": 304,
+        "bottom": 1068.265625,
+        "left": 16
+      },
+      "cta": {
+        "x": 16,
+        "y": 381.03125,
+        "width": 222.6875,
+        "height": 48,
+        "top": 381.03125,
+        "right": 238.6875,
+        "bottom": 429.03125,
+        "left": 16
+      },
+      "heading": "Distance tells half the story.",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 38,
+          "width": 35
+        },
+        {
+          "id": "language",
+          "cls": "locale-select",
+          "height": 38,
+          "width": 77
+        },
+        {
+          "id": "distanceSlider",
+          "cls": "lab__slider",
+          "height": 30,
+          "width": 238
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 72.125
+        }
+      ]
+    },
+    {
+      "name": "landing",
+      "width": 320,
+      "height": 720,
+      "theme": "light",
+      "lang": "es",
+      "scrollWidth": 320,
+      "overflow": false,
+      "h1": {
+        "x": 16,
+        "y": 120,
+        "width": 288,
+        "height": 142.546875,
+        "top": 120,
+        "right": 304,
+        "bottom": 262.546875,
+        "left": 16
+      },
+      "hero": {
+        "x": 16,
+        "y": 72,
+        "width": 288,
+        "height": 1043.78125,
+        "top": 72,
+        "right": 304,
+        "bottom": 1115.78125,
+        "left": 16
+      },
+      "cta": {
+        "x": 16,
+        "y": 428.546875,
+        "width": 200.546875,
+        "height": 48,
+        "top": 428.546875,
+        "right": 216.546875,
+        "bottom": 476.546875,
+        "left": 16
+      },
+      "heading": "La distancia cuenta solo la mitad.",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 38,
+          "width": 35
+        },
+        {
+          "id": "language",
+          "cls": "locale-select",
+          "height": 38,
+          "width": 77
+        },
+        {
+          "id": "distanceSlider",
+          "cls": "lab__slider",
+          "height": 30,
+          "width": 238
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 72.125
+        }
+      ]
+    },
+    {
+      "name": "landing",
+      "width": 320,
+      "height": 720,
+      "theme": "light",
+      "lang": "fr",
+      "scrollWidth": 320,
+      "overflow": false,
+      "h1": {
+        "x": 16,
+        "y": 120,
+        "width": 288,
+        "height": 95.03125,
+        "top": 120,
+        "right": 304,
+        "bottom": 215.03125,
+        "left": 16
+      },
+      "hero": {
+        "x": 16,
+        "y": 72,
+        "width": 288,
+        "height": 996.265625,
+        "top": 72,
+        "right": 304,
+        "bottom": 1068.265625,
+        "left": 16
+      },
+      "cta": {
+        "x": 16,
+        "y": 381.03125,
+        "width": 214.203125,
+        "height": 48,
+        "top": 381.03125,
+        "right": 230.203125,
+        "bottom": 429.03125,
+        "left": 16
+      },
+      "heading": "La distance ne dit pas tout.",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 38,
+          "width": 35
+        },
+        {
+          "id": "language",
+          "cls": "locale-select",
+          "height": 38,
+          "width": 77
+        },
+        {
+          "id": "distanceSlider",
+          "cls": "lab__slider",
+          "height": 30,
+          "width": 238
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 72.125
+        }
+      ]
+    },
+    {
+      "name": "landing",
+      "width": 320,
+      "height": 720,
+      "theme": "light",
+      "lang": "pt",
+      "scrollWidth": 320,
+      "overflow": false,
+      "h1": {
+        "x": 16,
+        "y": 120,
+        "width": 288,
+        "height": 142.546875,
+        "top": 120,
+        "right": 304,
+        "bottom": 262.546875,
+        "left": 16
+      },
+      "hero": {
+        "x": 16,
+        "y": 72,
+        "width": 288,
+        "height": 1043.78125,
+        "top": 72,
+        "right": 304,
+        "bottom": 1115.78125,
+        "left": 16
+      },
+      "cta": {
+        "x": 16,
+        "y": 428.546875,
+        "width": 188.53125,
+        "height": 48,
+        "top": 428.546875,
+        "right": 204.53125,
+        "bottom": 476.546875,
+        "left": 16
+      },
+      "heading": "A distância é só metade da história.",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 38,
+          "width": 35
+        },
+        {
+          "id": "language",
+          "cls": "locale-select",
+          "height": 38,
+          "width": 77
+        },
+        {
+          "id": "distanceSlider",
+          "cls": "lab__slider",
+          "height": 30,
+          "width": 238
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 72.125
+        }
+      ]
+    },
+    {
+      "name": "landing",
+      "width": 375,
+      "height": 812,
+      "theme": "dark",
+      "lang": "en",
+      "scrollWidth": 375,
+      "overflow": false,
+      "h1": {
+        "x": 16,
+        "y": 120,
+        "width": 343,
+        "height": 95.03125,
+        "top": 120,
+        "right": 359,
+        "bottom": 215.03125,
+        "left": 16
+      },
+      "hero": {
+        "x": 16,
+        "y": 72,
+        "width": 343,
+        "height": 1025.484375,
+        "top": 72,
+        "right": 359,
+        "bottom": 1097.484375,
+        "left": 16
+      },
+      "cta": {
+        "x": 16,
+        "y": 381.03125,
+        "width": 222.6875,
+        "height": 48,
+        "top": 381.03125,
+        "right": 238.6875,
+        "bottom": 429.03125,
+        "left": 16
+      },
+      "heading": "Distance tells half the story.",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 38,
+          "width": 35
+        },
+        {
+          "id": "language",
+          "cls": "locale-select",
+          "height": 38,
+          "width": 77
+        },
+        {
+          "id": "distanceSlider",
+          "cls": "lab__slider",
+          "height": 30,
+          "width": 293
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 72.125
+        }
+      ]
+    },
+    {
+      "name": "landing",
+      "width": 375,
+      "height": 812,
+      "theme": "dark",
+      "lang": "es",
+      "scrollWidth": 375,
+      "overflow": false,
+      "h1": {
+        "x": 16,
+        "y": 120,
+        "width": 343,
+        "height": 142.546875,
+        "top": 120,
+        "right": 359,
+        "bottom": 262.546875,
+        "left": 16
+      },
+      "hero": {
+        "x": 16,
+        "y": 72,
+        "width": 343,
+        "height": 987.5,
+        "top": 72,
+        "right": 359,
+        "bottom": 1059.5,
+        "left": 16
+      },
+      "cta": {
+        "x": 16,
+        "y": 403.046875,
+        "width": 200.546875,
+        "height": 48,
+        "top": 403.046875,
+        "right": 216.546875,
+        "bottom": 451.046875,
+        "left": 16
+      },
+      "heading": "La distancia cuenta solo la mitad.",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 38,
+          "width": 35
+        },
+        {
+          "id": "language",
+          "cls": "locale-select",
+          "height": 38,
+          "width": 77
+        },
+        {
+          "id": "distanceSlider",
+          "cls": "lab__slider",
+          "height": 30,
+          "width": 293
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 72.125
+        }
+      ]
+    },
+    {
+      "name": "landing",
+      "width": 375,
+      "height": 812,
+      "theme": "dark",
+      "lang": "fr",
+      "scrollWidth": 375,
+      "overflow": false,
+      "h1": {
+        "x": 16,
+        "y": 120,
+        "width": 343,
+        "height": 95.03125,
+        "top": 120,
+        "right": 359,
+        "bottom": 215.03125,
+        "left": 16
+      },
+      "hero": {
+        "x": 16,
+        "y": 72,
+        "width": 343,
+        "height": 1025.484375,
+        "top": 72,
+        "right": 359,
+        "bottom": 1097.484375,
+        "left": 16
+      },
+      "cta": {
+        "x": 16,
+        "y": 381.03125,
+        "width": 214.203125,
+        "height": 48,
+        "top": 381.03125,
+        "right": 230.203125,
+        "bottom": 429.03125,
+        "left": 16
+      },
+      "heading": "La distance ne dit pas tout.",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 38,
+          "width": 35
+        },
+        {
+          "id": "language",
+          "cls": "locale-select",
+          "height": 38,
+          "width": 77
+        },
+        {
+          "id": "distanceSlider",
+          "cls": "lab__slider",
+          "height": 30,
+          "width": 293
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 72.125
+        }
+      ]
+    },
+    {
+      "name": "landing",
+      "width": 375,
+      "height": 812,
+      "theme": "dark",
+      "lang": "pt",
+      "scrollWidth": 375,
+      "overflow": false,
+      "h1": {
+        "x": 16,
+        "y": 120,
+        "width": 343,
+        "height": 142.546875,
+        "top": 120,
+        "right": 359,
+        "bottom": 262.546875,
+        "left": 16
+      },
+      "hero": {
+        "x": 16,
+        "y": 72,
+        "width": 343,
+        "height": 987.5,
+        "top": 72,
+        "right": 359,
+        "bottom": 1059.5,
+        "left": 16
+      },
+      "cta": {
+        "x": 16,
+        "y": 403.046875,
+        "width": 188.53125,
+        "height": 48,
+        "top": 403.046875,
+        "right": 204.53125,
+        "bottom": 451.046875,
+        "left": 16
+      },
+      "heading": "A distância é só metade da história.",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 38,
+          "width": 35
+        },
+        {
+          "id": "language",
+          "cls": "locale-select",
+          "height": 38,
+          "width": 77
+        },
+        {
+          "id": "distanceSlider",
+          "cls": "lab__slider",
+          "height": 30,
+          "width": 293
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 72.125
+        }
+      ]
+    },
+    {
+      "name": "landing",
+      "width": 375,
+      "height": 812,
+      "theme": "light",
+      "lang": "en",
+      "scrollWidth": 375,
+      "overflow": false,
+      "h1": {
+        "x": 16,
+        "y": 120,
+        "width": 343,
+        "height": 95.03125,
+        "top": 120,
+        "right": 359,
+        "bottom": 215.03125,
+        "left": 16
+      },
+      "hero": {
+        "x": 16,
+        "y": 72,
+        "width": 343,
+        "height": 1025.484375,
+        "top": 72,
+        "right": 359,
+        "bottom": 1097.484375,
+        "left": 16
+      },
+      "cta": {
+        "x": 16,
+        "y": 381.03125,
+        "width": 222.6875,
+        "height": 48,
+        "top": 381.03125,
+        "right": 238.6875,
+        "bottom": 429.03125,
+        "left": 16
+      },
+      "heading": "Distance tells half the story.",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 38,
+          "width": 35
+        },
+        {
+          "id": "language",
+          "cls": "locale-select",
+          "height": 38,
+          "width": 77
+        },
+        {
+          "id": "distanceSlider",
+          "cls": "lab__slider",
+          "height": 30,
+          "width": 293
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 72.125
+        }
+      ]
+    },
+    {
+      "name": "landing",
+      "width": 375,
+      "height": 812,
+      "theme": "light",
+      "lang": "es",
+      "scrollWidth": 375,
+      "overflow": false,
+      "h1": {
+        "x": 16,
+        "y": 120,
+        "width": 343,
+        "height": 142.546875,
+        "top": 120,
+        "right": 359,
+        "bottom": 262.546875,
+        "left": 16
+      },
+      "hero": {
+        "x": 16,
+        "y": 72,
+        "width": 343,
+        "height": 987.5,
+        "top": 72,
+        "right": 359,
+        "bottom": 1059.5,
+        "left": 16
+      },
+      "cta": {
+        "x": 16,
+        "y": 403.046875,
+        "width": 200.546875,
+        "height": 48,
+        "top": 403.046875,
+        "right": 216.546875,
+        "bottom": 451.046875,
+        "left": 16
+      },
+      "heading": "La distancia cuenta solo la mitad.",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 38,
+          "width": 35
+        },
+        {
+          "id": "language",
+          "cls": "locale-select",
+          "height": 38,
+          "width": 77
+        },
+        {
+          "id": "distanceSlider",
+          "cls": "lab__slider",
+          "height": 30,
+          "width": 293
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 72.125
+        }
+      ]
+    },
+    {
+      "name": "landing",
+      "width": 375,
+      "height": 812,
+      "theme": "light",
+      "lang": "fr",
+      "scrollWidth": 375,
+      "overflow": false,
+      "h1": {
+        "x": 16,
+        "y": 120,
+        "width": 343,
+        "height": 95.03125,
+        "top": 120,
+        "right": 359,
+        "bottom": 215.03125,
+        "left": 16
+      },
+      "hero": {
+        "x": 16,
+        "y": 72,
+        "width": 343,
+        "height": 1025.484375,
+        "top": 72,
+        "right": 359,
+        "bottom": 1097.484375,
+        "left": 16
+      },
+      "cta": {
+        "x": 16,
+        "y": 381.03125,
+        "width": 214.203125,
+        "height": 48,
+        "top": 381.03125,
+        "right": 230.203125,
+        "bottom": 429.03125,
+        "left": 16
+      },
+      "heading": "La distance ne dit pas tout.",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 38,
+          "width": 35
+        },
+        {
+          "id": "language",
+          "cls": "locale-select",
+          "height": 38,
+          "width": 77
+        },
+        {
+          "id": "distanceSlider",
+          "cls": "lab__slider",
+          "height": 30,
+          "width": 293
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 72.125
+        }
+      ]
+    },
+    {
+      "name": "landing",
+      "width": 375,
+      "height": 812,
+      "theme": "light",
+      "lang": "pt",
+      "scrollWidth": 375,
+      "overflow": false,
+      "h1": {
+        "x": 16,
+        "y": 120,
+        "width": 343,
+        "height": 142.546875,
+        "top": 120,
+        "right": 359,
+        "bottom": 262.546875,
+        "left": 16
+      },
+      "hero": {
+        "x": 16,
+        "y": 72,
+        "width": 343,
+        "height": 987.5,
+        "top": 72,
+        "right": 359,
+        "bottom": 1059.5,
+        "left": 16
+      },
+      "cta": {
+        "x": 16,
+        "y": 403.046875,
+        "width": 188.53125,
+        "height": 48,
+        "top": 403.046875,
+        "right": 204.53125,
+        "bottom": 451.046875,
+        "left": 16
+      },
+      "heading": "A distância é só metade da história.",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 38,
+          "width": 35
+        },
+        {
+          "id": "language",
+          "cls": "locale-select",
+          "height": 38,
+          "width": 77
+        },
+        {
+          "id": "distanceSlider",
+          "cls": "lab__slider",
+          "height": 30,
+          "width": 293
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 72.125
+        }
+      ]
+    },
+    {
+      "name": "landing",
+      "width": 1440,
+      "height": 900,
+      "theme": "dark",
+      "lang": "en",
+      "scrollWidth": 1440,
+      "overflow": false,
+      "h1": {
+        "x": 88,
+        "y": 236.328125,
+        "width": 624.078125,
+        "height": 171.0625,
+        "top": 236.328125,
+        "right": 712.078125,
+        "bottom": 407.390625,
+        "left": 88
+      },
+      "hero": {
+        "x": 88,
+        "y": 84,
+        "width": 1264,
+        "height": 733.34375,
+        "top": 84,
+        "right": 1352,
+        "bottom": 817.34375,
+        "left": 88
+      },
+      "cta": {
+        "x": 88,
+        "y": 558.0625,
+        "width": 233.984375,
+        "height": 52,
+        "top": 558.0625,
+        "right": 321.984375,
+        "bottom": 610.0625,
+        "left": 88
+      },
+      "heading": "Distance tells half the story.",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 80.5625
+        },
+        {
+          "id": "language",
+          "cls": "locale-select",
+          "height": 40,
+          "width": 124
+        },
+        {
+          "id": "distanceSlider",
+          "cls": "lab__slider",
+          "height": 30,
+          "width": 644.671875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 72.125
+        }
+      ]
+    },
+    {
+      "name": "landing",
+      "width": 1440,
+      "height": 900,
+      "theme": "dark",
+      "lang": "es",
+      "scrollWidth": 1440,
+      "overflow": false,
+      "h1": {
+        "x": 88,
+        "y": 201.8125,
+        "width": 624.078125,
+        "height": 256.59375,
+        "top": 201.8125,
+        "right": 712.078125,
+        "bottom": 458.40625,
+        "left": 88
+      },
+      "hero": {
+        "x": 88,
+        "y": 84,
+        "width": 1264,
+        "height": 749.84375,
+        "top": 84,
+        "right": 1352,
+        "bottom": 833.84375,
+        "left": 88
+      },
+      "cta": {
+        "x": 88,
+        "y": 609.078125,
+        "width": 210.125,
+        "height": 52,
+        "top": 609.078125,
+        "right": 298.125,
+        "bottom": 661.078125,
+        "left": 88
+      },
+      "heading": "La distancia cuenta solo la mitad.",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 81.9375
+        },
+        {
+          "id": "language",
+          "cls": "locale-select",
+          "height": 40,
+          "width": 124
+        },
+        {
+          "id": "distanceSlider",
+          "cls": "lab__slider",
+          "height": 30,
+          "width": 644.671875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 72.125
+        }
+      ]
+    },
+    {
+      "name": "landing",
+      "width": 1440,
+      "height": 900,
+      "theme": "dark",
+      "lang": "fr",
+      "scrollWidth": 1440,
+      "overflow": false,
+      "h1": {
+        "x": 88,
+        "y": 236.328125,
+        "width": 624.078125,
+        "height": 171.0625,
+        "top": 236.328125,
+        "right": 712.078125,
+        "bottom": 407.390625,
+        "left": 88
+      },
+      "hero": {
+        "x": 88,
+        "y": 84,
+        "width": 1264,
+        "height": 733.34375,
+        "top": 84,
+        "right": 1352,
+        "bottom": 817.34375,
+        "left": 88
+      },
+      "cta": {
+        "x": 88,
+        "y": 558.0625,
+        "width": 224.828125,
+        "height": 52,
+        "top": 558.0625,
+        "right": 312.828125,
+        "bottom": 610.0625,
+        "left": 88
+      },
+      "heading": "La distance ne dit pas tout.",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 77.953125
+        },
+        {
+          "id": "language",
+          "cls": "locale-select",
+          "height": 40,
+          "width": 124
+        },
+        {
+          "id": "distanceSlider",
+          "cls": "lab__slider",
+          "height": 30,
+          "width": 644.671875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 72.125
+        }
+      ]
+    },
+    {
+      "name": "landing",
+      "width": 1440,
+      "height": 900,
+      "theme": "dark",
+      "lang": "pt",
+      "scrollWidth": 1440,
+      "overflow": false,
+      "h1": {
+        "x": 88,
+        "y": 236.328125,
+        "width": 624.078125,
+        "height": 171.0625,
+        "top": 236.328125,
+        "right": 712.078125,
+        "bottom": 407.390625,
+        "left": 88
+      },
+      "hero": {
+        "x": 88,
+        "y": 84,
+        "width": 1264,
+        "height": 733.34375,
+        "top": 84,
+        "right": 1352,
+        "bottom": 817.34375,
+        "left": 88
+      },
+      "cta": {
+        "x": 88,
+        "y": 558.0625,
+        "width": 197.1875,
+        "height": 52,
+        "top": 558.0625,
+        "right": 285.1875,
+        "bottom": 610.0625,
+        "left": 88
+      },
+      "heading": "A distância é só metade da história.",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 81.9375
+        },
+        {
+          "id": "language",
+          "cls": "locale-select",
+          "height": 40,
+          "width": 124
+        },
+        {
+          "id": "distanceSlider",
+          "cls": "lab__slider",
+          "height": 30,
+          "width": 644.671875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 72.125
+        }
+      ]
+    },
+    {
+      "name": "landing",
+      "width": 1440,
+      "height": 900,
+      "theme": "light",
+      "lang": "en",
+      "scrollWidth": 1440,
+      "overflow": false,
+      "h1": {
+        "x": 88,
+        "y": 236.328125,
+        "width": 624.078125,
+        "height": 171.0625,
+        "top": 236.328125,
+        "right": 712.078125,
+        "bottom": 407.390625,
+        "left": 88
+      },
+      "hero": {
+        "x": 88,
+        "y": 84,
+        "width": 1264,
+        "height": 733.34375,
+        "top": 84,
+        "right": 1352,
+        "bottom": 817.34375,
+        "left": 88
+      },
+      "cta": {
+        "x": 88,
+        "y": 558.0625,
+        "width": 233.984375,
+        "height": 52,
+        "top": 558.0625,
+        "right": 321.984375,
+        "bottom": 610.0625,
+        "left": 88
+      },
+      "heading": "Distance tells half the story.",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 77.3125
+        },
+        {
+          "id": "language",
+          "cls": "locale-select",
+          "height": 40,
+          "width": 124
+        },
+        {
+          "id": "distanceSlider",
+          "cls": "lab__slider",
+          "height": 30,
+          "width": 644.671875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 72.125
+        }
+      ]
+    },
+    {
+      "name": "landing",
+      "width": 1440,
+      "height": 900,
+      "theme": "light",
+      "lang": "es",
+      "scrollWidth": 1440,
+      "overflow": false,
+      "h1": {
+        "x": 88,
+        "y": 201.8125,
+        "width": 624.078125,
+        "height": 256.59375,
+        "top": 201.8125,
+        "right": 712.078125,
+        "bottom": 458.40625,
+        "left": 88
+      },
+      "hero": {
+        "x": 88,
+        "y": 84,
+        "width": 1264,
+        "height": 749.84375,
+        "top": 84,
+        "right": 1352,
+        "bottom": 833.84375,
+        "left": 88
+      },
+      "cta": {
+        "x": 88,
+        "y": 609.078125,
+        "width": 210.125,
+        "height": 52,
+        "top": 609.078125,
+        "right": 298.125,
+        "bottom": 661.078125,
+        "left": 88
+      },
+      "heading": "La distancia cuenta solo la mitad.",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 92.6875
+        },
+        {
+          "id": "language",
+          "cls": "locale-select",
+          "height": 40,
+          "width": 124
+        },
+        {
+          "id": "distanceSlider",
+          "cls": "lab__slider",
+          "height": 30,
+          "width": 644.671875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 72.125
+        }
+      ]
+    },
+    {
+      "name": "landing",
+      "width": 1440,
+      "height": 900,
+      "theme": "light",
+      "lang": "fr",
+      "scrollWidth": 1440,
+      "overflow": false,
+      "h1": {
+        "x": 88,
+        "y": 236.328125,
+        "width": 624.078125,
+        "height": 171.0625,
+        "top": 236.328125,
+        "right": 712.078125,
+        "bottom": 407.390625,
+        "left": 88
+      },
+      "hero": {
+        "x": 88,
+        "y": 84,
+        "width": 1264,
+        "height": 733.34375,
+        "top": 84,
+        "right": 1352,
+        "bottom": 817.34375,
+        "left": 88
+      },
+      "cta": {
+        "x": 88,
+        "y": 558.0625,
+        "width": 224.828125,
+        "height": 52,
+        "top": 558.0625,
+        "right": 312.828125,
+        "bottom": 610.0625,
+        "left": 88
+      },
+      "heading": "La distance ne dit pas tout.",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 96
+        },
+        {
+          "id": "language",
+          "cls": "locale-select",
+          "height": 40,
+          "width": 124
+        },
+        {
+          "id": "distanceSlider",
+          "cls": "lab__slider",
+          "height": 30,
+          "width": 644.671875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 72.125
+        }
+      ]
+    },
+    {
+      "name": "landing",
+      "width": 1440,
+      "height": 900,
+      "theme": "light",
+      "lang": "pt",
+      "scrollWidth": 1440,
+      "overflow": false,
+      "h1": {
+        "x": 88,
+        "y": 236.328125,
+        "width": 624.078125,
+        "height": 171.0625,
+        "top": 236.328125,
+        "right": 712.078125,
+        "bottom": 407.390625,
+        "left": 88
+      },
+      "hero": {
+        "x": 88,
+        "y": 84,
+        "width": 1264,
+        "height": 733.34375,
+        "top": 84,
+        "right": 1352,
+        "bottom": 817.34375,
+        "left": 88
+      },
+      "cta": {
+        "x": 88,
+        "y": 558.0625,
+        "width": 197.1875,
+        "height": 52,
+        "top": 558.0625,
+        "right": 285.1875,
+        "bottom": 610.0625,
+        "left": 88
+      },
+      "heading": "A distância é só metade da história.",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 90.734375
+        },
+        {
+          "id": "language",
+          "cls": "locale-select",
+          "height": 40,
+          "width": 124
+        },
+        {
+          "id": "distanceSlider",
+          "cls": "lab__slider",
+          "height": 30,
+          "width": 644.671875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 64.6875
+        },
+        {
+          "id": "",
+          "cls": "lab__preset",
+          "height": 40,
+          "width": 72.125
+        }
+      ]
+    },
+    {
+      "name": "planner",
+      "width": 320,
+      "height": 720,
+      "theme": "dark",
+      "lang": "en",
+      "scrollWidth": 320,
+      "overflow": false,
+      "h1": {
+        "x": 20,
+        "y": 100,
+        "width": 280,
+        "height": 91.3125,
+        "top": 100,
+        "right": 300,
+        "bottom": 191.3125,
+        "left": 20
+      },
+      "form": {
+        "x": 20,
+        "y": 412.71875,
+        "width": 280,
+        "height": 283.375,
+        "top": 412.71875,
+        "right": 300,
+        "bottom": 696.09375,
+        "left": 20
+      },
+      "button": {
+        "x": 20,
+        "y": 644.09375,
+        "width": 280,
+        "height": 52,
+        "top": 644.09375,
+        "right": 300,
+        "bottom": 696.09375,
+        "left": 20
+      },
+      "map": {
+        "x": 20,
+        "y": 1194.9375,
+        "width": 280,
+        "height": 390,
+        "top": 1194.9375,
+        "right": 300,
+        "bottom": 1584.9375,
+        "left": 20
+      },
+      "heading": "Route planning, without the guesswork",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 34
+        },
+        {
+          "id": "languageSelect",
+          "cls": "",
+          "height": 26,
+          "width": 102
+        },
+        {
+          "id": "startCity",
+          "cls": "",
+          "height": 48,
+          "width": 220
+        },
+        {
+          "id": "startState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "swapButton",
+          "cls": "swap-button",
+          "height": 36,
+          "width": 36
+        },
+        {
+          "id": "finishCity",
+          "cls": "",
+          "height": 48,
+          "width": 220
+        },
+        {
+          "id": "finishState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "submitButton",
+          "cls": "primary-button",
+          "height": 52,
+          "width": 280
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 102.015625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 85.640625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 63.765625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 73.546875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 74.46875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 62.0625
+        }
+      ]
+    },
+    {
+      "name": "planner",
+      "width": 320,
+      "height": 720,
+      "theme": "dark",
+      "lang": "es",
+      "scrollWidth": 320,
+      "overflow": false,
+      "h1": {
+        "x": 20,
+        "y": 100,
+        "width": 280,
+        "height": 60.875,
+        "top": 100,
+        "right": 300,
+        "bottom": 160.875,
+        "left": 20
+      },
+      "form": {
+        "x": 20,
+        "y": 382.28125,
+        "width": 280,
+        "height": 283.375,
+        "top": 382.28125,
+        "right": 300,
+        "bottom": 665.65625,
+        "left": 20
+      },
+      "button": {
+        "x": 20,
+        "y": 613.65625,
+        "width": 280,
+        "height": 52,
+        "top": 613.65625,
+        "right": 300,
+        "bottom": 665.65625,
+        "left": 20
+      },
+      "map": {
+        "x": 20,
+        "y": 1145.90625,
+        "width": 280,
+        "height": 390,
+        "top": 1145.90625,
+        "right": 300,
+        "bottom": 1535.90625,
+        "left": 20
+      },
+      "heading": "Tu ruta, con todos los datos",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 34
+        },
+        {
+          "id": "languageSelect",
+          "cls": "",
+          "height": 26,
+          "width": 102
+        },
+        {
+          "id": "startCity",
+          "cls": "",
+          "height": 48,
+          "width": 220
+        },
+        {
+          "id": "startState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "swapButton",
+          "cls": "swap-button",
+          "height": 36,
+          "width": 36
+        },
+        {
+          "id": "finishCity",
+          "cls": "",
+          "height": 48,
+          "width": 220
+        },
+        {
+          "id": "finishState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "submitButton",
+          "cls": "primary-button",
+          "height": 52,
+          "width": 280
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 102.015625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 85.640625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 63.765625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 66.171875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 95.046875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 84.40625
+        }
+      ]
+    },
+    {
+      "name": "planner",
+      "width": 320,
+      "height": 720,
+      "theme": "dark",
+      "lang": "fr",
+      "scrollWidth": 320,
+      "overflow": false,
+      "h1": {
+        "x": 20,
+        "y": 100,
+        "width": 280,
+        "height": 60.875,
+        "top": 100,
+        "right": 300,
+        "bottom": 160.875,
+        "left": 20
+      },
+      "form": {
+        "x": 20,
+        "y": 382.28125,
+        "width": 280,
+        "height": 283.375,
+        "top": 382.28125,
+        "right": 300,
+        "bottom": 665.65625,
+        "left": 20
+      },
+      "button": {
+        "x": 20,
+        "y": 613.65625,
+        "width": 280,
+        "height": 52,
+        "top": 613.65625,
+        "right": 300,
+        "bottom": 665.65625,
+        "left": 20
+      },
+      "map": {
+        "x": 20,
+        "y": 1145.90625,
+        "width": 280,
+        "height": 390,
+        "top": 1145.90625,
+        "right": 300,
+        "bottom": 1535.90625,
+        "left": 20
+      },
+      "heading": "Votre itinéraire en toute clarté",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 34
+        },
+        {
+          "id": "languageSelect",
+          "cls": "",
+          "height": 26,
+          "width": 102
+        },
+        {
+          "id": "startCity",
+          "cls": "",
+          "height": 48,
+          "width": 220
+        },
+        {
+          "id": "startState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "swapButton",
+          "cls": "swap-button",
+          "height": 36,
+          "width": 36
+        },
+        {
+          "id": "finishCity",
+          "cls": "",
+          "height": 48,
+          "width": 220
+        },
+        {
+          "id": "finishState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "submitButton",
+          "cls": "primary-button",
+          "height": 52,
+          "width": 280
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 102.015625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 85.640625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 63.765625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 60.015625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 71.4375
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 54.953125
+        }
+      ]
+    },
+    {
+      "name": "planner",
+      "width": 320,
+      "height": 720,
+      "theme": "dark",
+      "lang": "pt",
+      "scrollWidth": 320,
+      "overflow": false,
+      "h1": {
+        "x": 20,
+        "y": 100,
+        "width": 280,
+        "height": 60.875,
+        "top": 100,
+        "right": 300,
+        "bottom": 160.875,
+        "left": 20
+      },
+      "form": {
+        "x": 20,
+        "y": 382.28125,
+        "width": 280,
+        "height": 283.375,
+        "top": 382.28125,
+        "right": 300,
+        "bottom": 665.65625,
+        "left": 20
+      },
+      "button": {
+        "x": 20,
+        "y": 613.65625,
+        "width": 280,
+        "height": 52,
+        "top": 613.65625,
+        "right": 300,
+        "bottom": 665.65625,
+        "left": 20
+      },
+      "map": {
+        "x": 20,
+        "y": 1145.90625,
+        "width": 280,
+        "height": 390,
+        "top": 1145.90625,
+        "right": 300,
+        "bottom": 1535.90625,
+        "left": 20
+      },
+      "heading": "Sua rota, sem complicações",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 34
+        },
+        {
+          "id": "languageSelect",
+          "cls": "",
+          "height": 26,
+          "width": 102
+        },
+        {
+          "id": "startCity",
+          "cls": "",
+          "height": 48,
+          "width": 220
+        },
+        {
+          "id": "startState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "swapButton",
+          "cls": "swap-button",
+          "height": 36,
+          "width": 36
+        },
+        {
+          "id": "finishCity",
+          "cls": "",
+          "height": 48,
+          "width": 220
+        },
+        {
+          "id": "finishState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "submitButton",
+          "cls": "primary-button",
+          "height": 52,
+          "width": 280
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 102.015625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 85.640625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 63.765625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 59.671875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 95.046875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 77.765625
+        }
+      ]
+    },
+    {
+      "name": "planner",
+      "width": 320,
+      "height": 720,
+      "theme": "light",
+      "lang": "en",
+      "scrollWidth": 320,
+      "overflow": false,
+      "h1": {
+        "x": 20,
+        "y": 100,
+        "width": 280,
+        "height": 91.3125,
+        "top": 100,
+        "right": 300,
+        "bottom": 191.3125,
+        "left": 20
+      },
+      "form": {
+        "x": 20,
+        "y": 412.71875,
+        "width": 280,
+        "height": 283.375,
+        "top": 412.71875,
+        "right": 300,
+        "bottom": 696.09375,
+        "left": 20
+      },
+      "button": {
+        "x": 20,
+        "y": 644.09375,
+        "width": 280,
+        "height": 52,
+        "top": 644.09375,
+        "right": 300,
+        "bottom": 696.09375,
+        "left": 20
+      },
+      "map": {
+        "x": 20,
+        "y": 1193.9375,
+        "width": 280,
+        "height": 390,
+        "top": 1193.9375,
+        "right": 300,
+        "bottom": 1583.9375,
+        "left": 20
+      },
+      "heading": "Route planning, without the guesswork",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 34
+        },
+        {
+          "id": "languageSelect",
+          "cls": "",
+          "height": 26,
+          "width": 102
+        },
+        {
+          "id": "startCity",
+          "cls": "",
+          "height": 48,
+          "width": 220
+        },
+        {
+          "id": "startState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "swapButton",
+          "cls": "swap-button",
+          "height": 36,
+          "width": 36
+        },
+        {
+          "id": "finishCity",
+          "cls": "",
+          "height": 48,
+          "width": 220
+        },
+        {
+          "id": "finishState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "submitButton",
+          "cls": "primary-button",
+          "height": 52,
+          "width": 280
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 102.015625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 85.640625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 63.765625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 73.546875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 74.46875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 62.0625
+        }
+      ]
+    },
+    {
+      "name": "planner",
+      "width": 320,
+      "height": 720,
+      "theme": "light",
+      "lang": "es",
+      "scrollWidth": 320,
+      "overflow": false,
+      "h1": {
+        "x": 20,
+        "y": 100,
+        "width": 280,
+        "height": 60.875,
+        "top": 100,
+        "right": 300,
+        "bottom": 160.875,
+        "left": 20
+      },
+      "form": {
+        "x": 20,
+        "y": 382.28125,
+        "width": 280,
+        "height": 283.375,
+        "top": 382.28125,
+        "right": 300,
+        "bottom": 665.65625,
+        "left": 20
+      },
+      "button": {
+        "x": 20,
+        "y": 613.65625,
+        "width": 280,
+        "height": 52,
+        "top": 613.65625,
+        "right": 300,
+        "bottom": 665.65625,
+        "left": 20
+      },
+      "map": {
+        "x": 20,
+        "y": 1144.90625,
+        "width": 280,
+        "height": 390,
+        "top": 1144.90625,
+        "right": 300,
+        "bottom": 1534.90625,
+        "left": 20
+      },
+      "heading": "Tu ruta, con todos los datos",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 34
+        },
+        {
+          "id": "languageSelect",
+          "cls": "",
+          "height": 26,
+          "width": 102
+        },
+        {
+          "id": "startCity",
+          "cls": "",
+          "height": 48,
+          "width": 220
+        },
+        {
+          "id": "startState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "swapButton",
+          "cls": "swap-button",
+          "height": 36,
+          "width": 36
+        },
+        {
+          "id": "finishCity",
+          "cls": "",
+          "height": 48,
+          "width": 220
+        },
+        {
+          "id": "finishState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "submitButton",
+          "cls": "primary-button",
+          "height": 52,
+          "width": 280
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 102.015625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 85.640625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 63.765625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 66.171875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 95.046875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 84.40625
+        }
+      ]
+    },
+    {
+      "name": "planner",
+      "width": 320,
+      "height": 720,
+      "theme": "light",
+      "lang": "fr",
+      "scrollWidth": 320,
+      "overflow": false,
+      "h1": {
+        "x": 20,
+        "y": 100,
+        "width": 280,
+        "height": 60.875,
+        "top": 100,
+        "right": 300,
+        "bottom": 160.875,
+        "left": 20
+      },
+      "form": {
+        "x": 20,
+        "y": 382.28125,
+        "width": 280,
+        "height": 283.375,
+        "top": 382.28125,
+        "right": 300,
+        "bottom": 665.65625,
+        "left": 20
+      },
+      "button": {
+        "x": 20,
+        "y": 613.65625,
+        "width": 280,
+        "height": 52,
+        "top": 613.65625,
+        "right": 300,
+        "bottom": 665.65625,
+        "left": 20
+      },
+      "map": {
+        "x": 20,
+        "y": 1144.90625,
+        "width": 280,
+        "height": 390,
+        "top": 1144.90625,
+        "right": 300,
+        "bottom": 1534.90625,
+        "left": 20
+      },
+      "heading": "Votre itinéraire en toute clarté",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 34
+        },
+        {
+          "id": "languageSelect",
+          "cls": "",
+          "height": 26,
+          "width": 102
+        },
+        {
+          "id": "startCity",
+          "cls": "",
+          "height": 48,
+          "width": 220
+        },
+        {
+          "id": "startState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "swapButton",
+          "cls": "swap-button",
+          "height": 36,
+          "width": 36
+        },
+        {
+          "id": "finishCity",
+          "cls": "",
+          "height": 48,
+          "width": 220
+        },
+        {
+          "id": "finishState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "submitButton",
+          "cls": "primary-button",
+          "height": 52,
+          "width": 280
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 102.015625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 85.640625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 63.765625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 60.015625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 71.4375
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 54.953125
+        }
+      ]
+    },
+    {
+      "name": "planner",
+      "width": 320,
+      "height": 720,
+      "theme": "light",
+      "lang": "pt",
+      "scrollWidth": 320,
+      "overflow": false,
+      "h1": {
+        "x": 20,
+        "y": 100,
+        "width": 280,
+        "height": 60.875,
+        "top": 100,
+        "right": 300,
+        "bottom": 160.875,
+        "left": 20
+      },
+      "form": {
+        "x": 20,
+        "y": 382.28125,
+        "width": 280,
+        "height": 283.375,
+        "top": 382.28125,
+        "right": 300,
+        "bottom": 665.65625,
+        "left": 20
+      },
+      "button": {
+        "x": 20,
+        "y": 613.65625,
+        "width": 280,
+        "height": 52,
+        "top": 613.65625,
+        "right": 300,
+        "bottom": 665.65625,
+        "left": 20
+      },
+      "map": {
+        "x": 20,
+        "y": 1144.90625,
+        "width": 280,
+        "height": 390,
+        "top": 1144.90625,
+        "right": 300,
+        "bottom": 1534.90625,
+        "left": 20
+      },
+      "heading": "Sua rota, sem complicações",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 34
+        },
+        {
+          "id": "languageSelect",
+          "cls": "",
+          "height": 26,
+          "width": 102
+        },
+        {
+          "id": "startCity",
+          "cls": "",
+          "height": 48,
+          "width": 220
+        },
+        {
+          "id": "startState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "swapButton",
+          "cls": "swap-button",
+          "height": 36,
+          "width": 36
+        },
+        {
+          "id": "finishCity",
+          "cls": "",
+          "height": 48,
+          "width": 220
+        },
+        {
+          "id": "finishState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "submitButton",
+          "cls": "primary-button",
+          "height": 52,
+          "width": 280
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 102.015625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 85.640625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 63.765625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 59.671875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 95.046875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 77.765625
+        }
+      ]
+    },
+    {
+      "name": "planner",
+      "width": 375,
+      "height": 812,
+      "theme": "dark",
+      "lang": "en",
+      "scrollWidth": 375,
+      "overflow": false,
+      "h1": {
+        "x": 20,
+        "y": 100,
+        "width": 335,
+        "height": 60.875,
+        "top": 100,
+        "right": 355,
+        "bottom": 160.875,
+        "left": 20
+      },
+      "form": {
+        "x": 20,
+        "y": 382.28125,
+        "width": 335,
+        "height": 283.375,
+        "top": 382.28125,
+        "right": 355,
+        "bottom": 665.65625,
+        "left": 20
+      },
+      "button": {
+        "x": 20,
+        "y": 613.65625,
+        "width": 335,
+        "height": 52,
+        "top": 613.65625,
+        "right": 355,
+        "bottom": 665.65625,
+        "left": 20
+      },
+      "map": {
+        "x": 20,
+        "y": 1082.515625,
+        "width": 335,
+        "height": 390,
+        "top": 1082.515625,
+        "right": 355,
+        "bottom": 1472.515625,
+        "left": 20
+      },
+      "heading": "Route planning, without the guesswork",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 34
+        },
+        {
+          "id": "languageSelect",
+          "cls": "",
+          "height": 26,
+          "width": 102
+        },
+        {
+          "id": "startCity",
+          "cls": "",
+          "height": 48,
+          "width": 275
+        },
+        {
+          "id": "startState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "swapButton",
+          "cls": "swap-button",
+          "height": 36,
+          "width": 36
+        },
+        {
+          "id": "finishCity",
+          "cls": "",
+          "height": 48,
+          "width": 275
+        },
+        {
+          "id": "finishState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "submitButton",
+          "cls": "primary-button",
+          "height": 52,
+          "width": 335
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 102.015625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 85.640625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 63.765625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 73.546875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 74.46875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 62.0625
+        }
+      ]
+    },
+    {
+      "name": "planner",
+      "width": 375,
+      "height": 812,
+      "theme": "dark",
+      "lang": "es",
+      "scrollWidth": 375,
+      "overflow": false,
+      "h1": {
+        "x": 20,
+        "y": 100,
+        "width": 335,
+        "height": 60.875,
+        "top": 100,
+        "right": 355,
+        "bottom": 160.875,
+        "left": 20
+      },
+      "form": {
+        "x": 20,
+        "y": 361.484375,
+        "width": 335,
+        "height": 283.375,
+        "top": 361.484375,
+        "right": 355,
+        "bottom": 644.859375,
+        "left": 20
+      },
+      "button": {
+        "x": 20,
+        "y": 592.859375,
+        "width": 335,
+        "height": 52,
+        "top": 592.859375,
+        "right": 355,
+        "bottom": 644.859375,
+        "left": 20
+      },
+      "map": {
+        "x": 20,
+        "y": 1081.515625,
+        "width": 335,
+        "height": 390,
+        "top": 1081.515625,
+        "right": 355,
+        "bottom": 1471.515625,
+        "left": 20
+      },
+      "heading": "Tu ruta, con todos los datos",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 34
+        },
+        {
+          "id": "languageSelect",
+          "cls": "",
+          "height": 26,
+          "width": 102
+        },
+        {
+          "id": "startCity",
+          "cls": "",
+          "height": 48,
+          "width": 275
+        },
+        {
+          "id": "startState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "swapButton",
+          "cls": "swap-button",
+          "height": 36,
+          "width": 36
+        },
+        {
+          "id": "finishCity",
+          "cls": "",
+          "height": 48,
+          "width": 275
+        },
+        {
+          "id": "finishState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "submitButton",
+          "cls": "primary-button",
+          "height": 52,
+          "width": 335
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 102.015625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 85.640625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 63.765625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 66.171875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 95.046875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 84.40625
+        }
+      ]
+    },
+    {
+      "name": "planner",
+      "width": 375,
+      "height": 812,
+      "theme": "dark",
+      "lang": "fr",
+      "scrollWidth": 375,
+      "overflow": false,
+      "h1": {
+        "x": 20,
+        "y": 100,
+        "width": 335,
+        "height": 60.875,
+        "top": 100,
+        "right": 355,
+        "bottom": 160.875,
+        "left": 20
+      },
+      "form": {
+        "x": 20,
+        "y": 341.34375,
+        "width": 335,
+        "height": 283.375,
+        "top": 341.34375,
+        "right": 355,
+        "bottom": 624.71875,
+        "left": 20
+      },
+      "button": {
+        "x": 20,
+        "y": 572.71875,
+        "width": 335,
+        "height": 52,
+        "top": 572.71875,
+        "right": 355,
+        "bottom": 624.71875,
+        "left": 20
+      },
+      "map": {
+        "x": 20,
+        "y": 1041.578125,
+        "width": 335,
+        "height": 390,
+        "top": 1041.578125,
+        "right": 355,
+        "bottom": 1431.578125,
+        "left": 20
+      },
+      "heading": "Votre itinéraire en toute clarté",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 34
+        },
+        {
+          "id": "languageSelect",
+          "cls": "",
+          "height": 26,
+          "width": 102
+        },
+        {
+          "id": "startCity",
+          "cls": "",
+          "height": 48,
+          "width": 275
+        },
+        {
+          "id": "startState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "swapButton",
+          "cls": "swap-button",
+          "height": 36,
+          "width": 36
+        },
+        {
+          "id": "finishCity",
+          "cls": "",
+          "height": 48,
+          "width": 275
+        },
+        {
+          "id": "finishState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "submitButton",
+          "cls": "primary-button",
+          "height": 52,
+          "width": 335
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 102.015625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 85.640625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 63.765625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 60.015625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 71.4375
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 54.953125
+        }
+      ]
+    },
+    {
+      "name": "planner",
+      "width": 375,
+      "height": 812,
+      "theme": "dark",
+      "lang": "pt",
+      "scrollWidth": 375,
+      "overflow": false,
+      "h1": {
+        "x": 20,
+        "y": 100,
+        "width": 335,
+        "height": 60.875,
+        "top": 100,
+        "right": 355,
+        "bottom": 160.875,
+        "left": 20
+      },
+      "form": {
+        "x": 20,
+        "y": 361.484375,
+        "width": 335,
+        "height": 283.375,
+        "top": 361.484375,
+        "right": 355,
+        "bottom": 644.859375,
+        "left": 20
+      },
+      "button": {
+        "x": 20,
+        "y": 592.859375,
+        "width": 335,
+        "height": 52,
+        "top": 592.859375,
+        "right": 355,
+        "bottom": 644.859375,
+        "left": 20
+      },
+      "map": {
+        "x": 20,
+        "y": 1061.71875,
+        "width": 335,
+        "height": 390,
+        "top": 1061.71875,
+        "right": 355,
+        "bottom": 1451.71875,
+        "left": 20
+      },
+      "heading": "Sua rota, sem complicações",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 34
+        },
+        {
+          "id": "languageSelect",
+          "cls": "",
+          "height": 26,
+          "width": 102
+        },
+        {
+          "id": "startCity",
+          "cls": "",
+          "height": 48,
+          "width": 275
+        },
+        {
+          "id": "startState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "swapButton",
+          "cls": "swap-button",
+          "height": 36,
+          "width": 36
+        },
+        {
+          "id": "finishCity",
+          "cls": "",
+          "height": 48,
+          "width": 275
+        },
+        {
+          "id": "finishState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "submitButton",
+          "cls": "primary-button",
+          "height": 52,
+          "width": 335
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 102.015625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 85.640625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 63.765625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 59.671875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 95.046875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 77.765625
+        }
+      ]
+    },
+    {
+      "name": "planner",
+      "width": 375,
+      "height": 812,
+      "theme": "light",
+      "lang": "en",
+      "scrollWidth": 375,
+      "overflow": false,
+      "h1": {
+        "x": 20,
+        "y": 100,
+        "width": 335,
+        "height": 60.875,
+        "top": 100,
+        "right": 355,
+        "bottom": 160.875,
+        "left": 20
+      },
+      "form": {
+        "x": 20,
+        "y": 382.28125,
+        "width": 335,
+        "height": 283.375,
+        "top": 382.28125,
+        "right": 355,
+        "bottom": 665.65625,
+        "left": 20
+      },
+      "button": {
+        "x": 20,
+        "y": 613.65625,
+        "width": 335,
+        "height": 52,
+        "top": 613.65625,
+        "right": 355,
+        "bottom": 665.65625,
+        "left": 20
+      },
+      "map": {
+        "x": 20,
+        "y": 1081.515625,
+        "width": 335,
+        "height": 390,
+        "top": 1081.515625,
+        "right": 355,
+        "bottom": 1471.515625,
+        "left": 20
+      },
+      "heading": "Route planning, without the guesswork",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 34
+        },
+        {
+          "id": "languageSelect",
+          "cls": "",
+          "height": 26,
+          "width": 102
+        },
+        {
+          "id": "startCity",
+          "cls": "",
+          "height": 48,
+          "width": 275
+        },
+        {
+          "id": "startState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "swapButton",
+          "cls": "swap-button",
+          "height": 36,
+          "width": 36
+        },
+        {
+          "id": "finishCity",
+          "cls": "",
+          "height": 48,
+          "width": 275
+        },
+        {
+          "id": "finishState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "submitButton",
+          "cls": "primary-button",
+          "height": 52,
+          "width": 335
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 102.015625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 85.640625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 63.765625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 73.546875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 74.46875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 62.0625
+        }
+      ]
+    },
+    {
+      "name": "planner",
+      "width": 375,
+      "height": 812,
+      "theme": "light",
+      "lang": "es",
+      "scrollWidth": 375,
+      "overflow": false,
+      "h1": {
+        "x": 20,
+        "y": 100,
+        "width": 335,
+        "height": 60.875,
+        "top": 100,
+        "right": 355,
+        "bottom": 160.875,
+        "left": 20
+      },
+      "form": {
+        "x": 20,
+        "y": 361.484375,
+        "width": 335,
+        "height": 283.375,
+        "top": 361.484375,
+        "right": 355,
+        "bottom": 644.859375,
+        "left": 20
+      },
+      "button": {
+        "x": 20,
+        "y": 592.859375,
+        "width": 335,
+        "height": 52,
+        "top": 592.859375,
+        "right": 355,
+        "bottom": 644.859375,
+        "left": 20
+      },
+      "map": {
+        "x": 20,
+        "y": 1080.515625,
+        "width": 335,
+        "height": 390,
+        "top": 1080.515625,
+        "right": 355,
+        "bottom": 1470.515625,
+        "left": 20
+      },
+      "heading": "Tu ruta, con todos los datos",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 34
+        },
+        {
+          "id": "languageSelect",
+          "cls": "",
+          "height": 26,
+          "width": 102
+        },
+        {
+          "id": "startCity",
+          "cls": "",
+          "height": 48,
+          "width": 275
+        },
+        {
+          "id": "startState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "swapButton",
+          "cls": "swap-button",
+          "height": 36,
+          "width": 36
+        },
+        {
+          "id": "finishCity",
+          "cls": "",
+          "height": 48,
+          "width": 275
+        },
+        {
+          "id": "finishState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "submitButton",
+          "cls": "primary-button",
+          "height": 52,
+          "width": 335
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 102.015625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 85.640625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 63.765625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 66.171875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 95.046875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 84.40625
+        }
+      ]
+    },
+    {
+      "name": "planner",
+      "width": 375,
+      "height": 812,
+      "theme": "light",
+      "lang": "fr",
+      "scrollWidth": 375,
+      "overflow": false,
+      "h1": {
+        "x": 20,
+        "y": 100,
+        "width": 335,
+        "height": 60.875,
+        "top": 100,
+        "right": 355,
+        "bottom": 160.875,
+        "left": 20
+      },
+      "form": {
+        "x": 20,
+        "y": 341.34375,
+        "width": 335,
+        "height": 283.375,
+        "top": 341.34375,
+        "right": 355,
+        "bottom": 624.71875,
+        "left": 20
+      },
+      "button": {
+        "x": 20,
+        "y": 572.71875,
+        "width": 335,
+        "height": 52,
+        "top": 572.71875,
+        "right": 355,
+        "bottom": 624.71875,
+        "left": 20
+      },
+      "map": {
+        "x": 20,
+        "y": 1040.578125,
+        "width": 335,
+        "height": 390,
+        "top": 1040.578125,
+        "right": 355,
+        "bottom": 1430.578125,
+        "left": 20
+      },
+      "heading": "Votre itinéraire en toute clarté",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 34
+        },
+        {
+          "id": "languageSelect",
+          "cls": "",
+          "height": 26,
+          "width": 102
+        },
+        {
+          "id": "startCity",
+          "cls": "",
+          "height": 48,
+          "width": 275
+        },
+        {
+          "id": "startState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "swapButton",
+          "cls": "swap-button",
+          "height": 36,
+          "width": 36
+        },
+        {
+          "id": "finishCity",
+          "cls": "",
+          "height": 48,
+          "width": 275
+        },
+        {
+          "id": "finishState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "submitButton",
+          "cls": "primary-button",
+          "height": 52,
+          "width": 335
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 102.015625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 85.640625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 63.765625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 60.015625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 71.4375
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 54.953125
+        }
+      ]
+    },
+    {
+      "name": "planner",
+      "width": 375,
+      "height": 812,
+      "theme": "light",
+      "lang": "pt",
+      "scrollWidth": 375,
+      "overflow": false,
+      "h1": {
+        "x": 20,
+        "y": 100,
+        "width": 335,
+        "height": 60.875,
+        "top": 100,
+        "right": 355,
+        "bottom": 160.875,
+        "left": 20
+      },
+      "form": {
+        "x": 20,
+        "y": 361.484375,
+        "width": 335,
+        "height": 283.375,
+        "top": 361.484375,
+        "right": 355,
+        "bottom": 644.859375,
+        "left": 20
+      },
+      "button": {
+        "x": 20,
+        "y": 592.859375,
+        "width": 335,
+        "height": 52,
+        "top": 592.859375,
+        "right": 355,
+        "bottom": 644.859375,
+        "left": 20
+      },
+      "map": {
+        "x": 20,
+        "y": 1060.71875,
+        "width": 335,
+        "height": 390,
+        "top": 1060.71875,
+        "right": 355,
+        "bottom": 1450.71875,
+        "left": 20
+      },
+      "heading": "Sua rota, sem complicações",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 34
+        },
+        {
+          "id": "languageSelect",
+          "cls": "",
+          "height": 26,
+          "width": 102
+        },
+        {
+          "id": "startCity",
+          "cls": "",
+          "height": 48,
+          "width": 275
+        },
+        {
+          "id": "startState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "swapButton",
+          "cls": "swap-button",
+          "height": 36,
+          "width": 36
+        },
+        {
+          "id": "finishCity",
+          "cls": "",
+          "height": 48,
+          "width": 275
+        },
+        {
+          "id": "finishState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "submitButton",
+          "cls": "primary-button",
+          "height": 52,
+          "width": 335
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 102.015625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 85.640625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 63.765625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 59.671875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 95.046875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 77.765625
+        }
+      ]
+    },
+    {
+      "name": "planner",
+      "width": 1440,
+      "height": 900,
+      "theme": "dark",
+      "lang": "en",
+      "scrollWidth": 1440,
+      "overflow": false,
+      "h1": {
+        "x": 40,
+        "y": 120,
+        "width": 595.796875,
+        "height": 37.796875,
+        "top": 120,
+        "right": 635.796875,
+        "bottom": 157.796875,
+        "left": 40
+      },
+      "form": {
+        "x": 40,
+        "y": 376.609375,
+        "width": 311,
+        "height": 283.375,
+        "top": 376.609375,
+        "right": 351,
+        "bottom": 659.984375,
+        "left": 40
+      },
+      "button": {
+        "x": 40,
+        "y": 607.984375,
+        "width": 311,
+        "height": 52,
+        "top": 607.984375,
+        "right": 351,
+        "bottom": 659.984375,
+        "left": 40
+      },
+      "map": {
+        "x": 380,
+        "y": 301.484375,
+        "width": 1020,
+        "height": 647.171875,
+        "top": 301.484375,
+        "right": 1400,
+        "bottom": 948.65625,
+        "left": 380
+      },
+      "heading": "Route planning, without the guesswork",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 79.796875
+        },
+        {
+          "id": "languageSelect",
+          "cls": "",
+          "height": 26,
+          "width": 109
+        },
+        {
+          "id": "startCity",
+          "cls": "",
+          "height": 48,
+          "width": 251
+        },
+        {
+          "id": "startState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "swapButton",
+          "cls": "swap-button",
+          "height": 36,
+          "width": 36
+        },
+        {
+          "id": "finishCity",
+          "cls": "",
+          "height": 48,
+          "width": 251
+        },
+        {
+          "id": "finishState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "submitButton",
+          "cls": "primary-button",
+          "height": 52,
+          "width": 311
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 102.015625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 85.640625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 63.765625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 65.546875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 66.46875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 54.0625
+        }
+      ]
+    },
+    {
+      "name": "planner",
+      "width": 1440,
+      "height": 900,
+      "theme": "dark",
+      "lang": "es",
+      "scrollWidth": 1440,
+      "overflow": false,
+      "h1": {
+        "x": 40,
+        "y": 120,
+        "width": 457.5,
+        "height": 37.796875,
+        "top": 120,
+        "right": 497.5,
+        "bottom": 157.796875,
+        "left": 40
+      },
+      "form": {
+        "x": 40,
+        "y": 376.609375,
+        "width": 311,
+        "height": 283.375,
+        "top": 376.609375,
+        "right": 351,
+        "bottom": 659.984375,
+        "left": 40
+      },
+      "button": {
+        "x": 40,
+        "y": 607.984375,
+        "width": 311,
+        "height": 52,
+        "top": 607.984375,
+        "right": 351,
+        "bottom": 659.984375,
+        "left": 40
+      },
+      "map": {
+        "x": 380,
+        "y": 301.484375,
+        "width": 1020,
+        "height": 647.171875,
+        "top": 301.484375,
+        "right": 1400,
+        "bottom": 948.65625,
+        "left": 380
+      },
+      "heading": "Tu ruta, con todos los datos",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 81.171875
+        },
+        {
+          "id": "languageSelect",
+          "cls": "",
+          "height": 26,
+          "width": 109
+        },
+        {
+          "id": "startCity",
+          "cls": "",
+          "height": 48,
+          "width": 251
+        },
+        {
+          "id": "startState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "swapButton",
+          "cls": "swap-button",
+          "height": 36,
+          "width": 36
+        },
+        {
+          "id": "finishCity",
+          "cls": "",
+          "height": 48,
+          "width": 251
+        },
+        {
+          "id": "finishState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "submitButton",
+          "cls": "primary-button",
+          "height": 52,
+          "width": 311
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 102.015625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 85.640625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 63.765625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 58.171875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 87.046875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 76.40625
+        }
+      ]
+    },
+    {
+      "name": "planner",
+      "width": 1440,
+      "height": 900,
+      "theme": "dark",
+      "lang": "fr",
+      "scrollWidth": 1440,
+      "overflow": false,
+      "h1": {
+        "x": 40,
+        "y": 120,
+        "width": 451.59375,
+        "height": 37.796875,
+        "top": 120,
+        "right": 491.59375,
+        "bottom": 157.796875,
+        "left": 40
+      },
+      "form": {
+        "x": 40,
+        "y": 376.609375,
+        "width": 311,
+        "height": 283.375,
+        "top": 376.609375,
+        "right": 351,
+        "bottom": 659.984375,
+        "left": 40
+      },
+      "button": {
+        "x": 40,
+        "y": 607.984375,
+        "width": 311,
+        "height": 52,
+        "top": 607.984375,
+        "right": 351,
+        "bottom": 659.984375,
+        "left": 40
+      },
+      "map": {
+        "x": 380,
+        "y": 301.484375,
+        "width": 1020,
+        "height": 627.375,
+        "top": 301.484375,
+        "right": 1400,
+        "bottom": 928.859375,
+        "left": 380
+      },
+      "heading": "Votre itinéraire en toute clarté",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 77.234375
+        },
+        {
+          "id": "languageSelect",
+          "cls": "",
+          "height": 26,
+          "width": 109
+        },
+        {
+          "id": "startCity",
+          "cls": "",
+          "height": 48,
+          "width": 251
+        },
+        {
+          "id": "startState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "swapButton",
+          "cls": "swap-button",
+          "height": 36,
+          "width": 36
+        },
+        {
+          "id": "finishCity",
+          "cls": "",
+          "height": 48,
+          "width": 251
+        },
+        {
+          "id": "finishState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "submitButton",
+          "cls": "primary-button",
+          "height": 52,
+          "width": 311
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 102.015625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 85.640625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 63.765625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 52.015625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 63.4375
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 46.953125
+        }
+      ]
+    },
+    {
+      "name": "planner",
+      "width": 1440,
+      "height": 900,
+      "theme": "dark",
+      "lang": "pt",
+      "scrollWidth": 1440,
+      "overflow": false,
+      "h1": {
+        "x": 40,
+        "y": 120,
+        "width": 434.234375,
+        "height": 37.796875,
+        "top": 120,
+        "right": 474.234375,
+        "bottom": 157.796875,
+        "left": 40
+      },
+      "form": {
+        "x": 40,
+        "y": 355.8125,
+        "width": 311,
+        "height": 283.375,
+        "top": 355.8125,
+        "right": 351,
+        "bottom": 639.1875,
+        "left": 40
+      },
+      "button": {
+        "x": 40,
+        "y": 587.1875,
+        "width": 311,
+        "height": 52,
+        "top": 587.1875,
+        "right": 351,
+        "bottom": 639.1875,
+        "left": 40
+      },
+      "map": {
+        "x": 380,
+        "y": 301.484375,
+        "width": 1020,
+        "height": 606.578125,
+        "top": 301.484375,
+        "right": 1400,
+        "bottom": 908.0625,
+        "left": 380
+      },
+      "heading": "Sua rota, sem complicações",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 81.171875
+        },
+        {
+          "id": "languageSelect",
+          "cls": "",
+          "height": 26,
+          "width": 109
+        },
+        {
+          "id": "startCity",
+          "cls": "",
+          "height": 48,
+          "width": 251
+        },
+        {
+          "id": "startState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "swapButton",
+          "cls": "swap-button",
+          "height": 36,
+          "width": 36
+        },
+        {
+          "id": "finishCity",
+          "cls": "",
+          "height": 48,
+          "width": 251
+        },
+        {
+          "id": "finishState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "submitButton",
+          "cls": "primary-button",
+          "height": 52,
+          "width": 311
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 102.015625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 85.640625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 63.765625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 51.671875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 87.046875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 69.765625
+        }
+      ]
+    },
+    {
+      "name": "planner",
+      "width": 1440,
+      "height": 900,
+      "theme": "light",
+      "lang": "en",
+      "scrollWidth": 1440,
+      "overflow": false,
+      "h1": {
+        "x": 40,
+        "y": 120,
+        "width": 595.796875,
+        "height": 37.796875,
+        "top": 120,
+        "right": 635.796875,
+        "bottom": 157.796875,
+        "left": 40
+      },
+      "form": {
+        "x": 40,
+        "y": 376.609375,
+        "width": 311,
+        "height": 283.375,
+        "top": 376.609375,
+        "right": 351,
+        "bottom": 659.984375,
+        "left": 40
+      },
+      "button": {
+        "x": 40,
+        "y": 607.984375,
+        "width": 311,
+        "height": 52,
+        "top": 607.984375,
+        "right": 351,
+        "bottom": 659.984375,
+        "left": 40
+      },
+      "map": {
+        "x": 380,
+        "y": 300.484375,
+        "width": 1020,
+        "height": 649.171875,
+        "top": 300.484375,
+        "right": 1400,
+        "bottom": 949.65625,
+        "left": 380
+      },
+      "heading": "Route planning, without the guesswork",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 76.515625
+        },
+        {
+          "id": "languageSelect",
+          "cls": "",
+          "height": 26,
+          "width": 109
+        },
+        {
+          "id": "startCity",
+          "cls": "",
+          "height": 48,
+          "width": 251
+        },
+        {
+          "id": "startState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "swapButton",
+          "cls": "swap-button",
+          "height": 36,
+          "width": 36
+        },
+        {
+          "id": "finishCity",
+          "cls": "",
+          "height": 48,
+          "width": 251
+        },
+        {
+          "id": "finishState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "submitButton",
+          "cls": "primary-button",
+          "height": 52,
+          "width": 311
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 102.015625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 85.640625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 63.765625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 65.546875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 66.46875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 54.0625
+        }
+      ]
+    },
+    {
+      "name": "planner",
+      "width": 1440,
+      "height": 900,
+      "theme": "light",
+      "lang": "es",
+      "scrollWidth": 1440,
+      "overflow": false,
+      "h1": {
+        "x": 40,
+        "y": 120,
+        "width": 457.5,
+        "height": 37.796875,
+        "top": 120,
+        "right": 497.5,
+        "bottom": 157.796875,
+        "left": 40
+      },
+      "form": {
+        "x": 40,
+        "y": 376.609375,
+        "width": 311,
+        "height": 283.375,
+        "top": 376.609375,
+        "right": 351,
+        "bottom": 659.984375,
+        "left": 40
+      },
+      "button": {
+        "x": 40,
+        "y": 607.984375,
+        "width": 311,
+        "height": 52,
+        "top": 607.984375,
+        "right": 351,
+        "bottom": 659.984375,
+        "left": 40
+      },
+      "map": {
+        "x": 380,
+        "y": 300.484375,
+        "width": 1020,
+        "height": 649.171875,
+        "top": 300.484375,
+        "right": 1400,
+        "bottom": 949.65625,
+        "left": 380
+      },
+      "heading": "Tu ruta, con todos los datos",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 91.9375
+        },
+        {
+          "id": "languageSelect",
+          "cls": "",
+          "height": 26,
+          "width": 109
+        },
+        {
+          "id": "startCity",
+          "cls": "",
+          "height": 48,
+          "width": 251
+        },
+        {
+          "id": "startState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "swapButton",
+          "cls": "swap-button",
+          "height": 36,
+          "width": 36
+        },
+        {
+          "id": "finishCity",
+          "cls": "",
+          "height": 48,
+          "width": 251
+        },
+        {
+          "id": "finishState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "submitButton",
+          "cls": "primary-button",
+          "height": 52,
+          "width": 311
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 102.015625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 85.640625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 63.765625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 58.171875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 87.046875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 76.40625
+        }
+      ]
+    },
+    {
+      "name": "planner",
+      "width": 1440,
+      "height": 900,
+      "theme": "light",
+      "lang": "fr",
+      "scrollWidth": 1440,
+      "overflow": false,
+      "h1": {
+        "x": 40,
+        "y": 120,
+        "width": 451.59375,
+        "height": 37.796875,
+        "top": 120,
+        "right": 491.59375,
+        "bottom": 157.796875,
+        "left": 40
+      },
+      "form": {
+        "x": 40,
+        "y": 376.609375,
+        "width": 311,
+        "height": 283.375,
+        "top": 376.609375,
+        "right": 351,
+        "bottom": 659.984375,
+        "left": 40
+      },
+      "button": {
+        "x": 40,
+        "y": 607.984375,
+        "width": 311,
+        "height": 52,
+        "top": 607.984375,
+        "right": 351,
+        "bottom": 659.984375,
+        "left": 40
+      },
+      "map": {
+        "x": 380,
+        "y": 300.484375,
+        "width": 1020,
+        "height": 629.375,
+        "top": 300.484375,
+        "right": 1400,
+        "bottom": 929.859375,
+        "left": 380
+      },
+      "heading": "Votre itinéraire en toute clarté",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 95.3125
+        },
+        {
+          "id": "languageSelect",
+          "cls": "",
+          "height": 26,
+          "width": 109
+        },
+        {
+          "id": "startCity",
+          "cls": "",
+          "height": 48,
+          "width": 251
+        },
+        {
+          "id": "startState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "swapButton",
+          "cls": "swap-button",
+          "height": 36,
+          "width": 36
+        },
+        {
+          "id": "finishCity",
+          "cls": "",
+          "height": 48,
+          "width": 251
+        },
+        {
+          "id": "finishState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "submitButton",
+          "cls": "primary-button",
+          "height": 52,
+          "width": 311
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 102.015625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 85.640625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 63.765625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 52.015625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 63.4375
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 46.953125
+        }
+      ]
+    },
+    {
+      "name": "planner",
+      "width": 1440,
+      "height": 900,
+      "theme": "light",
+      "lang": "pt",
+      "scrollWidth": 1440,
+      "overflow": false,
+      "h1": {
+        "x": 40,
+        "y": 120,
+        "width": 434.234375,
+        "height": 37.796875,
+        "top": 120,
+        "right": 474.234375,
+        "bottom": 157.796875,
+        "left": 40
+      },
+      "form": {
+        "x": 40,
+        "y": 355.8125,
+        "width": 311,
+        "height": 283.375,
+        "top": 355.8125,
+        "right": 351,
+        "bottom": 639.1875,
+        "left": 40
+      },
+      "button": {
+        "x": 40,
+        "y": 587.1875,
+        "width": 311,
+        "height": 52,
+        "top": 587.1875,
+        "right": 351,
+        "bottom": 639.1875,
+        "left": 40
+      },
+      "map": {
+        "x": 380,
+        "y": 300.484375,
+        "width": 1020,
+        "height": 608.578125,
+        "top": 300.484375,
+        "right": 1400,
+        "bottom": 909.0625,
+        "left": 380
+      },
+      "heading": "Sua rota, sem complicações",
+      "controls": [
+        {
+          "id": "themeToggle",
+          "cls": "theme-toggle",
+          "height": 40,
+          "width": 89.96875
+        },
+        {
+          "id": "languageSelect",
+          "cls": "",
+          "height": 26,
+          "width": 109
+        },
+        {
+          "id": "startCity",
+          "cls": "",
+          "height": 48,
+          "width": 251
+        },
+        {
+          "id": "startState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "swapButton",
+          "cls": "swap-button",
+          "height": 36,
+          "width": 36
+        },
+        {
+          "id": "finishCity",
+          "cls": "",
+          "height": 48,
+          "width": 251
+        },
+        {
+          "id": "finishState",
+          "cls": "state-input",
+          "height": 48,
+          "width": 52
+        },
+        {
+          "id": "submitButton",
+          "cls": "primary-button",
+          "height": 52,
+          "width": 311
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 102.015625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 85.640625
+        },
+        {
+          "id": "",
+          "cls": "preset",
+          "height": 35.59375,
+          "width": 63.765625
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 51.671875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 87.046875
+        },
+        {
+          "id": "",
+          "cls": "map-style",
+          "height": 36,
+          "width": 69.765625
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

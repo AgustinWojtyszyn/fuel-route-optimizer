@@ -1,0 +1,14 @@
+Creating test database for alias 'default'...
+.....................................................
+----------------------------------------------------------------------
+Ran 53 tests in 0.280s
+
+OK
+Destroying test database for alias 'default'...
+Found 53 test(s).
+System check identified no issues (0 silenced).
+Census 2026: added 2 places; skipped 1 invalid/out-of-scope rows. Locations are approximate centroids, not pump addresses.
+Census 2026: added 0 places; skipped 1 invalid/out-of-scope rows. Locations are approximate centroids, not pump addresses.
+rows=4 us_rows=4 ids=1 exact_duplicates=2 price_conflicts=1 located_city_approx=0 unlocated=1 sha256=bc0d81fb33a76c06c9262ec85b41128b88af4d8d03aa8a12411fa1fb9f17b8fc
+rows=5 us_rows=4 ids=1 exact_duplicates=0 price_conflicts=1 located_city_approx=0 unlocated=1 sha256=6d06850527e0da1fef4c127761bc11f07b93371ad4a31b5067c40e82f388b66d
+rows=5 us_rows=4 ids=1 exact_duplicates=0 price_conflicts=1 located_city_approx=0 unlocated=1 sha256=850f974a4565dd1f1f94deaa28743563021a0e8acdb6937efa9bac31487d04ee

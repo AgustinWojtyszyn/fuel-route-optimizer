@@ -1,0 +1,6 @@
+{
+  "checks": 629,
+  "visualStates": 112,
+  "result": "passed",
+  "errors": []
+}

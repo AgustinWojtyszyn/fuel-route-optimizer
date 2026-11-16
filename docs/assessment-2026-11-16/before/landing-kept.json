@@ -1,0 +1,205 @@
+{
+ "v": 1,
+ "at": "2026-11-16T23:34:59.338Z",
+ "scope": "page",
+ "summary": {
+  "fails": 9,
+  "reflex": 13,
+  "warns": 8
+ },
+ "files": {
+  "docs/assessment-2026-11-16/audit/landing.html": {
+   "handlers": [],
+   "links": [
+    "#features",
+    "/",
+    "/demo/",
+    "https://github.com/AgustinWojtyszyn/fuel-route-optimizer"
+   ],
+   "fields": [],
+   "hooks": [],
+   "ids": [
+    "closeHeading",
+    "distanceSlider",
+    "distanceValue",
+    "features",
+    "gallonsValue",
+    "instrumentName",
+    "journeyGrid",
+    "journeySvgTitle",
+    "labHeading",
+    "language",
+    "methodHeading",
+    "pageTitle",
+    "rangeSegments",
+    "refillValue",
+    "themeToggle"
+   ],
+   "scripts": [
+    "../../../routes/static/routes/landing.js",
+    "../../../routes/static/routes/theme.js"
+   ]
+  }
+ },
+ "wiring": {
+  "handlers": [],
+  "links": [
+   "#features",
+   "/",
+   "/demo/",
+   "https://github.com/AgustinWojtyszyn/fuel-route-optimizer"
+  ],
+  "fields": [],
+  "hooks": [],
+  "ids": [
+   "closeHeading",
+   "distanceSlider",
+   "distanceValue",
+   "features",
+   "gallonsValue",
+   "instrumentName",
+   "journeyGrid",
+   "journeySvgTitle",
+   "labHeading",
+   "language",
+   "methodHeading",
+   "pageTitle",
+   "rangeSegments",
+   "refillValue",
+   "themeToggle"
+  ]
+ },
+ "scripts": {
+  "docs/assessment-2026-11-16/audit/landing.html": {
+   "queried": [
+    "#distanceSlider",
+    "#distanceValue",
+    "#gallonsValue",
+    "#language",
+    "#rangeSegments",
+    "#refillValue",
+    "#themeToggle",
+    "[data-distance]",
+    "[data-i18n-aria]",
+    "[data-i18n]",
+    "[data-theme-dark-icon]",
+    "[data-theme-light-icon]",
+    "[data-theme-text]",
+    "meta[name=\"theme-color\"]"
+   ],
+   "hooked": [
+    "#distanceSlider",
+    "#distanceValue",
+    "#gallonsValue",
+    "#language",
+    "#rangeSegments",
+    "#refillValue",
+    "#themeToggle",
+    "[data-distance]",
+    "[data-i18n-aria]",
+    "[data-i18n]",
+    "[data-theme-dark-icon]",
+    "[data-theme-light-icon]",
+    "[data-theme-text]"
+   ],
+   "dom": [
+    "#distanceSlider",
+    "#distanceValue",
+    "#gallonsValue",
+    "#language",
+    "#rangeSegments",
+    "#refillValue",
+    "#themeToggle",
+    "[data-distance]",
+    "[data-i18n-aria]",
+    "[data-i18n]",
+    "[data-theme-dark-icon]",
+    "[data-theme-light-icon]",
+    "[data-theme-text]",
+    "meta[name=\"theme-color\"]"
+   ],
+   "hides": true
+  }
+ },
+ "pages": {
+  "docs/assessment-2026-11-16/audit/landing.html": {
+   "links": [
+    "/",
+    "#features",
+    "/demo/",
+    "https://github.com/AgustinWojtyszyn/fuel-route-optimizer"
+   ],
+   "fields": [
+    "#language",
+    "#distanceSlider"
+   ],
+   "actions": [],
+   "forms": [],
+   "hooked": [
+    "#distanceSlider",
+    "#distanceValue",
+    "#gallonsValue",
+    "#language",
+    "#rangeSegments",
+    "#refillValue",
+    "#themeToggle",
+    "[data-distance]",
+    "[data-i18n-aria]",
+    "[data-i18n]",
+    "[data-theme-dark-icon]",
+    "[data-theme-light-icon]",
+    "[data-theme-text]",
+    "meta[name=\"theme-color\"]"
+   ],
+   "headings": [
+    "distance tells half the story.",
+    "one full tank. up to 500 miles.",
+    "the road. the prices. the decision.",
+    "follow the road",
+    "consider fuel prices",
+    "show the trade-off",
+    "what does 500 miles really mean?",
+    "ready to test a real route?"
+   ],
+   "figures": [
+    "0100200300400500",
+    "1,050"
+   ],
+   "images": [],
+   "controls": 6,
+   "words": 294
+  },
+  "http://127.0.0.1:8134/": {
+   "links": [
+    "/",
+    "#features",
+    "/demo/",
+    "https://github.com/AgustinWojtyszyn/fuel-route-optimizer"
+   ],
+   "fields": [
+    "#language",
+    "#distanceSlider"
+   ],
+   "actions": [],
+   "forms": [],
+   "hooked": [],
+   "headings": [
+    "distance tells half the story.",
+    "one full tank. up to 500 miles.",
+    "the road. the prices. the decision.",
+    "follow the road",
+    "consider fuel prices",
+    "show the trade-off",
+    "what does 500 miles really mean?",
+    "ready to test a real route?"
+   ],
+   "figures": [
+    "0100200300400500",
+    "1,050"
+   ],
+   "images": [],
+   "controls": 6,
+   "words": 294
+  }
+ }
+}

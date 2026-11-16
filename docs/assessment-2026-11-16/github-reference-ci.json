@@ -1,0 +1,133 @@
+{
+  "reference_commit": "7d6633add0a9cb92794c2df0520f821b2ef468e6",
+  "workflow_run_id": 43978291363,
+  "url": "https://github.com/AgustinWojtyszyn/fuel-route-optimizer/actions/runs/43978291363",
+  "jobs": [
+    {
+      "name": "tests (3.12)",
+      "conclusion": "success",
+      "url": "https://github.com/AgustinWojtyszyn/fuel-route-optimizer/actions/runs/43978291363/job/133687858877",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v6",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v6",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install pinned dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Django configuration and migrations",
+          "conclusion": "success"
+        },
+        {
+          "name": "Independent optimizer and verification tests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Django integration tests with mocked provider",
+          "conclusion": "success"
+        },
+        {
+          "name": "Validate OpenAPI reference",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify all inline page JavaScript syntax",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify all linked browser JavaScript",
+          "conclusion": "success"
+        },
+        {
+          "name": "Compile source",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v6",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v6",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "tests (3.13)",
+      "conclusion": "success",
+      "url": "https://github.com/AgustinWojtyszyn/fuel-route-optimizer/actions/runs/43978291363/job/133687859248",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v6",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v6",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install pinned dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Django configuration and migrations",
+          "conclusion": "success"
+        },
+        {
+          "name": "Independent optimizer and verification tests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Django integration tests with mocked provider",
+          "conclusion": "success"
+        },
+        {
+          "name": "Validate OpenAPI reference",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify all inline page JavaScript syntax",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify all linked browser JavaScript",
+          "conclusion": "success"
+        },
+        {
+          "name": "Compile source",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v6",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v6",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ]
+}

@@ -15,3 +15,5 @@ live_results/
 .coverage
 htmlcov/
 .DS_Store
+
+staticfiles/

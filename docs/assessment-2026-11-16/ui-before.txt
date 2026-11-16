@@ -1,0 +1,13 @@
+{
+  "checks": 6,
+  "result": "failed",
+  "failures": [
+    "API unknown-city error must be localized in Spanish",
+    "language switch must preserve error state\n\nfalse !== true\n",
+    "The input did not match the regular expression /ville/i. Input:\n\n'Tout est prêt. Choisissez un trajet pour voir la distance, les arrêts et les coûts.'\n",
+    "provider warning must not leak English into Spanish UI\n\ntrue !== false\n",
+    "editing a city must invalidate old results and copied summary\n\nfalse !== true\n",
+    "unknown state codes must fail client validation\n\ntrue !== false\n"
+  ],
+  "fixtures": "synthetic; no live routing"
+}

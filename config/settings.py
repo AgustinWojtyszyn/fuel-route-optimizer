@@ -18,6 +18,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {'default': {'ENGINE':'django.db.backends.sqlite3','NAME':BASE_DIR/'db.sqlite3'}}
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 CACHES = {'default': {'BACKEND':'django.core.cache.backends.locmem.LocMemCache','LOCATION':'fuel-routes'}}
 DATA_UPLOAD_MAX_MEMORY_SIZE = 1024 * 1024
 REST_FRAMEWORK = {'UNAUTHENTICATED_USER': None, 'DEFAULT_AUTHENTICATION_CLASSES': [], 'DEFAULT_PERMISSION_CLASSES': [],

@@ -1,0 +1,6 @@
+render tier: 10 screenshots in /home/aggustin/fuel-route-optimizer/docs/assessment-2026-11-16/audit/.hallmark/before (1280x800, 1440x900, 1920x1080 folds; 1440 and 375 full pages)
+  FAIL 24a routes/static/routes/theme.css:81 padding-inline: 4px on .demo-page .brand-type__slash where --sp… | fix: Use var(--space-2xs)
+  REFLEX 24b x2 routes/static/routes/theme.css:70 gap: 3px (off the 4px scale) on .demo-page .brand-type; routes/static/routes/theme.css:72 padding-inline: 6px (off the 4px scale) on .demo-page .brand-ty… | fix: Use the 4px spacing scale
+  REFLEX 75 x2 docs/assessment-2026-11-16/audit/demo.html:1 [1440px] text that strains the eye: span.brand-type__sub at 10px; http://127.0.0.1:8134/demo/:1 [1440px] text that strains the eye: span.brand-type__sub at 10px | fix: Running text 12px or more (16px for body), functional text 11px or more, multi-line prose leaded 1.3 or more
+sloplint: 1 FAIL, 4 REFLEX, 0 WARN across 1 file(s) and 1 URL(s), grouped by gate; every line is in .hallmark/before.txt.
+before: recorded 6 links, 5 fields, 0 handlers, 0 test hooks, 14 script hooks and 2 rendered page(s) in .hallmark/before.json; --kept checks a redesign against it

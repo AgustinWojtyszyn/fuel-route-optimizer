@@ -1,0 +1,289 @@
+{
+ "v": 1,
+ "at": "2026-11-16T23:36:13.826Z",
+ "scope": "app",
+ "summary": {
+  "fails": 1,
+  "reflex": 4,
+  "warns": 0
+ },
+ "files": {
+  "docs/assessment-2026-11-16/audit/demo.html": {
+   "handlers": [],
+   "links": [
+    "/",
+    "https://github.com/AgustinWojtyszyn/fuel-route-optimizer"
+   ],
+   "fields": [
+    "finishCity",
+    "finishState",
+    "startCity",
+    "startState"
+   ],
+   "hooks": [],
+   "ids": [
+    "brandHome",
+    "citySearchHint",
+    "copySummary",
+    "details",
+    "finishCity",
+    "finishCityOptions",
+    "finishState",
+    "fitRouteButton",
+    "formTitle",
+    "initialTotal",
+    "languageSelect",
+    "map",
+    "mapLiveLabel",
+    "metrics",
+    "resultLoading",
+    "routeForm",
+    "startCity",
+    "startCityOptions",
+    "startState",
+    "status",
+    "statusText",
+    "stops",
+    "submitButton",
+    "submitText",
+    "swapButton",
+    "themeToggle",
+    "tripSummary",
+    "tripTotal",
+    "warnings"
+   ],
+   "scripts": [
+    "../../../routes/static/routes/theme.js"
+   ]
+  }
+ },
+ "wiring": {
+  "handlers": [],
+  "links": [
+   "/",
+   "https://github.com/AgustinWojtyszyn/fuel-route-optimizer"
+  ],
+  "fields": [
+   "finishCity",
+   "finishState",
+   "startCity",
+   "startState"
+  ],
+  "hooks": [],
+  "ids": [
+   "brandHome",
+   "citySearchHint",
+   "copySummary",
+   "details",
+   "finishCity",
+   "finishCityOptions",
+   "finishState",
+   "fitRouteButton",
+   "formTitle",
+   "initialTotal",
+   "languageSelect",
+   "map",
+   "mapLiveLabel",
+   "metrics",
+   "resultLoading",
+   "routeForm",
+   "startCity",
+   "startCityOptions",
+   "startState",
+   "status",
+   "statusText",
+   "stops",
+   "submitButton",
+   "submitText",
+   "swapButton",
+   "themeToggle",
+   "tripSummary",
+   "tripTotal",
+   "warnings"
+  ]
+ },
+ "scripts": {
+  "docs/assessment-2026-11-16/audit/demo.html": {
+   "queried": [
+    "#languageSelect",
+    "#routeForm input, #swapButton, .preset",
+    "#themeToggle",
+    ".city-suggestions",
+    ".preset",
+    "[data-i18n-aria]",
+    "[data-i18n-placeholder]",
+    "[data-i18n-title]",
+    "[data-i18n=\"copy\"]",
+    "[data-i18n]",
+    "[data-map-style]",
+    "[data-theme-dark-icon]",
+    "[data-theme-light-icon]",
+    "[data-theme-text]",
+    "[role=\"option\"]",
+    "input[aria-autocomplete]",
+    "meta[name=\"theme-color\"]"
+   ],
+   "hooked": [
+    "#languageSelect",
+    "#routeForm input, #swapButton, .preset",
+    "#themeToggle",
+    ".city-suggestions",
+    ".preset",
+    "[data-i18n-aria]",
+    "[data-i18n-placeholder]",
+    "[data-i18n-title]",
+    "[data-i18n=\"copy\"]",
+    "[data-i18n]",
+    "[data-map-style]",
+    "[data-theme-dark-icon]",
+    "[data-theme-light-icon]",
+    "[data-theme-text]"
+   ],
+   "dom": [
+    "#languageSelect",
+    "#routeForm input, #swapButton, .preset",
+    "#themeToggle",
+    ".city-suggestions",
+    ".preset",
+    "[data-i18n-aria]",
+    "[data-i18n-placeholder]",
+    "[data-i18n-title]",
+    "[data-i18n=\"copy\"]",
+    "[data-i18n]",
+    "[data-map-style]",
+    "[data-theme-dark-icon]",
+    "[data-theme-light-icon]",
+    "[data-theme-text]",
+    "input[aria-autocomplete]",
+    "meta[name=\"theme-color\"]"
+   ],
+   "hides": true
+  }
+ },
+ "pages": {
+  "docs/assessment-2026-11-16/audit/demo.html": {
+   "links": [
+    "/",
+    "https://leafletjs.com/",
+    "https://github.com/AgustinWojtyszyn/fuel-route-optimizer"
+   ],
+   "fields": [
+    "#languageSelect",
+    "startCity",
+    "startState",
+    "finishCity",
+    "finishState"
+   ],
+   "actions": [],
+   "forms": [
+    {
+     "key": "#routeForm",
+     "attrs": [
+      "method=get"
+     ],
+     "fields": [
+      "startCity",
+      "startState",
+      "finishCity",
+      "finishState"
+     ],
+     "hidden": [],
+     "submits": 1,
+     "controls": [
+      "input[name=startCity]",
+      "input[name=startState]",
+      "button[type=button]",
+      "input[name=finishCity]",
+      "input[name=finishState]",
+      "button[type=submit]"
+     ]
+    }
+   ],
+   "hooked": [
+    "#languageSelect",
+    "#routeForm input, #swapButton, .preset",
+    "#themeToggle",
+    ".city-suggestions",
+    ".preset",
+    "[data-i18n-aria]",
+    "[data-i18n-placeholder]",
+    "[data-i18n-title]",
+    "[data-i18n=\"copy\"]",
+    "[data-i18n]",
+    "[data-map-style]",
+    "[data-theme-dark-icon]",
+    "[data-theme-light-icon]",
+    "[data-theme-text]",
+    "input[aria-autocomplete]",
+    "meta[name=\"theme-color\"]"
+   ],
+   "headings": [
+    "route planning, without the guesswork",
+    "build your route",
+    "interactive route map",
+    "your fuel cost, explained",
+    "recommended fuel stops",
+    "about these estimates"
+   ],
+   "figures": [],
+   "images": [],
+   "controls": 18,
+   "words": 190
+  },
+  "http://127.0.0.1:8134/demo/": {
+   "links": [
+    "/",
+    "https://leafletjs.com/",
+    "https://openfreemap.org/",
+    "https://www.openmaptiles.org/",
+    "https://www.openstreetmap.org/copyright",
+    "https://github.com/AgustinWojtyszyn/fuel-route-optimizer"
+   ],
+   "fields": [
+    "#languageSelect",
+    "startCity",
+    "startState",
+    "finishCity",
+    "finishState"
+   ],
+   "actions": [],
+   "forms": [
+    {
+     "key": "#routeForm",
+     "attrs": [
+      "method=get"
+     ],
+     "fields": [
+      "startCity",
+      "startState",
+      "finishCity",
+      "finishState"
+     ],
+     "hidden": [],
+     "submits": 1,
+     "controls": [
+      "input[name=startCity]",
+      "input[name=startState]",
+      "button[type=button]",
+      "input[name=finishCity]",
+      "input[name=finishState]",
+      "button[type=submit]"
+     ]
+    }
+   ],
+   "hooked": [],
+   "headings": [
+    "route planning, without the guesswork",
+    "build your route",
+    "interactive route map",
+    "your fuel cost, explained",
+    "recommended fuel stops",
+    "about these estimates"
+   ],
+   "figures": [],
+   "images": [],
+   "controls": 18,
+   "words": 200
+  }
+ }
+}

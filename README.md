@@ -137,3 +137,30 @@ prices and database-storable decimal precision before replacing existing rows.
 A rejected import leaves the previous station catalog and dataset digest
 untouched. Neither check turns city centroids into verified truckstop locations:
 pump access and actual ORS route results still require independent verification.
+
+## Final assessment — 16 November 2026
+
+The [current A–G assessment report](docs/assessment-2026-11-16/REPORT.md) records the starting revision, demonstrated defects, corrections, raw test results, independent reviews and remaining external checks. Older reports under `docs/redesign/` and `docs/verification.md` are historical evidence, not results for the current UI.
+
+The current local suites pass **57 Django tests and 30 independent tests**, including **1,750 deterministic comparisons against an exhaustive optimizer**. UI regression tests reproduce and protect translated API errors, preserved error state, translated warnings, invalidation of old results and valid US state codes. English and dark mode are the defaults; manual language/theme preferences persist across both pages. The landing schematic is conceptual and does not represent a real road or verified pump.
+
+Browser validation covers **320×720, 375×812, 430×932, 768×1024, 1280×800, 1440×900 and 1920×1080**, four locales and both themes. The new matrix passed **629 assertions in 112 states**; the six focused UI regressions and the original 138 browser assertions also passed. This is desktop Chrome automation at the stated viewport sizes, not a physical-device or Safari certification.
+
+```bash
+python manage.py check
+python manage.py makemigrations --check --dry-run
+python manage.py test -v 1
+python -m unittest discover -s tests -v
+python scripts/check_javascript.py
+node --check routes/static/routes/landing.js
+node --check routes/static/routes/theme.js
+# Optional browser tooling, outside project/runtime dependencies:
+npm install --prefix /tmp/fuel-browser puppeteer@24.43.1
+# Start Django on 127.0.0.1:8134 in another terminal first.
+FUEL_BROWSER_MODULE=/tmp/fuel-browser/node_modules/puppeteer node scripts/test_assessment.cjs
+FUEL_BROWSER_MODULE=/tmp/fuel-browser/node_modules/puppeteer node scripts/test_ui_regressions.cjs
+```
+
+`python manage.py collectstatic --noinput` prepares the UI assets under ignored `staticfiles/`; a deployment must serve that directory through its own static server. This does not configure or deploy production hosting.
+
+The current environment has no `ORS_API_KEY`. The live-check script exits before making any external request. The three real assessment trips, their provider latencies and account quota remain unverified. Postman has a structurally validated six-request collection; the [Loom script](docs/loom-script.md) is prepared, but no video has been recorded by this audit.

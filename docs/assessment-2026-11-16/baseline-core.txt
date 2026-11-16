@@ -1,0 +1,26 @@
+test_boundary_and_fractional_gallons_not_rounded (test_core.FuelOptimizationTests.test_boundary_and_fractional_gallons_not_rounded) ... ok
+test_colocated_equal_price_determinism (test_core.FuelOptimizationTests.test_colocated_equal_price_determinism) ... ok
+test_input_validation (test_core.FuelOptimizationTests.test_input_validation) ... ok
+test_randomized_against_independent_exhaustive_search (test_core.FuelOptimizationTests.test_randomized_against_independent_exhaustive_search) ... ok
+test_thousands_of_stations (test_core.FuelOptimizationTests.test_thousands_of_stations) ... ok
+test_cache_hit_is_not_live_evidence (test_core.LiveVerificationTests.test_cache_hit_is_not_live_evidence) ... ok
+test_even_microscopic_shortages_are_rejected (test_core.LiveVerificationTests.test_even_microscopic_shortages_are_rejected) ... ok
+test_inaccurate_total_rejected (test_core.LiveVerificationTests.test_inaccurate_total_rejected) ... ok
+test_legs_longer_than_capacity (test_core.LiveVerificationTests.test_legs_longer_than_capacity) ... ok
+test_negative_or_nonfinite_fuel_rejected (test_core.LiveVerificationTests.test_negative_or_nonfinite_fuel_rejected) ... ok
+test_short_fuel_purchase (test_core.LiveVerificationTests.test_short_fuel_purchase) ... ok
+test_understated_receipt_rejected (test_core.LiveVerificationTests.test_understated_receipt_rejected) ... ok
+test_valid_plan (test_core.LiveVerificationTests.test_valid_plan) ... ok
+test_wrong_request_count (test_core.LiveVerificationTests.test_wrong_request_count) ... ok
+test_malformed_coordinates_fail_as_provider_error (test_routing_response.RoutingCoordinatesTest.test_malformed_coordinates_fail_as_provider_error) ... ok
+test_valid_numeric_geojson_2d_and_3d (test_routing_response.RoutingCoordinatesTest.test_valid_numeric_geojson_2d_and_3d) ... ok
+test_displayed_distance_rounding_tolerance (test_verification_contract.VerificationCompleteness.test_displayed_distance_rounding_tolerance) ... ok
+test_initial_fuel_cost_cannot_be_detached_from_reference_price (test_verification_contract.VerificationCompleteness.test_initial_fuel_cost_cannot_be_detached_from_reference_price) ... ok
+test_route_mismatch_is_rejected (test_verification_contract.VerificationCompleteness.test_route_mismatch_is_rejected) ... ok
+test_stop_mile_mismatch_is_rejected (test_verification_contract.VerificationCompleteness.test_stop_mile_mismatch_is_rejected) ... ok
+test_wrong_initial_price_is_rejected (test_verification_contract.VerificationCompleteness.test_wrong_initial_price_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 0.616s
+
+OK

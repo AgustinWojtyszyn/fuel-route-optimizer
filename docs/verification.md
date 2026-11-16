@@ -1,3 +1,5 @@
+> Historical verification record. For the 16 November 2026 assessment, use [the current report](assessment-2026-11-16/REPORT.md); the counts and timings below belong to earlier runs.
+
 # Verification record
 
 See `final-audit.md` for the full findings and the blocked live-route table.

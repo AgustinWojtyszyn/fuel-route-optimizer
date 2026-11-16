@@ -1,0 +1,6 @@
+{
+  "checks": 6,
+  "result": "passed",
+  "failures": [],
+  "fixtures": "synthetic; no live routing"
+}

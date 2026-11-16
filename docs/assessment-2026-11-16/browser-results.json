@@ -1,0 +1,946 @@
+{
+  "result": "passed",
+  "checks": 629,
+  "visualStates": 112,
+  "viewports": [
+    [
+      320,
+      720
+    ],
+    [
+      375,
+      812
+    ],
+    [
+      430,
+      932
+    ],
+    [
+      768,
+      1024
+    ],
+    [
+      1280,
+      800
+    ],
+    [
+      1440,
+      900
+    ],
+    [
+      1920,
+      1080
+    ]
+  ],
+  "locales": [
+    "en",
+    "es",
+    "fr",
+    "pt"
+  ],
+  "themes": [
+    "dark",
+    "light"
+  ],
+  "browser": "Chrome/148.0.7778.97",
+  "errors": [],
+  "states": [
+    {
+      "width": 320,
+      "height": 720,
+      "page": "landing",
+      "theme": "dark",
+      "language": "en",
+      "heading": "Distance tells half the story."
+    },
+    {
+      "width": 320,
+      "height": 720,
+      "page": "landing",
+      "theme": "dark",
+      "language": "es",
+      "heading": "La distancia cuenta solo la mitad."
+    },
+    {
+      "width": 320,
+      "height": 720,
+      "page": "landing",
+      "theme": "dark",
+      "language": "fr",
+      "heading": "La distance ne dit pas tout."
+    },
+    {
+      "width": 320,
+      "height": 720,
+      "page": "landing",
+      "theme": "dark",
+      "language": "pt",
+      "heading": "A distância é só metade da história."
+    },
+    {
+      "width": 320,
+      "height": 720,
+      "page": "landing",
+      "theme": "light",
+      "language": "en",
+      "heading": "Distance tells half the story."
+    },
+    {
+      "width": 320,
+      "height": 720,
+      "page": "landing",
+      "theme": "light",
+      "language": "es",
+      "heading": "La distancia cuenta solo la mitad."
+    },
+    {
+      "width": 320,
+      "height": 720,
+      "page": "landing",
+      "theme": "light",
+      "language": "fr",
+      "heading": "La distance ne dit pas tout."
+    },
+    {
+      "width": 320,
+      "height": 720,
+      "page": "landing",
+      "theme": "light",
+      "language": "pt",
+      "heading": "A distância é só metade da história."
+    },
+    {
+      "width": 320,
+      "height": 720,
+      "page": "planner",
+      "theme": "dark",
+      "language": "en",
+      "heading": "Route planning, without the guesswork"
+    },
+    {
+      "width": 320,
+      "height": 720,
+      "page": "planner",
+      "theme": "dark",
+      "language": "es",
+      "heading": "Tu ruta, con todos los datos"
+    },
+    {
+      "width": 320,
+      "height": 720,
+      "page": "planner",
+      "theme": "dark",
+      "language": "fr",
+      "heading": "Votre itinéraire en toute clarté"
+    },
+    {
+      "width": 320,
+      "height": 720,
+      "page": "planner",
+      "theme": "dark",
+      "language": "pt",
+      "heading": "Sua rota, sem complicações"
+    },
+    {
+      "width": 320,
+      "height": 720,
+      "page": "planner",
+      "theme": "light",
+      "language": "en",
+      "heading": "Route planning, without the guesswork"
+    },
+    {
+      "width": 320,
+      "height": 720,
+      "page": "planner",
+      "theme": "light",
+      "language": "es",
+      "heading": "Tu ruta, con todos los datos"
+    },
+    {
+      "width": 320,
+      "height": 720,
+      "page": "planner",
+      "theme": "light",
+      "language": "fr",
+      "heading": "Votre itinéraire en toute clarté"
+    },
+    {
+      "width": 320,
+      "height": 720,
+      "page": "planner",
+      "theme": "light",
+      "language": "pt",
+      "heading": "Sua rota, sem complicações"
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "page": "landing",
+      "theme": "dark",
+      "language": "en",
+      "heading": "Distance tells half the story."
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "page": "landing",
+      "theme": "dark",
+      "language": "es",
+      "heading": "La distancia cuenta solo la mitad."
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "page": "landing",
+      "theme": "dark",
+      "language": "fr",
+      "heading": "La distance ne dit pas tout."
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "page": "landing",
+      "theme": "dark",
+      "language": "pt",
+      "heading": "A distância é só metade da história."
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "page": "landing",
+      "theme": "light",
+      "language": "en",
+      "heading": "Distance tells half the story."
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "page": "landing",
+      "theme": "light",
+      "language": "es",
+      "heading": "La distancia cuenta solo la mitad."
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "page": "landing",
+      "theme": "light",
+      "language": "fr",
+      "heading": "La distance ne dit pas tout."
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "page": "landing",
+      "theme": "light",
+      "language": "pt",
+      "heading": "A distância é só metade da história."
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "page": "planner",
+      "theme": "dark",
+      "language": "en",
+      "heading": "Route planning, without the guesswork"
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "page": "planner",
+      "theme": "dark",
+      "language": "es",
+      "heading": "Tu ruta, con todos los datos"
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "page": "planner",
+      "theme": "dark",
+      "language": "fr",
+      "heading": "Votre itinéraire en toute clarté"
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "page": "planner",
+      "theme": "dark",
+      "language": "pt",
+      "heading": "Sua rota, sem complicações"
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "page": "planner",
+      "theme": "light",
+      "language": "en",
+      "heading": "Route planning, without the guesswork"
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "page": "planner",
+      "theme": "light",
+      "language": "es",
+      "heading": "Tu ruta, con todos los datos"
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "page": "planner",
+      "theme": "light",
+      "language": "fr",
+      "heading": "Votre itinéraire en toute clarté"
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "page": "planner",
+      "theme": "light",
+      "language": "pt",
+      "heading": "Sua rota, sem complicações"
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "page": "landing",
+      "theme": "dark",
+      "language": "en",
+      "heading": "Distance tells half the story."
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "page": "landing",
+      "theme": "dark",
+      "language": "es",
+      "heading": "La distancia cuenta solo la mitad."
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "page": "landing",
+      "theme": "dark",
+      "language": "fr",
+      "heading": "La distance ne dit pas tout."
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "page": "landing",
+      "theme": "dark",
+      "language": "pt",
+      "heading": "A distância é só metade da história."
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "page": "landing",
+      "theme": "light",
+      "language": "en",
+      "heading": "Distance tells half the story."
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "page": "landing",
+      "theme": "light",
+      "language": "es",
+      "heading": "La distancia cuenta solo la mitad."
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "page": "landing",
+      "theme": "light",
+      "language": "fr",
+      "heading": "La distance ne dit pas tout."
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "page": "landing",
+      "theme": "light",
+      "language": "pt",
+      "heading": "A distância é só metade da história."
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "page": "planner",
+      "theme": "dark",
+      "language": "en",
+      "heading": "Route planning, without the guesswork"
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "page": "planner",
+      "theme": "dark",
+      "language": "es",
+      "heading": "Tu ruta, con todos los datos"
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "page": "planner",
+      "theme": "dark",
+      "language": "fr",
+      "heading": "Votre itinéraire en toute clarté"
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "page": "planner",
+      "theme": "dark",
+      "language": "pt",
+      "heading": "Sua rota, sem complicações"
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "page": "planner",
+      "theme": "light",
+      "language": "en",
+      "heading": "Route planning, without the guesswork"
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "page": "planner",
+      "theme": "light",
+      "language": "es",
+      "heading": "Tu ruta, con todos los datos"
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "page": "planner",
+      "theme": "light",
+      "language": "fr",
+      "heading": "Votre itinéraire en toute clarté"
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "page": "planner",
+      "theme": "light",
+      "language": "pt",
+      "heading": "Sua rota, sem complicações"
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "landing",
+      "theme": "dark",
+      "language": "en",
+      "heading": "Distance tells half the story."
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "landing",
+      "theme": "dark",
+      "language": "es",
+      "heading": "La distancia cuenta solo la mitad."
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "landing",
+      "theme": "dark",
+      "language": "fr",
+      "heading": "La distance ne dit pas tout."
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "landing",
+      "theme": "dark",
+      "language": "pt",
+      "heading": "A distância é só metade da história."
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "landing",
+      "theme": "light",
+      "language": "en",
+      "heading": "Distance tells half the story."
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "landing",
+      "theme": "light",
+      "language": "es",
+      "heading": "La distancia cuenta solo la mitad."
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "landing",
+      "theme": "light",
+      "language": "fr",
+      "heading": "La distance ne dit pas tout."
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "landing",
+      "theme": "light",
+      "language": "pt",
+      "heading": "A distância é só metade da história."
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "planner",
+      "theme": "dark",
+      "language": "en",
+      "heading": "Route planning, without the guesswork"
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "planner",
+      "theme": "dark",
+      "language": "es",
+      "heading": "Tu ruta, con todos los datos"
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "planner",
+      "theme": "dark",
+      "language": "fr",
+      "heading": "Votre itinéraire en toute clarté"
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "planner",
+      "theme": "dark",
+      "language": "pt",
+      "heading": "Sua rota, sem complicações"
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "planner",
+      "theme": "light",
+      "language": "en",
+      "heading": "Route planning, without the guesswork"
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "planner",
+      "theme": "light",
+      "language": "es",
+      "heading": "Tu ruta, con todos los datos"
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "planner",
+      "theme": "light",
+      "language": "fr",
+      "heading": "Votre itinéraire en toute clarté"
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "planner",
+      "theme": "light",
+      "language": "pt",
+      "heading": "Sua rota, sem complicações"
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "landing",
+      "theme": "dark",
+      "language": "en",
+      "heading": "Distance tells half the story."
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "landing",
+      "theme": "dark",
+      "language": "es",
+      "heading": "La distancia cuenta solo la mitad."
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "landing",
+      "theme": "dark",
+      "language": "fr",
+      "heading": "La distance ne dit pas tout."
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "landing",
+      "theme": "dark",
+      "language": "pt",
+      "heading": "A distância é só metade da história."
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "landing",
+      "theme": "light",
+      "language": "en",
+      "heading": "Distance tells half the story."
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "landing",
+      "theme": "light",
+      "language": "es",
+      "heading": "La distancia cuenta solo la mitad."
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "landing",
+      "theme": "light",
+      "language": "fr",
+      "heading": "La distance ne dit pas tout."
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "landing",
+      "theme": "light",
+      "language": "pt",
+      "heading": "A distância é só metade da história."
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "planner",
+      "theme": "dark",
+      "language": "en",
+      "heading": "Route planning, without the guesswork"
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "planner",
+      "theme": "dark",
+      "language": "es",
+      "heading": "Tu ruta, con todos los datos"
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "planner",
+      "theme": "dark",
+      "language": "fr",
+      "heading": "Votre itinéraire en toute clarté"
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "planner",
+      "theme": "dark",
+      "language": "pt",
+      "heading": "Sua rota, sem complicações"
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "planner",
+      "theme": "light",
+      "language": "en",
+      "heading": "Route planning, without the guesswork"
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "planner",
+      "theme": "light",
+      "language": "es",
+      "heading": "Tu ruta, con todos los datos"
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "planner",
+      "theme": "light",
+      "language": "fr",
+      "heading": "Votre itinéraire en toute clarté"
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "planner",
+      "theme": "light",
+      "language": "pt",
+      "heading": "Sua rota, sem complicações"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "page": "landing",
+      "theme": "dark",
+      "language": "en",
+      "heading": "Distance tells half the story."
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "page": "landing",
+      "theme": "dark",
+      "language": "es",
+      "heading": "La distancia cuenta solo la mitad."
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "page": "landing",
+      "theme": "dark",
+      "language": "fr",
+      "heading": "La distance ne dit pas tout."
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "page": "landing",
+      "theme": "dark",
+      "language": "pt",
+      "heading": "A distância é só metade da história."
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "page": "landing",
+      "theme": "light",
+      "language": "en",
+      "heading": "Distance tells half the story."
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "page": "landing",
+      "theme": "light",
+      "language": "es",
+      "heading": "La distancia cuenta solo la mitad."
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "page": "landing",
+      "theme": "light",
+      "language": "fr",
+      "heading": "La distance ne dit pas tout."
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "page": "landing",
+      "theme": "light",
+      "language": "pt",
+      "heading": "A distância é só metade da história."
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "page": "planner",
+      "theme": "dark",
+      "language": "en",
+      "heading": "Route planning, without the guesswork"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "page": "planner",
+      "theme": "dark",
+      "language": "es",
+      "heading": "Tu ruta, con todos los datos"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "page": "planner",
+      "theme": "dark",
+      "language": "fr",
+      "heading": "Votre itinéraire en toute clarté"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "page": "planner",
+      "theme": "dark",
+      "language": "pt",
+      "heading": "Sua rota, sem complicações"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "page": "planner",
+      "theme": "light",
+      "language": "en",
+      "heading": "Route planning, without the guesswork"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "page": "planner",
+      "theme": "light",
+      "language": "es",
+      "heading": "Tu ruta, con todos los datos"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "page": "planner",
+      "theme": "light",
+      "language": "fr",
+      "heading": "Votre itinéraire en toute clarté"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "page": "planner",
+      "theme": "light",
+      "language": "pt",
+      "heading": "Sua rota, sem complicações"
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "landing",
+      "theme": "dark",
+      "language": "en",
+      "heading": "Distance tells half the story."
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "landing",
+      "theme": "dark",
+      "language": "es",
+      "heading": "La distancia cuenta solo la mitad."
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "landing",
+      "theme": "dark",
+      "language": "fr",
+      "heading": "La distance ne dit pas tout."
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "landing",
+      "theme": "dark",
+      "language": "pt",
+      "heading": "A distância é só metade da história."
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "landing",
+      "theme": "light",
+      "language": "en",
+      "heading": "Distance tells half the story."
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "landing",
+      "theme": "light",
+      "language": "es",
+      "heading": "La distancia cuenta solo la mitad."
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "landing",
+      "theme": "light",
+      "language": "fr",
+      "heading": "La distance ne dit pas tout."
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "landing",
+      "theme": "light",
+      "language": "pt",
+      "heading": "A distância é só metade da história."
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "planner",
+      "theme": "dark",
+      "language": "en",
+      "heading": "Route planning, without the guesswork"
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "planner",
+      "theme": "dark",
+      "language": "es",
+      "heading": "Tu ruta, con todos los datos"
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "planner",
+      "theme": "dark",
+      "language": "fr",
+      "heading": "Votre itinéraire en toute clarté"
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "planner",
+      "theme": "dark",
+      "language": "pt",
+      "heading": "Sua rota, sem complicações"
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "planner",
+      "theme": "light",
+      "language": "en",
+      "heading": "Route planning, without the guesswork"
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "planner",
+      "theme": "light",
+      "language": "es",
+      "heading": "Tu ruta, con todos los datos"
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "planner",
+      "theme": "light",
+      "language": "fr",
+      "heading": "Votre itinéraire en toute clarté"
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "planner",
+      "theme": "light",
+      "language": "pt",
+      "heading": "Sua rota, sem complicações"
+    }
+  ],
+  "provider": "Not exercised; no ORS key. Real city catalog and real map assets."
+}

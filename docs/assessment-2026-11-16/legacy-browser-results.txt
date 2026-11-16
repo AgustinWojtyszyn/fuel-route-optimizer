@@ -1,0 +1,18 @@
+{
+  "checks": 138,
+  "widths": [
+    375,
+    768,
+    1280,
+    1440
+  ],
+  "languages": [
+    "en",
+    "es",
+    "fr",
+    "pt"
+  ],
+  "browser": "Chrome/148.0.7778.97",
+  "errors": [],
+  "externalRouting": "Not exercised: no provider credentials; UI result/error tests use explicit synthetic fixtures."
+}
