@@ -37,5 +37,11 @@ jobs:
         run: python -m json.tool docs/openapi.json > /dev/null
       - name: Verify all inline page JavaScript syntax
         run: python scripts/check_javascript.py
+      - name: Verify all linked browser JavaScript
+        run: |
+          for file in routes/static/routes/*.js; do
+            [ -e "$file" ] || continue
+            node --check "$file"
+          done
       - name: Compile source
         run: python -m compileall -q config routes scripts tests
