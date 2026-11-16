@@ -1,5 +1,15 @@
 # Fase 3 — auditoría final (16 de noviembre de 2026)
 
+> **Actualización posterior (16/11/2026):** Este archivo preserva los resultados
+> del análisis inicial de Fase 3. Desde entonces se implementaron controles de
+> combustible con precisión decimal, pruebas independientes por enumeración,
+> conciliación de recibos, límite de solicitudes, corrección de GeoJSON 3D,
+> OpenAPI, interfaz de demostración y automatización CI.
+> Consultá [el historial de GitHub Actions](https://github.com/AgustinWojtyszyn/fuel-route-optimizer/actions/workflows/ci.yml)
+> para ver los resultados actuales; los conteos y mediciones siguientes son
+> históricos, no la última batería de pruebas. **No hay resultados reales de HeiGIT
+> verificados ni coordenadas exactas de los surtidores.**
+
 ## Estado
 
 **No apto todavía para afirmar verificación de extremo a extremo.** La aplicación se instala, importa datos, inicia, responde localmente y pasa 20 pruebas automatizadas. La clave de HeiGIT no está disponible en `ORS_API_KEY` y este entorno no alcanza `api.heigit.org` por red: ninguna de las tres rutas reales obtuvo distancia ni geometría del proveedor. Además, las ubicaciones de estaciones son centros de localidades, no accesos comprobados a surtidores. El código y la documentación están preparados para completar esa validación sin publicar secretos ni datos OPIS.

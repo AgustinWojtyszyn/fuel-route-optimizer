@@ -37,7 +37,7 @@ Import `postman/Fuel-Routes.postman_collection.json` into Postman and set `baseU
 
 The result contains `route` (complete GeoJSON LineString, driving distance, duration and each verified leg length), `vehicle`, `fuel`, `stops`, and `meta`. Stops include OPIS ID, undated observed price, planned gallons and city-center coordinates labeled `city_approx` and `station_access_verified: false`. `fuel.purchased_en_route_usd` is new spending; `fuel.estimated_total_trip_cost_usd` also values the initial fuel consumed, using the origin state's median price as a reference (US median fallback). These amounts are estimates in USD assuming the source prices mean USD per gallon. The vehicle starts with 50 gallons, equivalent to 500 miles at 10 mpg. Amounts remain decimal internally and monetary outputs are rounded only at presentation.
 
-`meta.routing_api_calls` is 1 for a direct route with no purchase, 2 for a route with stops, and at most 3 if an unused waypoint must be removed. It is 0 for a cache hit. Successful results are cached locally for 24 hours using the price-file and city-index digests. Errors return `{"error":{"code":"...","message":"...","details":{}}}` with 400 for malformed input, 422 for unknown cities or infeasible plans, and 502/503/504 for provider failures. This development API has no authentication or public deployment configuration.
+`meta.routing_api_calls` is 1 for a direct route with no purchase, 2 for a route with stops, and at most 3 if an unused waypoint must be removed. It is 0 for a cache hit. Successful results are cached locally for 24 hours using the price-file and city-index digests. Errors return `{"error":{"code":"...","message":"...","details":{}}}` with 400 for malformed input, 422 for unknown cities or infeasible plans, and 502/503/504 for provider failures. This development API has a basic request throttle, but no authentication or complete production deployment configuration.
 
 ## How it works
 
@@ -59,7 +59,7 @@ The city gazetteer and CSV have no dates for station price observations or exact
 
 With a valid `ORS_API_KEY` in the environment, run `python scripts/run_live_checks.py`. It makes cold requests for Los Angeles→Las Vegas, Chicago→Denver, and New York City→Miami; prints HTTP status, distance, duration, stops, gallons, costs, actual provider request count and wall times, and checks the tank against each returned leg. Full JSON results are saved under ignored `live_results/` for private review. Do not publish these derived OPIS prices without permission. Without the key, the script exits before any external request.
 
-The supplied encoded metadata string is not an ORS key. Supply the actual secret through the host environment. For deployment, set `DJANGO_DEBUG=0`, a long random `DJANGO_SECRET_KEY`, allowed hosts, and HTTPS. Production settings enable secure cookies, redirect and HSTS. If behind a trusted TLS reverse proxy, configure its forwarded scheme securely before enabling redirect. Authentication and quota protection are not included; do not expose the development API publicly as-is.
+The HeiGIT key's validity has not been verified here; use the actual key issued by your account through a private environment variable. No external provider result has been assumed or invented. For deployment, set `DJANGO_DEBUG=0`, a long random `DJANGO_SECRET_KEY`, allowed hosts, and HTTPS. Production settings enable secure cookies, redirect and HSTS. If behind a trusted TLS reverse proxy, configure its forwarded scheme securely before enabling redirect. The API includes a basic per-client throttle but no authentication or distributed quota enforcement; do not expose it publicly without shared caching, abuse protection and deployment review.
 
 
 ## Quality gates and financial precision (November 2026 update)
@@ -91,3 +91,13 @@ route legs and required gallons are returned at sufficient precision to replay
 the calculation independently.
 
 [![Python API checks](https://github.com/AgustinWojtyszyn/fuel-route-optimizer/actions/workflows/ci.yml/badge.svg)](https://github.com/AgustinWojtyszyn/fuel-route-optimizer/actions/workflows/ci.yml)
+
+## Verified continuous-integration evidence
+
+GitHub Actions has confirmed the independent optimizer/verification suite and Django
+integration suite on Python 3.12 and 3.13, using mocked provider responses:
+[latest workflow history](https://github.com/AgustinWojtyszyn/fuel-route-optimizer/actions/workflows/ci.yml).
+That is **not** an end-to-end HeiGIT check; the real provider, current fuel prices,
+station-entrance coordinates, and driving route availability remain unverified.
+The code fails closed when a waypoint route cannot be validated. The validation
+also rejects degenerate provider geometry instead of exposing an HTTP 500.

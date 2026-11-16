@@ -32,10 +32,16 @@ def get_route(points):
         coords = geometry['coordinates']
         if geometry['type'] != 'LineString' or len(coords) < 2 or len(segments) != len(points)-1:
             raise ValueError('Invalid geometry or segment count')
+        if not isinstance(coords, list):
+            raise ValueError('Invalid coordinate array')
         if any(len(p) < 2 or not all(math.isfinite(float(v)) for v in p[:2])
                or not -180 <= float(p[0]) <= 180 or not -90 <= float(p[1]) <= 90
                for p in coords):
             raise ValueError('Invalid geometry coordinates')
+        # A provider may return a positive summary with collapsed coordinates.
+        # Reject it here instead of crashing the station projector with HTTP 500.
+        if not any(a[0] != b[0] or a[1] != b[1] for a,b in zip(coords,coords[1:])):
+            raise ValueError('Zero-length road geometry')
         distances = [float(s['distance'])/1609.344 for s in segments]
         summary = float(props['summary']['distance'])/1609.344
         duration = float(props['summary']['duration'])/60

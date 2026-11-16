@@ -10,3 +10,18 @@ See `final-audit.md` for the full findings and the blocked live-route table.
 - `ORS_API_KEY` was absent, so all three requested real routes returned HTTP 503 before any provider request. An unauthenticated HEAD probe to the provider domain failed with `URLError` from this workspace. No actual distance, duration, stop, or price result is claimed.
 
 With the key loaded privately, run `python scripts/run_live_checks.py`. Its output distinguishes real provider calls from local application time and saves JSON under ignored `live_results/`.
+
+## Actualización de verificación reproducible (16/11/2026)
+
+Las pruebas automáticas ahora se ejecutan en Python 3.12 y 3.13 en GitHub Actions.
+Incluyen 1.000 problemas de compra en una ruta fija comprobados frente a un
+optimizador exhaustivo independiente, pruebas de integración de Django con
+respuestas de rutas simuladas, comprobaciones de calidad del JSON OpenAPI,
+validación JavaScript y compilación. Consultar el último resultado en:
+https://github.com/AgustinWojtyszyn/fuel-route-optimizer/actions/workflows/ci.yml
+
+Estas pruebas **no representan consultas reales a HeiGIT**. Para obtener
+resultados de carreteras reales es necesario ejecutar `python scripts/run_live_checks.py`
+con `ORS_API_KEY` privado y después confirmar visualmente el acceso a cada
+estación. Los puntos de una localidad son aproximados y **no deben mostrarse
+como ubicaciones exactas de surtidores**.

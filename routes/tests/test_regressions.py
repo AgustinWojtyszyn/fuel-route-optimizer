@@ -98,3 +98,32 @@ class ProviderConfigurationTests(SimpleTestCase):
             get_route([[0, 0], [1, 1]])
         self.assertEqual(issue.exception.code, 'routing_configuration')
         post.assert_not_called()
+
+
+class InvalidGeometryTests(SimpleTestCase):
+    @patch.dict('os.environ', {'ORS_API_KEY': 'fake-key'})
+    @patch('routes.services.routing_client.httpx.post')
+    def test_provider_zero_length_geometry_returns_controlled_error(self, post):
+        from routes.services.routing_client import RoutingError, get_route
+        post.return_value.status_code = 200
+        post.return_value.json.return_value = {
+            'features': [{
+                'geometry': {'type': 'LineString',
+                             'coordinates': [[-100,40],[-100,40]]},
+                'properties': {
+                    'summary': {'distance':160934.4,'duration':3600},
+                    'segments': [{'distance':160934.4,'duration':3600}],
+                },
+            }],
+        }
+        with self.assertRaises(RoutingError) as error:
+            get_route([[-100,40],[-90,40]])
+        self.assertEqual(error.exception.code, 'routing_response')
+        self.assertEqual(error.exception.status, 502)
+
+    def test_demo_template_does_not_embue_html_from_stations(self):
+        from django.template.loader import render_to_string
+        page = render_to_string('routes/demo.html')
+        self.assertIn('textContent =', page)
+        self.assertIn('pump access NOT verified', page)
+        self.assertIn('Fuel Route Optimizer', page)
