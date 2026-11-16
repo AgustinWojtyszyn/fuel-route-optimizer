@@ -11,227 +11,124 @@
   <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@6.3.0/dist/maplibre-gl.css">
   <style>
 
-    :root {
-      color-scheme: light;
-      --canvas:#f5f6f4;
-      --surface:#ffffff;
-      --surface-subtle:#f9faf9;
-      --ink:#1d2928;
-      --ink-soft:#344441;
-      --muted:#687874;
-      --soft:#94a29e;
-      --line:#dce3df;
-      --line-strong:#c5d0ca;
-      --accent:#e7563e;
-      --accent-hover:#cf4530;
-      --route:#2866dc;
-      --success:#16805d;
-      --shadow:0 3px 15px rgba(30,49,40,.035);
-      font-family:Inter,"Segoe UI",system-ui,-apple-system,sans-serif;
-    }
-    *,*::before,*::after {box-sizing:border-box}
-    [hidden] {display:none!important}
-    html {scroll-behavior:smooth}
-    body {margin:0;background:var(--canvas);color:var(--ink);font:14px/1.52 Inter,"Segoe UI",system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
-    button,input,select {font:inherit}
-    button {cursor:pointer}
-    button:disabled {cursor:wait}
-    a {color:inherit}
-    :is(button,input,select,a):focus-visible {outline:3px solid rgba(40,102,220,.54);outline-offset:3px}
-    .screen-reader {position:absolute;width:1px;height:1px;white-space:nowrap;overflow:hidden;clip-path:inset(50%)}
-    .container {width:min(1560px,calc(100% - 72px));margin:0 auto}
-    .site-header {background:#fff;border-bottom:1px solid var(--line)}
-    .topbar {display:flex;justify-content:space-between;align-items:center;gap:24px;min-height:74px}
-    .brand-small {display:inline-flex;align-items:center;gap:12px;color:var(--ink);font-size:12px;font-weight:820;letter-spacing:.055em;text-transform:uppercase;text-decoration:none;white-space:nowrap}
-    .brand-small img {width:38px;height:38px;padding:5px;border:1px solid #e5e9e4;border-radius:9px;background:#fff;object-fit:contain}
-    .brand-small span span {color:var(--accent)!important}
-    .top-actions {display:flex;align-items:center;gap:18px}
-    .top-meta {display:none}
-    .language-switch {display:inline-flex;align-items:center;gap:8px;color:var(--muted);padding:8px 11px;border:1px solid var(--line);border-radius:8px;background:#fff;transition:background .15s,border-color .15s}
-    .language-switch:hover,.language-switch:focus-within {background:#f7f9f8;border-color:var(--line-strong)}
-    .language-switch svg {width:16px;height:16px}
-    .language-switch select {min-width:104px;max-width:158px;border:none;background:transparent;color:var(--ink);font-size:12px;font-weight:720;cursor:pointer}
-    .language-switch option {color:var(--ink);background:#fff}
-    .workspace {padding-top:31px;padding-bottom:0}
-    .workspace-head {display:flex;align-items:end;justify-content:space-between;gap:20px;margin:0 0 24px}
-    .section-kicker,.tiny-label {margin:0 0 7px;color:var(--accent-hover);font-size:10px;font-weight:820;letter-spacing:.14em;text-transform:uppercase}
-    .workspace-head h1 {font-size:clamp(27px,2.5vw,34px);line-height:1.18;letter-spacing:-.045em;font-weight:770;margin:0 0 6px}
-    .section-subtitle {font-size:13px;color:var(--muted);margin:0}
-    .workspace-chip {display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;color:var(--ink-soft);border-radius:8px;padding:9px 13px;font-size:11px;font-weight:700;white-space:nowrap}
-    .workspace-chip svg {color:var(--accent);width:15px;height:15px}
-    .layout {display:grid;grid-template-columns:minmax(320px,358px) minmax(0,1fr);gap:16px;align-items:stretch}
-    .panel,.metric {background:var(--surface);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow)}
-    .form-panel {display:flex;flex-direction:column;min-width:0;padding:26px 23px}
-    .card-header {display:flex;align-items:start;gap:12px;margin:0 0 28px}
-    .card-icon,.map-icon {display:grid;place-items:center;flex:0 0 auto;width:35px;height:35px;border:1px solid #e8ece9;border-radius:9px;background:#f6f8f6;color:var(--ink-soft)}
-    .card-icon svg,.map-icon svg {width:19px;height:19px}
-    .card-header h2,.map-heading h2 {font-size:15px;letter-spacing:-.028em;font-weight:780;margin:0 0 4px;line-height:1.3}
-    .card-header p,.map-heading p {font-size:11px;line-height:1.52;color:var(--muted);margin:0}
-    .field-group label {display:flex;align-items:center;gap:9px;font-size:12px;font-weight:730;margin:0 0 9px;color:var(--ink-soft)}
-    .label-number {display:grid;place-items:center;width:19px;height:19px;border-radius:5px;background:#f1f3f1;color:#72807c;font-size:9px;letter-spacing:.035em}
-    .field-row {display:grid;grid-template-columns:minmax(0,1fr) 69px;gap:8px}
-    .field-row input {height:49px;min-width:0;width:100%;padding:0 14px;border:1px solid var(--line);border-radius:9px;background:var(--surface-subtle);color:var(--ink);font-size:13px;font-weight:670;transition:border-color .15s,box-shadow .15s,background .15s}
-    .field-row input:hover {border-color:var(--line-strong)}
-    .field-row input:focus {outline:none;border-color:#7198c6;background:#fff;box-shadow:0 0 0 3px #eaf1fa}
-    .field-row .state-input {padding:0 4px;text-align:center;text-transform:uppercase}
-    .swap-wrap {display:flex;align-items:center;gap:10px;height:49px;padding-left:8px}
-    .swap-rule {width:1px;height:100%;background:linear-gradient(to bottom,transparent 0,#d7dfd9 35%,#d7dfd9 65%,transparent 100%)}
-    .swap-button {display:grid;place-items:center;width:31px;height:29px;padding:0;border:1px solid var(--line);background:#fff;border-radius:7px;color:var(--ink-soft);transition:border-color .15s,color .15s,background .15s}
-    .swap-button:hover {border-color:#c3ccc6;background:#f4f6f4;color:var(--accent)}
-    .primary-button {display:flex;align-items:center;justify-content:center;gap:11px;width:100%;min-height:50px;margin-top:24px;padding:12px;border:1px solid #1e2c2a;border-radius:9px;background:#1e2c2a;color:#fff;font-size:12px;font-weight:780;letter-spacing:.005em;transition:background .17s,transform .17s,border-color .17s}
-    .primary-button:hover:not(:disabled) {background:#344a43;border-color:#344a43}
-    .primary-button:active:not(:disabled) {transform:translateY(1px)}
-    .primary-button:disabled {opacity:.76}
-    .primary-button .button-icon {width:16px;height:16px;color:#f57b65}
-    .spinner {display:none;width:15px;height:15px;border-radius:50%;border:2px solid #81938c;border-top-color:#fff;animation:spin .9s linear infinite}
-    .primary-button.loading .spinner {display:block}
-    .primary-button.loading .button-icon {display:none}
-    @keyframes spin {to {transform:rotate(360deg)}}
-    .preset-group {padding-top:21px;margin-top:25px;border-top:1px solid #edf0ed}
-    .tiny-label {color:var(--muted);letter-spacing:.095em;margin-bottom:11px}
-    .presets {display:flex;flex-wrap:wrap;gap:7px}
-    .preset {font-size:11px;font-weight:680;color:var(--ink-soft);background:#fff;border:1px solid var(--line);border-radius:7px;padding:7px 9px;transition:background .15s,border-color .15s}
-    .preset:hover {background:#f6f8f7;border-color:var(--line-strong)}
-    .status {display:flex;align-items:flex-start;gap:9px;font-size:11px;line-height:1.55;color:#456159;border:1px solid #e2eae5;background:#f6faf7;border-radius:8px;margin-top:19px;padding:11px 12px}
-    .status svg {flex:0 0 auto;width:15px;height:15px;margin-top:1px;color:#618e7b}
-    .status.error {background:#fff4f2;border-color:#f4d8d2;color:#a73e35}
-    .status.error svg {color:#cb4b3d}
-    .status.success {background:#eef8f2;border-color:#cfe6d8;color:#216d4e}
-    .notice {display:flex;align-items:flex-start;gap:11px;margin-top:auto;padding:20px 0 0;color:var(--muted);border:0;background:transparent}
-    .notice svg {flex:0 0 auto;width:17px;height:17px;margin-top:2px;color:#b88143}
-    .notice strong {display:block;font-size:11px;font-weight:790;color:#8d6233;margin:0 0 4px}
-    .notice p {font-size:11px;line-height:1.55;margin:0}
-    .map-panel {display:flex;flex-direction:column;min-width:0;overflow:hidden;min-height:628px;padding:0}
-    .map-heading {display:flex;align-items:center;justify-content:space-between;gap:12px 20px;padding:17px 20px;background:#fff;border-bottom:1px solid var(--line)}
-    .map-heading-left {display:flex;align-items:center;gap:11px;min-width:0}
-    .map-heading-left>div {min-width:0}
-    .map-actions {display:flex;align-items:center;gap:10px;margin-left:auto}
-    .style-switcher {display:inline-flex;align-items:center;gap:0;border:1px solid var(--line);border-radius:8px;background:var(--surface-subtle);padding:3px}
-    .map-style {border:none;border-radius:6px;padding:7px 11px;background:transparent;color:#71807a;font-size:11px;font-weight:680;white-space:nowrap;transition:background .15s,color .15s}
-    .map-style:hover {color:var(--ink)}
-    .map-style[aria-pressed="true"] {color:var(--ink);background:#fff;box-shadow:0 1px 3px rgba(20,40,30,.08)}
-    .map-canvas {position:relative;isolation:isolate;flex:1;min-height:502px}
-    #map {position:absolute;inset:0;width:100%;height:100%;min-height:502px;background:#e7ece6;z-index:0}
-    .map-glass {position:absolute;z-index:410;left:19px;top:18px;display:flex;align-items:center;gap:9px;max-width:calc(100% - 38px);padding:9px 12px;background:#fff;border:1px solid #dce5dc;border-radius:8px;box-shadow:0 3px 13px rgba(31,49,40,.09);pointer-events:none}
-    .map-glass-icon {width:7px;height:7px;flex:0 0 auto;border-radius:50%;background:#2a996c}
-    .map-glass span:last-child {color:#52645b;font-size:10px;font-weight:740;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .map-recenter {position:absolute;z-index:410;right:17px;bottom:18px;display:inline-flex;align-items:center;gap:7px;width:auto;padding:11px 14px;border:1px solid #dce3df;border-radius:8px;background:#fff;color:var(--ink-soft);font-size:11px;font-weight:760;box-shadow:0 3px 12px rgba(20,40,30,.08)}
-    .map-recenter:hover {background:#f4f6f3}
-    .map-legend {display:flex;align-items:center;flex-wrap:wrap;gap:10px 20px;min-height:53px;padding:12px 19px;background:#fff;border-top:1px solid var(--line);font-size:10px;color:var(--muted)}
-    .legend-item {display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
-    .legend-dot {width:9px;height:9px;border:2px solid #fff;border-radius:50%;background:#189363;box-shadow:0 0 0 1px #b7c9bd}
-    .legend-dot.finish {background:#db634d;box-shadow:0 0 0 1px #e0b7ad}
-    .legend-dot.stop {background:var(--route);box-shadow:0 0 0 1px #adbfde}
-    .legend-line {width:18px;height:3px;border-radius:5px;background:var(--route)}
-    .legend-caption {margin-left:auto;color:#9ba8a0;font-size:9px}
-    .leaflet-container {font:inherit!important}
-    .leaflet-control-zoom {border:1px solid #dce3df!important;border-radius:8px!important;box-shadow:0 3px 12px rgba(20,40,30,.08)!important;overflow:hidden}
-    .leaflet-control-zoom a {width:30px!important;height:30px!important;line-height:30px!important;font-size:17px!important;color:var(--ink)!important;border-bottom-color:var(--line)!important}
-    .leaflet-popup-content-wrapper {border-radius:10px;box-shadow:0 10px 25px rgba(14,38,30,.15)}
-    .stop-pin {width:30px;height:30px;display:grid;place-items:center;background:var(--route);border:2px solid #fff;border-radius:50% 50% 50% 3px;transform:rotate(-35deg);color:#fff;font-size:12px;font-weight:850;box-shadow:0 2px 8px rgba(20,48,90,.26)}
-    .stop-pin span {transform:rotate(35deg)}
-    .leaflet-div-icon {background:transparent;border:0}
-    .metrics {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;margin:22px 0;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
-    .metric {position:relative;min-width:0;padding:21px 23px;border:0;border-radius:0;background:#fff;box-shadow:none}
-    .metric-top {display:flex;align-items:center;justify-content:space-between;gap:8px}
-    .metric-label {font-size:11px;color:var(--muted);font-weight:680}
-    .metric-icon {color:#a0aca4;width:17px;height:17px}
-    .metric-value {font-size:clamp(22px,2.1vw,31px);line-height:1.18;letter-spacing:-.055em;font-weight:770;font-variant-numeric:tabular-nums;margin-top:8px;overflow-wrap:anywhere}
-    .metric:last-child .metric-value {color:#1b7559}
-    .summary-bar {display:grid;grid-template-columns:minmax(170px,1.5fr) repeat(2,minmax(120px,.9fr)) auto;gap:18px;align-items:center;margin:0 0 19px;padding:22px 25px;border:1px solid #cddcd3;border-radius:12px;background:#edf4ef;color:var(--ink)}
-    .summary-bar h2 {font-size:16px;letter-spacing:-.03em;line-height:1.32;margin:0 0 4px;font-weight:760}
-    .summary-bar p {font-size:11px;color:var(--muted);margin:0}
-    .summary-value {min-width:0;border-left:1px solid #cddbd0;padding-left:16px}
-    .summary-value span {display:block;color:#6c8073;font-size:10px}
-    .summary-value strong {display:block;margin:5px 0 0;font-size:22px;font-weight:760;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
-    .summary-copy {width:auto;justify-self:end;padding:11px 13px;border:1px solid #b9cac0;border-radius:8px;background:#fff;color:var(--ink-soft);font-size:11px;font-weight:760;white-space:nowrap}
-    .summary-copy:hover {background:#f7faf7}
-    .results {display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,.85fr);align-items:start;gap:16px;margin:0 0 36px}
-    .results .panel {padding:25px}
-    .result-heading {display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 18px}
-    .result-heading h2 {font-size:16px;font-weight:760;letter-spacing:-.025em;margin:0}
-    .result-tag {padding:5px 8px;font-size:9px;font-weight:750;letter-spacing:.09em;border:1px solid #dce4de;border-radius:5px;color:#647b6c}
-    .stop-list {display:grid;gap:10px}
-    .stop-card {display:flex;gap:13px;padding:17px;border:1px solid var(--line);border-radius:10px;background:#fff;transition:border-color .15s}
-    .stop-card:hover,.stop-card:focus-within {border-color:#aec3b7}
-    .stop-number {display:grid;place-items:center;width:29px;height:29px;flex:0 0 29px;border-radius:6px;background:#e9eff9;color:var(--route);font-size:11px;font-weight:800}
-    .stop-main {flex:1;min-width:0}
-    .stop-title {margin:0 0 3px;font-size:13px;font-weight:780;line-height:1.4;overflow-wrap:anywhere}
-    .stop-location {font-size:11px;line-height:1.55;color:var(--muted);margin:0 0 10px;overflow-wrap:anywhere}
-    .stop-data {display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:6px 14px}
-    .stop-quantity {color:var(--muted);font-size:11px}
-    .stop-cost {color:var(--ink);font-size:18px;letter-spacing:-.035em;font-weight:790;font-variant-numeric:tabular-nums}
-    .stop-foot {color:#9a6e38;font-size:10px;margin:7px 0 0}
-    .stop-focus {margin-top:11px;padding:7px 10px;border:1px solid #d7e0db;border-radius:7px;background:#f8faf8;color:#496153;font-size:11px;font-weight:700}
-    .stop-focus:hover {background:#eff4f0}
-    .empty {padding:18px;border:1px dashed var(--line-strong);border-radius:8px;color:var(--muted);background:#fafbfa;font-size:12px}
-    .facts {display:grid;gap:12px;list-style:none;margin:0;padding:0}
-    .facts li {display:flex;align-items:flex-start;gap:10px;font-size:11px;color:var(--muted);line-height:1.6;overflow-wrap:anywhere}
-    .facts li::before {content:"";flex:0 0 5px;width:5px;height:5px;border-radius:50%;background:#899a8f;margin-top:7px}
-    .site-footer {display:flex;justify-content:space-between;gap:25px;align-items:flex-start;border-top:1px solid var(--line);padding:20px 0 30px;color:#7d8c84;font-size:11px}
-    .site-footer p {margin:0;max-width:880px}
-    .site-footer a {color:var(--ink-soft);font-weight:740;white-space:nowrap}
-    .site-footer a:hover {text-decoration:underline}
-    @media(max-width:1240px) {
-      .container {width:calc(100% - 44px)}
-      .layout {grid-template-columns:minmax(300px,338px) minmax(0,1fr)}
-      .map-heading {flex-wrap:wrap}
-      .map-actions {width:100%;margin:0}
-      .summary-bar {grid-template-columns:1.4fr 1fr 1fr}
-      .summary-copy {grid-column:1/-1;justify-self:start}
-    }
-    @media(max-width:980px) {
-      .container {width:calc(100% - 36px)}
-      .layout,.results {grid-template-columns:minmax(0,1fr)}
-      .form-panel {padding:23px}
-      .notice {margin-top:22px}
-      .map-heading {flex-wrap:nowrap}
-      .map-actions {width:auto;margin-left:auto}
-      .map-panel {min-height:560px}
-      .map-canvas,#map {min-height:440px}
-      .summary-bar {grid-template-columns:1.3fr 1fr 1fr}
-    }
-    @media(max-width:670px) {
-      .container {width:calc(100% - 26px)}
-      .topbar {min-height:66px;gap:12px}
-      .brand-small {font-size:10px;gap:7px;letter-spacing:.02em}
-      .brand-small img {width:33px;height:33px}
-      .language-switch {padding:6px 7px;gap:4px}
-      .language-switch select {min-width:80px;max-width:113px;font-size:11px}
-      .workspace {padding-top:22px}
-      .workspace-head {align-items:start;margin-bottom:19px}
-      .workspace-head h1 {font-size:26px}
-      .workspace-chip {display:none}
-      .form-panel {padding:20px}
-      .map-heading {flex-wrap:wrap;padding:16px}
-      .map-actions {width:100%;margin:0}
-      .style-switcher {width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
-      .map-style {padding:9px 4px}
-      .map-panel {min-height:475px}
-      .map-canvas,#map {min-height:370px}
-      .map-glass {left:12px;top:12px}
-      .map-recenter {right:10px;bottom:10px}
-      .map-legend {gap:8px 13px;padding:13px}
-      .legend-caption {width:100%;margin-left:0}
-      .metrics {grid-template-columns:repeat(2,minmax(0,1fr))}
-      .metric {padding:18px}
-      .metric-value {font-size:25px}
-      .summary-bar {grid-template-columns:1fr 1fr;gap:15px;padding:21px}
-      .summary-bar>div:first-child {grid-column:1/-1}
-      .summary-value {padding-left:11px}
-      .summary-value strong {font-size:19px}
-      .summary-copy {grid-column:1/-1}
-      .site-footer {flex-direction:column}
-      .site-footer a {white-space:normal}
-    }
-    @media(prefers-reduced-motion:reduce) {
-      *,*::before,*::after {animation-duration:.01ms!important;transition-duration:0ms!important;scroll-behavior:auto!important}
-    }
+:root{--canvas:#f0f2ef;--surface:#fff;--ink:#172622;--muted:#63756e;--line:#dce4de;--brand:#172b29;--brand-deep:#11211f;--accent:#e65a46;--route:#296add;--shadow:0 5px 24px rgba(19,39,33,.055)}
+*,*::before,*::after{box-sizing:border-box}[hidden]{display:none!important}html{scroll-behavior:smooth}
+body{margin:0;background:var(--canvas);color:var(--ink);font:14px/1.55 Inter,"Segoe UI",system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit}button{cursor:pointer}a{color:inherit}
+:where(button,input,select,a):focus-visible{outline:3px solid #80acd8;outline-offset:3px}
+.screen-reader{position:absolute;clip:rect(0 0 0 0);clip-path:inset(50%);width:1px;height:1px;overflow:hidden;white-space:nowrap}
+.container{width:min(1530px,calc(100% - 64px));margin:0 auto}
+.site-header{background:var(--brand-deep);color:#fff;border-bottom:1px solid #2b413b}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:80px}
+.brand-small{display:inline-flex;align-items:center;gap:12px;color:#f7faf7;text-decoration:none;font-size:12px;letter-spacing:.075em;font-weight:800;white-space:nowrap}
+.brand-small img{width:40px;height:40px;border:1px solid #e1e8e2;border-radius:10px;padding:4px;background:#fff;object-fit:contain}
+.brand-small span span{color:#f08a7b!important}.top-actions{display:flex;align-items:center;gap:16px}
+.top-meta{color:#91aea2;font-size:10px;letter-spacing:.13em;font-weight:650;white-space:nowrap}
+.language-switch{display:inline-flex;align-items:center;gap:9px;padding:9px 12px;border-radius:8px;background:#213732;color:#e5f0e9;border:1px solid #3a554c;transition:background .15s,border-color .15s}
+.language-switch svg{color:#c4d6cc}.language-switch:hover,.language-switch:focus-within{background:#2d4941;border-color:#779185}
+.language-switch select{border:0;outline-offset:4px;min-width:110px;max-width:156px;color:#fff;background:transparent;font-size:12px;font-weight:700;cursor:pointer}.language-switch select option{background:#fff;color:var(--ink)}
+.workspace{padding:31px 0 0}.workspace-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:22px}
+.section-kicker{color:#b54a3b;letter-spacing:.18em;text-transform:uppercase;font-size:10px;font-weight:850;margin:0 0 6px}
+.workspace-head h1{font-size:clamp(29px,2.6vw,39px);letter-spacing:-.055em;font-weight:780;line-height:1.15;margin:0 0 6px}
+.section-subtitle{margin:0;color:#73847d;font-size:13px}
+.workspace-chip{display:flex;align-items:center;gap:9px;border:1px solid #d0dcd3;border-radius:7px;color:#4b6255;background:#f9fbf8;padding:10px 14px;font-size:11px;font-weight:730;white-space:nowrap}.workspace-chip svg{color:#cc5c49}
+.layout{display:grid;grid-template-columns:minmax(320px,370px) minmax(0,1fr);gap:17px;align-items:stretch}
+.panel,.metric{border:1px solid var(--line);border-radius:13px;background:#fff;box-shadow:var(--shadow)}
+.form-panel{background:var(--brand);color:#f6faf8;border-color:#1b3430;padding:26px 24px;display:flex;flex-direction:column;min-width:0;box-shadow:0 14px 30px rgba(17,40,32,.13)}
+.card-header{display:flex;align-items:start;gap:12px;margin:0 0 26px}
+.card-icon{display:grid;place-items:center;flex:0 0 36px;width:36px;height:36px;border-radius:8px;background:#2d4740;border:1px solid #3d594f;color:#b6d2c0}
+.card-header h2{color:#fff;font-size:17px;font-weight:750;line-height:1.33;letter-spacing:-.03em;margin:0 0 5px}
+.card-header p{color:#a9c0b4;font-size:11px;line-height:1.6;margin:0}
+.assumptions{display:flex;align-items:center;flex-wrap:wrap;gap:8px 13px;padding:12px 0;margin:-7px 0 23px;border-top:1px solid #345049;border-bottom:1px solid #345049;color:#c3d4c9;font-weight:650;font-size:10px}
+.assumptions>span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}.assumptions svg{color:#a7c5b5;flex:0 0 14px}
+.field-group label{display:flex;align-items:center;gap:9px;margin:0 0 10px;color:#e3eee8;font-size:11px;font-weight:740}
+.label-number{display:grid;place-items:center;width:20px;height:20px;border-radius:5px;color:#e2f0e9;background:#2e4941;font-size:10px;font-weight:770}
+.field-row{display:grid;grid-template-columns:minmax(0,1fr) 71px;gap:8px}
+.field-row input{width:100%;min-width:0;height:50px;border-radius:8px;border:1px solid #d7e0d8;background:#fff;color:#1b3028;padding:0 14px;font-size:13px;font-weight:690;transition:box-shadow .15s,border-color .15s}
+.field-row input:hover{border-color:#a1b8a8}.field-row input:focus{outline:none;border-color:#69a8b1;box-shadow:0 0 0 3px rgba(136,207,215,.25)}
+.field-row .state-input{text-align:center;padding:0 4px;text-transform:uppercase}
+.swap-wrap{display:flex;align-items:center;gap:10px;padding:12px 0 12px 12px}
+.swap-rule{height:25px;width:1px;background:repeating-linear-gradient(to bottom,#567265 0 4px,transparent 4px 8px)}
+.swap-button{display:grid;place-items:center;width:31px;height:31px;border-radius:7px;background:#29433b;color:#d0e3d5;border:1px solid #436255;padding:0;transition:background .15s}
+.swap-button:hover{background:#3b5a50}
+.primary-button{display:flex;align-items:center;justify-content:center;gap:11px;width:100%;min-height:54px;margin-top:24px;padding:12px 14px;border-radius:8px;background:var(--accent);border:1px solid var(--accent);color:#fff;font-size:12px;font-weight:810;letter-spacing:.015em;transition:background .15s,transform .15s}
+.primary-button:hover:not(:disabled){background:#d54c3b}.primary-button:active:not(:disabled){transform:translateY(1px)}
+.primary-button:disabled{opacity:.75}.primary-button .button-icon{color:#fff}
+.spinner{display:none;width:15px;height:15px;border-radius:50%;border:2px solid rgba(255,255,255,.5);border-top-color:#fff;animation:spin .9s linear infinite}
+.primary-button.loading .spinner{display:block}.primary-button.loading .button-icon{display:none}@keyframes spin{to{transform:rotate(360deg)}}
+.preset-group{margin-top:25px;padding-top:19px;border-top:1px solid #345049}
+.tiny-label{color:#b2c9bd;letter-spacing:.13em;font-size:10px;font-weight:800;margin:0 0 11px}
+.presets{display:flex;align-items:center;flex-wrap:wrap;gap:7px}
+.preset{background:#29433b;border:1px solid #426154;border-radius:7px;padding:8px 10px;color:#ebf5ed;font-size:10px;font-weight:690;transition:background .15s,border-color .15s}
+.preset:hover{background:#3b5b50;border-color:#638576}
+.status{margin-top:17px;min-height:45px;border:1px solid #456458;border-radius:8px;background:#2b463d;color:#d6eadd;padding:11px 12px;display:flex;align-items:start;gap:9px;font-size:11px;line-height:1.55}
+.status svg{color:#a7d5b7;flex:0 0 auto;margin-top:1px}
+.status.error{background:#57322f;border-color:#824039;color:#ffddda}.status.error svg{color:#ffa39b}
+.status.success{background:#264c3c;border-color:#44735b;color:#c9f0d5}
+.notice{display:flex;align-items:start;gap:10px;padding:19px 0 0;margin-top:auto;background:transparent;border:0;color:#bdcfc2}
+.notice svg{color:#f6af7f;flex:0 0 auto;margin-top:2px}.notice strong{display:block;margin:0 0 3px;color:#ffd0a2;font-size:11px;font-weight:750}
+.notice p{margin:0;color:#bacfc1;font-size:10px;line-height:1.6}
+.map-panel{display:flex;flex-direction:column;overflow:hidden;min-width:0;min-height:640px}
+.map-heading{display:flex;align-items:center;justify-content:space-between;gap:12px 20px;background:#fff;padding:18px 20px;border-bottom:1px solid var(--line)}
+.map-heading-left{display:flex;align-items:center;gap:12px;min-width:0}.map-icon{display:grid;place-items:center;flex:0 0 36px;width:36px;height:36px;border-radius:8px;border:1px solid #dae6de;background:#f3f6f3;color:#3b6451}
+.map-icon svg{width:20px;height:20px}.map-heading h2{font-size:15px;letter-spacing:-.02em;font-weight:770;margin:0 0 3px}
+.map-heading p{font-size:11px;color:#85928a;margin:0;line-height:1.5}
+.map-actions{display:flex;align-items:center;gap:10px;margin-left:auto}
+.style-switcher{display:inline-flex;align-items:center;background:#eff2ef;border:1px solid #dfe5df;border-radius:8px;padding:3px;gap:2px}
+.map-style{background:transparent;border:0;border-radius:6px;padding:8px 12px;color:#64756c;font-size:11px;font-weight:730;white-space:nowrap;transition:background .15s}
+.map-style[aria-pressed="true"]{background:#fff;color:#183b2d;box-shadow:0 1px 4px rgba(25,44,32,.10)}.map-style:hover{color:#162f25}
+.map-canvas{position:relative;isolation:isolate;min-height:513px;flex:1}
+#map{position:absolute;inset:0;width:100%;height:100%;min-height:513px;z-index:0;background:#e2e9e3}
+.map-glass{position:absolute;z-index:410;left:18px;top:17px;max-width:calc(100% - 36px);display:flex;align-items:center;gap:8px;padding:9px 13px;background:#fff;border:1px solid #dce3df;border-radius:7px;box-shadow:0 3px 13px rgba(24,40,30,.11);pointer-events:none}
+.map-glass-icon{width:7px;height:7px;background:#2a9a6a;flex:0 0 7px;border-radius:50%}
+.map-glass span:last-child{font-size:10px;font-weight:710;color:#52675a;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.map-recenter{position:absolute;z-index:410;right:17px;bottom:17px;background:#fff;border:1px solid #d6ded9;border-radius:8px;box-shadow:0 2px 10px rgba(28,50,30,.11);font-size:11px;font-weight:780;color:#234638;padding:11px 14px;width:auto}
+.map-recenter:hover{background:#f5f8f4}
+.map-legend{display:flex;align-items:center;gap:12px 19px;flex-wrap:wrap;padding:12px 20px;min-height:49px;background:#fff;border-top:1px solid var(--line);color:#65786b;font-size:10px}
+.legend-item{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.legend-dot{width:9px;height:9px;border:2px solid #fff;background:#279766;border-radius:50%;box-shadow:0 0 0 1px #b1cbb6}
+.legend-dot.finish{background:#e06d58;box-shadow:0 0 0 1px #ebc3b8}.legend-dot.stop{background:#2d71e0;box-shadow:0 0 0 1px #b4c8ec}
+.legend-line{width:18px;height:3px;border-radius:3px;background:#2a6bda}.legend-caption{margin-left:auto;color:#97a59a;font-size:9px}
+.leaflet-container{font:inherit!important}
+.leaflet-control-zoom{border:1px solid #d3dfd7!important;border-radius:7px!important;overflow:hidden;box-shadow:0 2px 7px rgba(10,30,20,.08)!important}
+.leaflet-control-zoom a{width:30px!important;height:30px!important;line-height:30px!important;color:var(--ink)!important}
+.leaflet-popup-content-wrapper{border-radius:9px;box-shadow:0 9px 23px rgba(13,33,20,.19)}
+.stop-pin{width:30px;height:30px;display:grid;place-items:center;background:var(--route);border:2px solid #fff;border-radius:50% 50% 50% 3px;transform:rotate(-35deg);color:#fff;font-size:12px;font-weight:850;box-shadow:0 2px 8px rgba(30,50,90,.28)}.stop-pin span{transform:rotate(35deg)}
+.leaflet-div-icon{background:transparent;border:0}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:18px 0;gap:1px;border:1px solid var(--line);border-radius:11px;overflow:hidden;background:var(--line)}
+.metric{min-width:0;background:#fff;padding:21px;border:0;border-radius:0;box-shadow:none}
+.metric-top{display:flex;align-items:center;justify-content:space-between;gap:8px}.metric-label{font-size:11px;font-weight:690;color:#6a7c72}
+.metric-icon{color:#a8b8aa;width:17px;height:17px}.metric-value{margin-top:9px;color:#1e3429;font-size:clamp(21px,2vw,30px);font-weight:760;letter-spacing:-.05em;font-variant-numeric:tabular-nums;overflow-wrap:anywhere;line-height:1.2}
+.metric:last-child .metric-value{color:#b34739}
+.summary-bar{display:grid;grid-template-columns:minmax(170px,1.5fr) repeat(2,minmax(120px,.95fr)) auto;align-items:center;gap:16px;margin:0 0 18px;padding:21px 24px;border-radius:11px;background:#e7ede7;border:1px solid #cfdccf;color:var(--ink)}
+.summary-bar h2{font-size:16px;font-weight:760;margin:0 0 3px}.summary-bar p{font-size:11px;color:#748477;margin:0}
+.summary-value{padding-left:16px;border-left:1px solid #c6d4c8;min-width:0}.summary-value span{display:block;font-size:10px;color:#718278}
+.summary-value strong{display:block;margin-top:4px;font-size:22px;font-weight:770;font-variant-numeric:tabular-nums;letter-spacing:-.045em}
+.summary-copy{background:#fff;border:1px solid #becdbf;border-radius:8px;padding:11px 13px;font-size:11px;color:#335140;font-weight:750;white-space:nowrap}.summary-copy:hover{background:#f8fcf7}
+.results{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,.85fr);gap:17px;align-items:start;margin:0 0 34px}
+.results .panel{padding:23px}.result-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}
+.result-heading h2{font-size:16px;font-weight:770;letter-spacing:-.03em;margin:0}
+.result-tag{border:1px solid #d5e4d8;border-radius:5px;color:#698371;padding:5px 8px;font-size:9px;font-weight:760;letter-spacing:.08em}
+.stop-list{display:grid;gap:10px}.stop-card{display:flex;align-items:start;gap:12px;border:1px solid #dde6df;border-radius:9px;padding:17px;background:#fff;transition:border-color .15s}
+.stop-card:hover,.stop-card:focus-within{border-color:#91b49c}
+.stop-number{display:grid;place-items:center;flex:0 0 28px;width:28px;height:28px;background:#e9f1ec;color:#416c4e;font-size:11px;font-weight:800;border-radius:6px}
+.stop-main{min-width:0;flex:1}.stop-title{font-size:13px;font-weight:780;margin:0 0 3px;line-height:1.4;overflow-wrap:anywhere}
+.stop-location{font-size:11px;color:#809087;margin:0 0 10px;line-height:1.55;overflow-wrap:anywhere}
+.stop-data{display:flex;align-items:baseline;justify-content:space-between;gap:10px 14px;flex-wrap:wrap}
+.stop-quantity{font-size:11px;color:#617569}.stop-cost{color:#1e3829;font-size:18px;font-weight:790;letter-spacing:-.025em;overflow-wrap:anywhere}
+.stop-foot{font-size:10px;color:#9e7341;margin:7px 0 0}
+.stop-focus{margin-top:10px;border:1px solid #d6e3d8;border-radius:6px;background:#f7faf7;color:#4f6854;font-size:10px;font-weight:750;padding:7px 9px}.stop-focus:hover{background:#edf6ef}
+.empty{padding:18px;border:1px dashed #c8dacd;background:#f8faf7;border-radius:8px;color:#6b7e6f;font-size:12px}
+.facts{list-style:none;display:grid;gap:12px;padding:0;margin:0}.facts li{display:flex;align-items:start;gap:10px;color:#708273;font-size:11px;line-height:1.6;overflow-wrap:anywhere}
+.facts li::before{content:"";flex:0 0 5px;width:5px;height:5px;border-radius:50%;background:#859f88;margin-top:7px}
+.site-footer{display:flex;align-items:start;justify-content:space-between;gap:25px;border-top:1px solid #d6dfd8;padding:18px 0 30px;color:#78867d;font-size:11px}
+.site-footer p{margin:0;max-width:900px}.site-footer a{color:#355743;font-weight:730;text-decoration:none;white-space:nowrap}.site-footer a:hover{text-decoration:underline}
+@media(max-width:1210px){.container{width:calc(100% - 42px)}.layout{grid-template-columns:minmax(300px,340px) minmax(0,1fr)}.map-heading{flex-wrap:wrap}.map-actions{margin:0;width:100%}.top-meta{display:none}.summary-bar{grid-template-columns:1.4fr 1fr 1fr}.summary-copy{grid-column:1/-1;justify-self:start}}
+@media(max-width:980px){.container{width:calc(100% - 34px)}.layout,.results{grid-template-columns:minmax(0,1fr)}.map-heading{flex-wrap:nowrap}.map-actions{width:auto;margin-left:auto}.map-canvas,#map{min-height:450px}.map-panel{min-height:570px}.notice{margin-top:22px}}
+@media(max-width:660px){.container{width:calc(100% - 26px)}.topbar{min-height:67px;gap:10px}.brand-small{font-size:10px;letter-spacing:.035em;gap:7px}.brand-small img{width:33px;height:33px}.language-switch{padding:7px 9px;gap:5px}.language-switch select{max-width:106px;min-width:78px;font-size:11px}.workspace{padding-top:22px}.workspace-head{align-items:start}.workspace-head h1{font-size:28px}.workspace-chip{display:none}.form-panel{padding:21px}.map-heading{flex-wrap:wrap;padding:15px}.map-actions{width:100%;margin:0}.style-switcher{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%}.map-style{padding:9px 4px}.map-panel{min-height:480px}.map-canvas,#map{min-height:360px}.map-glass{left:12px;top:12px}.map-recenter{right:11px;bottom:11px}.map-legend{gap:8px 12px;padding:12px}.legend-caption{width:100%;margin:0}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.metric{padding:17px}.metric-value{font-size:23px}.summary-bar{grid-template-columns:1fr 1fr;gap:15px;padding:18px}.summary-bar>div:first-child{grid-column:1/-1}.summary-value{padding-left:11px}.summary-value strong{font-size:19px}.summary-copy{grid-column:1/-1}.site-footer{flex-direction:column}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:0ms!important}}
 
-    .assumptions {display:flex;align-items:center;gap:9px 16px;flex-wrap:wrap;margin:-13px 0 22px;padding:11px 0;border-top:1px solid #edf0ed;border-bottom:1px solid #edf0ed;color:#63776d;font-size:10px;font-weight:700}
-    .assumptions>span {display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
-    .assumptions svg {color:#8a9b8d;flex:0 0 14px}
-  </style>
+</style>
 </head>
 <body>
   <header class="site-header">
@@ -261,9 +158,9 @@
   <main class="container workspace">
     <div class="workspace-head">
       <div>
-        <p class="section-kicker" data-i18n="sectionKicker">Plan your journey</p>
-        <h1 data-i18n="plannerTitle">Route planner</h1>
-        <p class="section-subtitle" data-i18n="plannerDescription">Choose your stops and visualize your next drive.</p>
+        <p class="section-kicker" data-i18n="sectionKicker">PLAN YOUR DRIVE</p>
+        <h1 data-i18n="plannerTitle">Route planning, without the guesswork</h1>
+        <p class="section-subtitle" data-i18n="plannerDescription">A clear view of your route, fuel stops and estimated cost.</p>
       </div>
       <span class="workspace-chip">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 18 6-6-6-6"/><circle cx="12" cy="12" r="10"/></svg>
@@ -275,7 +172,7 @@
       <section class="panel form-panel" aria-labelledby="formTitle">
         <div class="card-header">
           <span class="card-icon" aria-hidden="true"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="19" r="2"/><path d="M8 19h6a5 5 0 0 0 0-10h-3a5 5 0 0 1 0-10" transform="translate(0 2)"/><circle cx="18" cy="5" r="2"/></svg></span>
-          <div><h2 id="formTitle" data-i18n="formTitle">Where are we going?</h2><p data-i18n="formHelp">Enter two US cities to calculate the trip.</p></div>
+          <div><h2 id="formTitle" data-i18n="formTitle">Build your route</h2><p data-i18n="formHelp">Enter two US cities to calculate the trip.</p></div>
         </div>
         <div class="assumptions" aria-label="Planning assumptions">
           <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 18V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v15H5Z"/><path d="M8 8h6M17 8h2l3 3v6a2 2 0 0 1-4 0v-4"/></svg><span data-i18n="range">500 mi range</span></span>
@@ -381,7 +278,7 @@
   <script>
   /* Translation catalogs are intentionally self-contained: no external translation API, no keys. */
   (function () {
-    const translations = {"en":{"language":"Language","eyebrow":"Intelligent road-trip planning","heroDescription":"Plan a drive across the United States, find estimated fuel stops, and understand the real cost of your journey.","range":"500 mi range","efficiency":"10 miles / gallon","sectionKicker":"THE ROAD AHEAD","plannerTitle":"Plan your perfect route","plannerDescription":"From departure to destination, every mile made clearer.","usRoutes":"United States routes","formTitle":"Where are we going?","formHelp":"Enter two US cities to calculate your trip.","origin":"Origin","destination":"Destination","originState":"Origin state abbreviation","destinationState":"Destination state abbreviation","city":"City","swap":"Swap origin and destination","calculate":"Calculate route & fuel stops","calculating":"Planning your route…","samples":"QUICK ROUTES","ready":"Ready when you are. Pick a route to see distance, fuel stops, and costs.","approxTitle":"Station positions are approximate","approxBody":"Markers use city-level estimates, not verified pump locations. Check real station access before you travel.","mapTitle":"Interactive route map","mapDescription":"Real road geometry · Approximate refueling waypoints","mapAppearance":"Map appearance","streets":"Streets","minimal":"Minimal","night":"Night","mapAria":"Interactive map showing the road route and approximate fuel stops","mapReady":"Map ready · Choose your route","fitRoute":"View entire route","mapLegend":"Map legend","fuelStops":"Fuel stops","roadRoute":"Road route","mapAttribution":"© OpenStreetMap contributors · OpenFreeMap","metricsAria":"Route summary statistics","breakdownAria":"Estimated fuel cost breakdown","breakdownTitle":"Your fuel cost, explained","breakdownHelp":"An estimate, not a receipt from a fuel station","tripFuelValue":"Total fuel value of trip","startingFuel":"Value of starting fuel","copy":"Copy summary","copied":"Copied ✓","suggestedStops":"Recommended fuel stops","estimated":"ESTIMATED","understanding":"About these estimates","disclaimer":"Prices are undated source-data assumptions in USD per gallon. The total includes the value of fuel in the initial tank, so it is not all new spending. Stops are approximate city points, not verified fuel-pump locations.","documentation":"Source code & API documentation","statusLoading":"Finding the road route and calculating estimated fuel purchases…","statusSuccess":"Route calculated. Review approximate fuel stops before traveling.","statusError":"Unable to load the route. Check your connection and try again.","apiError":"Unable to calculate this route.","copyError":"Couldn't copy the summary. Check your clipboard permissions.","swapped":"Origin and destination swapped. Calculate to update the route.","presetSelected":"Example selected. Calculate to explore the route.","noStops":"No additional fuel purchase is required with the assumed full starting tank.","buy":"Buy","perGal":"/gal","approxStop":"Approximate city location · Pump access not verified","focusMap":"Locate on map ↗","focusAria":"Show approximate location of stop {count} on map","mapMapped":"Route drawn · {count} estimated fuel stops","distanceMetric":"Road distance","timeMetric":"Driving time","stopsMetric":"Fuel stops","purchasesMetric":"New fuel purchases","hours":"h","minutes":"m","warningFuelTotal":"Estimated fuel value of this trip: {total}, including {initial} already in the starting tank.","warningProviderCalls":"Routing-provider requests: {count}{cached}","cache":" (from cache)","warningApprox":"Stop locations are approximate city waypoints, not verified fuel-pump entrances.","copyHeader":"Fuel Route Optimizer — estimated trip","copyDistance":"Distance","copyStops":"Estimated fuel stops","copyPurchased":"Fuel bought along the way","copyTotal":"Estimated full-trip fuel value (includes starting tank)","copyApprox":"Station locations are approximate and unverified.","originTooltip":"Origin","destinationTooltip":"Destination","mapPopup":"approximate location","title":"Fuel Route Optimizer | Smarter road trips"},"es":{"language":"Idioma","eyebrow":"Planificación inteligente de viajes","heroDescription":"Planificá tu recorrido por Estados Unidos, explorá paradas estimadas para cargar combustible y conocé el costo de tu viaje.","range":"Autonomía de 500 mi","efficiency":"10 millas / galón","sectionKicker":"TU PRÓXIMO RECORRIDO","plannerTitle":"Planificá tu ruta ideal","plannerDescription":"Del punto de partida al destino, cada kilómetro más claro.","usRoutes":"Rutas en Estados Unidos","formTitle":"¿A dónde vamos?","formHelp":"Ingresá dos ciudades estadounidenses para calcular el recorrido.","origin":"Origen","destination":"Destino","originState":"Abreviatura del estado de origen","destinationState":"Abreviatura del estado de destino","city":"Ciudad","swap":"Intercambiar origen y destino","calculate":"Calcular ruta y combustible","calculating":"Calculando recorrido…","samples":"RUTAS DE EJEMPLO","ready":"Todo listo. Elegí una ruta para conocer distancias, paradas y costos.","approxTitle":"Ubicaciones aproximadas","approxBody":"Los marcadores son estimaciones por ciudad, no surtidores verificados. Confirmá cada parada antes de viajar.","mapTitle":"Mapa interactivo de la ruta","mapDescription":"Recorrido real por carretera · Paradas estimadas","mapAppearance":"Apariencia del mapa","streets":"Calles","minimal":"Minimalista","night":"Nocturno","mapAria":"Mapa interactivo con el recorrido y las paradas aproximadas","mapReady":"Mapa listo · Elegí una ruta","fitRoute":"Ver recorrido completo","mapLegend":"Referencias del mapa","fuelStops":"Paradas","roadRoute":"Recorrido","mapAttribution":"© Colaboradores de OpenStreetMap · OpenFreeMap","metricsAria":"Resumen del recorrido","breakdownAria":"Desglose del costo de combustible","breakdownTitle":"Tu costo de combustible, explicado","breakdownHelp":"Es una estimación, no un comprobante de surtidor","tripFuelValue":"Valor total del combustible","startingFuel":"Valor del combustible inicial","copy":"Copiar resumen","copied":"Copiado ✓","suggestedStops":"Paradas de combustible sugeridas","estimated":"ESTIMADO","understanding":"Cómo interpretar el cálculo","disclaimer":"Los precios son supuestos del archivo original, sin fecha y expresados en USD por galón. El total incluye el combustible del tanque inicial, así que no todo representa una compra nueva. Las paradas son puntos aproximados por ciudad, no surtidores verificados.","documentation":"Código fuente y documentación de la API","statusLoading":"Buscando el recorrido por carretera y calculando las cargas estimadas…","statusSuccess":"Ruta calculada. Verificá las paradas aproximadas antes de viajar.","statusError":"No se pudo cargar la ruta. Revisá tu conexión e intentá nuevamente.","apiError":"No se pudo calcular esta ruta.","copyError":"No se pudo copiar el resumen. Revisá los permisos del portapapeles.","swapped":"Origen y destino intercambiados. Calculá para actualizar la ruta.","presetSelected":"Elegiste un ejemplo. Calculá para explorar el recorrido.","noStops":"No hace falta comprar más combustible con el tanque inicial lleno supuesto.","buy":"Cargar","perGal":"/gal","approxStop":"Ubicación aproximada · Surtidor sin verificar","focusMap":"Ubicar en el mapa ↗","focusAria":"Mostrar en el mapa la ubicación aproximada de la parada {count}","mapMapped":"Ruta trazada · {count} paradas estimadas","distanceMetric":"Distancia","timeMetric":"Tiempo de conducción","stopsMetric":"Paradas","purchasesMetric":"Compras en el recorrido","hours":"h","minutes":"min","warningFuelTotal":"Valor estimado del combustible del viaje: {total}, incluidos {initial} del tanque inicial.","warningProviderCalls":"Consultas al servicio de rutas: {count}{cached}","cache":" (desde caché)","warningApprox":"Las paradas son puntos aproximados por ciudad, no entradas a surtidores verificados.","copyHeader":"Fuel Route Optimizer — viaje estimado","copyDistance":"Distancia","copyStops":"Paradas estimadas","copyPurchased":"Combustible comprado durante el recorrido","copyTotal":"Valor total del combustible (incluye tanque inicial)","copyApprox":"Los puntos de combustible son aproximados y no están verificados.","originTooltip":"Origen","destinationTooltip":"Destino","mapPopup":"ubicación aproximada","title":"Fuel Route Optimizer | Rutas más inteligentes"},"fr":{"language":"Langue","eyebrow":"Planification intelligente de voyages","heroDescription":"Planifiez votre trajet aux États-Unis, découvrez les arrêts carburant estimés et comprenez le coût de votre voyage.","range":"Autonomie : 500 mi","efficiency":"10 miles / gallon","sectionKicker":"PRENEZ LA ROUTE","plannerTitle":"Planifiez votre itinéraire","plannerDescription":"Du départ à l'arrivée, chaque étape devient plus claire.","usRoutes":"Trajets aux États-Unis","formTitle":"Où allons-nous ?","formHelp":"Saisissez deux villes américaines pour calculer votre trajet.","origin":"Départ","destination":"Arrivée","originState":"Abréviation de l'État de départ","destinationState":"Abréviation de l'État d'arrivée","city":"Ville","swap":"Inverser le départ et l'arrivée","calculate":"Calculer l'itinéraire et le carburant","calculating":"Calcul du trajet…","samples":"ITINÉRAIRES SUGGÉRÉS","ready":"Tout est prêt. Choisissez un trajet pour voir la distance, les arrêts et les coûts.","approxTitle":"Positions des stations approximatives","approxBody":"Les repères indiquent des villes, pas des pompes vérifiées. Confirmez l'accès avant votre départ.","mapTitle":"Carte interactive du trajet","mapDescription":"Itinéraire routier réel · Arrêts carburant estimés","mapAppearance":"Style de la carte","streets":"Rues","minimal":"Épurée","night":"Nuit","mapAria":"Carte interactive du trajet routier et des arrêts carburant approximatifs","mapReady":"Carte prête · Choisissez un trajet","fitRoute":"Afficher tout le trajet","mapLegend":"Légende de la carte","fuelStops":"Arrêts carburant","roadRoute":"Trajet routier","mapAttribution":"© Contributeurs OpenStreetMap · OpenFreeMap","metricsAria":"Statistiques du trajet","breakdownAria":"Détail du coût estimé du carburant","breakdownTitle":"Comprendre vos coûts de carburant","breakdownHelp":"Une estimation, pas un reçu de station-service","tripFuelValue":"Valeur totale du carburant","startingFuel":"Valeur du carburant initial","copy":"Copier le résumé","copied":"Copié ✓","suggestedStops":"Arrêts carburant recommandés","estimated":"ESTIMÉ","understanding":"Comprendre les estimations","disclaimer":"Les prix proviennent de données non datées, exprimées en USD par gallon. Le total inclut le carburant du réservoir initial et ne correspond donc pas uniquement à de nouveaux achats. Les arrêts sont des points approximatifs par ville, pas des pompes vérifiées.","documentation":"Code source et documentation de l'API","statusLoading":"Recherche de l'itinéraire et estimation des achats de carburant…","statusSuccess":"Itinéraire calculé. Vérifiez les arrêts approximatifs avant de voyager.","statusError":"Impossible de charger le trajet. Vérifiez votre connexion et réessayez.","apiError":"Impossible de calculer cet itinéraire.","copyError":"Impossible de copier le résumé. Vérifiez les autorisations du presse-papiers.","swapped":"Départ et arrivée inversés. Recalculez pour actualiser le trajet.","presetSelected":"Exemple sélectionné. Lancez le calcul pour voir le trajet.","noStops":"Aucun achat supplémentaire nécessaire avec le réservoir initial supposé plein.","buy":"Acheter","perGal":"/gal","approxStop":"Position approximative · Accès à la pompe non vérifié","focusMap":"Voir sur la carte ↗","focusAria":"Afficher la position approximative de l'arrêt {count} sur la carte","mapMapped":"Trajet tracé · {count} arrêts estimés","distanceMetric":"Distance routière","timeMetric":"Temps de conduite","stopsMetric":"Arrêts carburant","purchasesMetric":"Achats de carburant","hours":"h","minutes":"min","warningFuelTotal":"Valeur estimée du carburant du trajet : {total}, dont {initial} déjà présents dans le réservoir initial.","warningProviderCalls":"Appels au service d'itinéraires : {count}{cached}","cache":" (depuis le cache)","warningApprox":"Les arrêts sont des points approximatifs par ville, pas des entrées de stations vérifiées.","copyHeader":"Fuel Route Optimizer — estimation de trajet","copyDistance":"Distance","copyStops":"Arrêts estimés","copyPurchased":"Carburant acheté en route","copyTotal":"Valeur totale du carburant (réservoir initial inclus)","copyApprox":"Les emplacements des stations sont approximatifs et non vérifiés.","originTooltip":"Départ","destinationTooltip":"Arrivée","mapPopup":"position approximative","title":"Fuel Route Optimizer | Des trajets plus intelligents"},"pt":{"language":"Idioma","eyebrow":"Planejamento inteligente de viagens","heroDescription":"Planeje sua viagem pelos Estados Unidos, descubra paradas estimadas para abastecimento e entenda os custos do trajeto.","range":"Autonomia de 500 mi","efficiency":"10 milhas / galão","sectionKicker":"SUA PRÓXIMA VIAGEM","plannerTitle":"Planeje sua melhor rota","plannerDescription":"Da partida ao destino, cada etapa fica mais clara.","usRoutes":"Rotas nos Estados Unidos","formTitle":"Para onde vamos?","formHelp":"Informe duas cidades dos EUA para calcular a viagem.","origin":"Origem","destination":"Destino","originState":"Sigla do estado de origem","destinationState":"Sigla do estado de destino","city":"Cidade","swap":"Inverter origem e destino","calculate":"Calcular rota e combustível","calculating":"Calculando rota…","samples":"ROTAS DE EXEMPLO","ready":"Tudo pronto. Escolha uma rota para ver distância, paradas e custos.","approxTitle":"Localizações aproximadas","approxBody":"Os marcadores representam cidades, não bombas verificadas. Confirme o acesso antes de viajar.","mapTitle":"Mapa interativo da rota","mapDescription":"Trajeto rodoviário real · Abastecimentos estimados","mapAppearance":"Aparência do mapa","streets":"Ruas","minimal":"Minimalista","night":"Noturno","mapAria":"Mapa interativo da rota e dos abastecimentos aproximados","mapReady":"Mapa pronto · Escolha uma rota","fitRoute":"Ver rota completa","mapLegend":"Legenda do mapa","fuelStops":"Paradas","roadRoute":"Rota rodoviária","mapAttribution":"© Colaboradores do OpenStreetMap · OpenFreeMap","metricsAria":"Estatísticas da rota","breakdownAria":"Detalhamento do custo do combustível","breakdownTitle":"Entenda o custo do combustível","breakdownHelp":"Uma estimativa, não um recibo de posto","tripFuelValue":"Valor total do combustível","startingFuel":"Valor do combustível inicial","copy":"Copiar resumo","copied":"Copiado ✓","suggestedStops":"Paradas sugeridas para abastecer","estimated":"ESTIMADO","understanding":"Entenda esta estimativa","disclaimer":"Os preços são estimativas de dados sem data, em USD por galão. O total inclui o combustível do tanque inicial, portanto nem tudo representa novas compras. As paradas são pontos aproximados por cidade, não bombas verificadas.","documentation":"Código-fonte e documentação da API","statusLoading":"Buscando a rota e calculando o abastecimento estimado…","statusSuccess":"Rota calculada. Confira as paradas aproximadas antes de viajar.","statusError":"Não foi possível carregar a rota. Verifique a conexão e tente novamente.","apiError":"Não foi possível calcular esta rota.","copyError":"Não foi possível copiar o resumo. Confira as permissões da área de transferência.","swapped":"Origem e destino invertidos. Calcule novamente para atualizar a rota.","presetSelected":"Exemplo selecionado. Calcule para explorar a rota.","noStops":"Não é necessário comprar mais combustível considerando o tanque inicial cheio.","buy":"Abastecer","perGal":"/gal","approxStop":"Localização aproximada · Acesso à bomba não verificado","focusMap":"Ver no mapa ↗","focusAria":"Mostrar a localização aproximada da parada {count} no mapa","mapMapped":"Rota traçada · {count} paradas estimadas","distanceMetric":"Distância","timeMetric":"Tempo de direção","stopsMetric":"Paradas","purchasesMetric":"Compras de combustível","hours":"h","minutes":"min","warningFuelTotal":"Valor estimado do combustível da viagem: {total}, incluindo {initial} já presentes no tanque inicial.","warningProviderCalls":"Consultas ao serviço de rotas: {count}{cached}","cache":" (do cache)","warningApprox":"As paradas são pontos aproximados por cidade, não entradas de postos verificadas.","copyHeader":"Fuel Route Optimizer — viagem estimada","copyDistance":"Distância","copyStops":"Paradas estimadas","copyPurchased":"Combustível comprado durante o trajeto","copyTotal":"Valor total do combustível (inclui tanque inicial)","copyApprox":"As posições dos postos são aproximadas e não foram verificadas.","originTooltip":"Origem","destinationTooltip":"Destino","mapPopup":"localização aproximada","title":"Fuel Route Optimizer | Viagens mais inteligentes"}};
+    const translations = {"en":{"language":"Language","eyebrow":"Intelligent road-trip planning","heroDescription":"Plan a drive across the United States, find estimated fuel stops, and understand the real cost of your journey.","range":"500 mi range","efficiency":"10 miles / gallon","sectionKicker":"PLAN YOUR DRIVE","plannerTitle":"Route planning, without the guesswork","plannerDescription":"A clear view of your route, fuel stops and estimated cost.","usRoutes":"United States routes","formTitle":"Build your route","formHelp":"Enter your starting point and destination in the United States.","origin":"Origin","destination":"Destination","originState":"Origin state abbreviation","destinationState":"Destination state abbreviation","city":"City","swap":"Swap origin and destination","calculate":"Calculate route & fuel stops","calculating":"Planning your route…","samples":"QUICK ROUTES","ready":"Ready when you are. Pick a route to see distance, fuel stops, and costs.","approxTitle":"Station positions are approximate","approxBody":"Markers use city-level estimates, not verified pump locations. Check real station access before you travel.","mapTitle":"Interactive route map","mapDescription":"Real road geometry · Approximate refueling waypoints","mapAppearance":"Map appearance","streets":"Streets","minimal":"Minimal","night":"Night","mapAria":"Interactive map showing the road route and approximate fuel stops","mapReady":"Map ready · Choose your route","fitRoute":"View entire route","mapLegend":"Map legend","fuelStops":"Fuel stops","roadRoute":"Road route","mapAttribution":"© OpenStreetMap contributors · OpenFreeMap","metricsAria":"Route summary statistics","breakdownAria":"Estimated fuel cost breakdown","breakdownTitle":"Your fuel cost, explained","breakdownHelp":"An estimate, not a receipt from a fuel station","tripFuelValue":"Total fuel value of trip","startingFuel":"Value of starting fuel","copy":"Copy summary","copied":"Copied ✓","suggestedStops":"Recommended fuel stops","estimated":"ESTIMATED","understanding":"About these estimates","disclaimer":"Prices are undated source-data assumptions in USD per gallon. The total includes the value of fuel in the initial tank, so it is not all new spending. Stops are approximate city points, not verified fuel-pump locations.","documentation":"Source code & API documentation","statusLoading":"Finding the road route and calculating estimated fuel purchases…","statusSuccess":"Route calculated. Review approximate fuel stops before traveling.","statusError":"Unable to load the route. Check your connection and try again.","apiError":"Unable to calculate this route.","copyError":"Couldn't copy the summary. Check your clipboard permissions.","swapped":"Origin and destination swapped. Calculate to update the route.","presetSelected":"Example selected. Calculate to explore the route.","noStops":"No additional fuel purchase is required with the assumed full starting tank.","buy":"Buy","perGal":"/gal","approxStop":"Approximate city location · Pump access not verified","focusMap":"Locate on map ↗","focusAria":"Show approximate location of stop {count} on map","mapMapped":"Route drawn · {count} estimated fuel stops","distanceMetric":"Road distance","timeMetric":"Driving time","stopsMetric":"Fuel stops","purchasesMetric":"New fuel purchases","hours":"h","minutes":"m","warningFuelTotal":"Estimated fuel value of this trip: {total}, including {initial} already in the starting tank.","warningProviderCalls":"Routing-provider requests: {count}{cached}","cache":" (from cache)","warningApprox":"Stop locations are approximate city waypoints, not verified fuel-pump entrances.","copyHeader":"Fuel Route Optimizer — estimated trip","copyDistance":"Distance","copyStops":"Estimated fuel stops","copyPurchased":"Fuel bought along the way","copyTotal":"Estimated full-trip fuel value (includes starting tank)","copyApprox":"Station locations are approximate and unverified.","originTooltip":"Origin","destinationTooltip":"Destination","mapPopup":"approximate location","title":"Fuel Route Optimizer | Smarter road trips"},"es":{"language":"Idioma","eyebrow":"Planificación inteligente de viajes","heroDescription":"Planificá tu recorrido por Estados Unidos, explorá paradas estimadas para cargar combustible y conocé el costo de tu viaje.","range":"Autonomía de 500 mi","efficiency":"10 millas / galón","sectionKicker":"PLANIFICÁ EL VIAJE","plannerTitle":"Tu ruta, con todos los datos","plannerDescription":"Recorrido, paradas de combustible y costos estimados en un solo lugar.","usRoutes":"Rutas en Estados Unidos","formTitle":"Elegí el recorrido","formHelp":"Ingresá el origen y destino dentro de Estados Unidos.","origin":"Origen","destination":"Destino","originState":"Abreviatura del estado de origen","destinationState":"Abreviatura del estado de destino","city":"Ciudad","swap":"Intercambiar origen y destino","calculate":"Calcular ruta y combustible","calculating":"Calculando recorrido…","samples":"RUTAS DE EJEMPLO","ready":"Todo listo. Elegí una ruta para conocer distancias, paradas y costos.","approxTitle":"Ubicaciones aproximadas","approxBody":"Los marcadores son estimaciones por ciudad, no surtidores verificados. Confirmá cada parada antes de viajar.","mapTitle":"Mapa interactivo de la ruta","mapDescription":"Recorrido real por carretera · Paradas estimadas","mapAppearance":"Apariencia del mapa","streets":"Calles","minimal":"Minimalista","night":"Nocturno","mapAria":"Mapa interactivo con el recorrido y las paradas aproximadas","mapReady":"Mapa listo · Elegí una ruta","fitRoute":"Ver recorrido completo","mapLegend":"Referencias del mapa","fuelStops":"Paradas","roadRoute":"Recorrido","mapAttribution":"© Colaboradores de OpenStreetMap · OpenFreeMap","metricsAria":"Resumen del recorrido","breakdownAria":"Desglose del costo de combustible","breakdownTitle":"Tu costo de combustible, explicado","breakdownHelp":"Es una estimación, no un comprobante de surtidor","tripFuelValue":"Valor total del combustible","startingFuel":"Valor del combustible inicial","copy":"Copiar resumen","copied":"Copiado ✓","suggestedStops":"Paradas de combustible sugeridas","estimated":"ESTIMADO","understanding":"Cómo interpretar el cálculo","disclaimer":"Los precios son supuestos del archivo original, sin fecha y expresados en USD por galón. El total incluye el combustible del tanque inicial, así que no todo representa una compra nueva. Las paradas son puntos aproximados por ciudad, no surtidores verificados.","documentation":"Código fuente y documentación de la API","statusLoading":"Buscando el recorrido por carretera y calculando las cargas estimadas…","statusSuccess":"Ruta calculada. Verificá las paradas aproximadas antes de viajar.","statusError":"No se pudo cargar la ruta. Revisá tu conexión e intentá nuevamente.","apiError":"No se pudo calcular esta ruta.","copyError":"No se pudo copiar el resumen. Revisá los permisos del portapapeles.","swapped":"Origen y destino intercambiados. Calculá para actualizar la ruta.","presetSelected":"Elegiste un ejemplo. Calculá para explorar el recorrido.","noStops":"No hace falta comprar más combustible con el tanque inicial lleno supuesto.","buy":"Cargar","perGal":"/gal","approxStop":"Ubicación aproximada · Surtidor sin verificar","focusMap":"Ubicar en el mapa ↗","focusAria":"Mostrar en el mapa la ubicación aproximada de la parada {count}","mapMapped":"Ruta trazada · {count} paradas estimadas","distanceMetric":"Distancia","timeMetric":"Tiempo de conducción","stopsMetric":"Paradas","purchasesMetric":"Compras en el recorrido","hours":"h","minutes":"min","warningFuelTotal":"Valor estimado del combustible del viaje: {total}, incluidos {initial} del tanque inicial.","warningProviderCalls":"Consultas al servicio de rutas: {count}{cached}","cache":" (desde caché)","warningApprox":"Las paradas son puntos aproximados por ciudad, no entradas a surtidores verificados.","copyHeader":"Fuel Route Optimizer — viaje estimado","copyDistance":"Distancia","copyStops":"Paradas estimadas","copyPurchased":"Combustible comprado durante el recorrido","copyTotal":"Valor total del combustible (incluye tanque inicial)","copyApprox":"Los puntos de combustible son aproximados y no están verificados.","originTooltip":"Origen","destinationTooltip":"Destino","mapPopup":"ubicación aproximada","title":"Fuel Route Optimizer | Rutas más inteligentes"},"fr":{"language":"Langue","eyebrow":"Planification intelligente de voyages","heroDescription":"Planifiez votre trajet aux États-Unis, découvrez les arrêts carburant estimés et comprenez le coût de votre voyage.","range":"Autonomie : 500 mi","efficiency":"10 miles / gallon","sectionKicker":"PLANIFIER UN TRAJET","plannerTitle":"Votre itinéraire en toute clarté","plannerDescription":"Trajet, arrêts carburant et coût estimé au même endroit.","usRoutes":"Trajets aux États-Unis","formTitle":"Définissez votre trajet","formHelp":"Indiquez votre départ et votre arrivée aux États-Unis.","origin":"Départ","destination":"Arrivée","originState":"Abréviation de l'État de départ","destinationState":"Abréviation de l'État d'arrivée","city":"Ville","swap":"Inverser le départ et l'arrivée","calculate":"Calculer l'itinéraire et le carburant","calculating":"Calcul du trajet…","samples":"ITINÉRAIRES SUGGÉRÉS","ready":"Tout est prêt. Choisissez un trajet pour voir la distance, les arrêts et les coûts.","approxTitle":"Positions des stations approximatives","approxBody":"Les repères indiquent des villes, pas des pompes vérifiées. Confirmez l'accès avant votre départ.","mapTitle":"Carte interactive du trajet","mapDescription":"Itinéraire routier réel · Arrêts carburant estimés","mapAppearance":"Style de la carte","streets":"Rues","minimal":"Épurée","night":"Nuit","mapAria":"Carte interactive du trajet routier et des arrêts carburant approximatifs","mapReady":"Carte prête · Choisissez un trajet","fitRoute":"Afficher tout le trajet","mapLegend":"Légende de la carte","fuelStops":"Arrêts carburant","roadRoute":"Trajet routier","mapAttribution":"© Contributeurs OpenStreetMap · OpenFreeMap","metricsAria":"Statistiques du trajet","breakdownAria":"Détail du coût estimé du carburant","breakdownTitle":"Comprendre vos coûts de carburant","breakdownHelp":"Une estimation, pas un reçu de station-service","tripFuelValue":"Valeur totale du carburant","startingFuel":"Valeur du carburant initial","copy":"Copier le résumé","copied":"Copié ✓","suggestedStops":"Arrêts carburant recommandés","estimated":"ESTIMÉ","understanding":"Comprendre les estimations","disclaimer":"Les prix proviennent de données non datées, exprimées en USD par gallon. Le total inclut le carburant du réservoir initial et ne correspond donc pas uniquement à de nouveaux achats. Les arrêts sont des points approximatifs par ville, pas des pompes vérifiées.","documentation":"Code source et documentation de l'API","statusLoading":"Recherche de l'itinéraire et estimation des achats de carburant…","statusSuccess":"Itinéraire calculé. Vérifiez les arrêts approximatifs avant de voyager.","statusError":"Impossible de charger le trajet. Vérifiez votre connexion et réessayez.","apiError":"Impossible de calculer cet itinéraire.","copyError":"Impossible de copier le résumé. Vérifiez les autorisations du presse-papiers.","swapped":"Départ et arrivée inversés. Recalculez pour actualiser le trajet.","presetSelected":"Exemple sélectionné. Lancez le calcul pour voir le trajet.","noStops":"Aucun achat supplémentaire nécessaire avec le réservoir initial supposé plein.","buy":"Acheter","perGal":"/gal","approxStop":"Position approximative · Accès à la pompe non vérifié","focusMap":"Voir sur la carte ↗","focusAria":"Afficher la position approximative de l'arrêt {count} sur la carte","mapMapped":"Trajet tracé · {count} arrêts estimés","distanceMetric":"Distance routière","timeMetric":"Temps de conduite","stopsMetric":"Arrêts carburant","purchasesMetric":"Achats de carburant","hours":"h","minutes":"min","warningFuelTotal":"Valeur estimée du carburant du trajet : {total}, dont {initial} déjà présents dans le réservoir initial.","warningProviderCalls":"Appels au service d'itinéraires : {count}{cached}","cache":" (depuis le cache)","warningApprox":"Les arrêts sont des points approximatifs par ville, pas des entrées de stations vérifiées.","copyHeader":"Fuel Route Optimizer — estimation de trajet","copyDistance":"Distance","copyStops":"Arrêts estimés","copyPurchased":"Carburant acheté en route","copyTotal":"Valeur totale du carburant (réservoir initial inclus)","copyApprox":"Les emplacements des stations sont approximatifs et non vérifiés.","originTooltip":"Départ","destinationTooltip":"Arrivée","mapPopup":"position approximative","title":"Fuel Route Optimizer | Des trajets plus intelligents"},"pt":{"language":"Idioma","eyebrow":"Planejamento inteligente de viagens","heroDescription":"Planeje sua viagem pelos Estados Unidos, descubra paradas estimadas para abastecimento e entenda os custos do trajeto.","range":"Autonomia de 500 mi","efficiency":"10 milhas / galão","sectionKicker":"PLANEJE SUA VIAGEM","plannerTitle":"Sua rota, sem complicações","plannerDescription":"Trajeto, paradas para abastecer e custos estimados em um só lugar.","usRoutes":"Rotas nos Estados Unidos","formTitle":"Monte sua rota","formHelp":"Informe a origem e o destino nos Estados Unidos.","origin":"Origem","destination":"Destino","originState":"Sigla do estado de origem","destinationState":"Sigla do estado de destino","city":"Cidade","swap":"Inverter origem e destino","calculate":"Calcular rota e combustível","calculating":"Calculando rota…","samples":"ROTAS DE EXEMPLO","ready":"Tudo pronto. Escolha uma rota para ver distância, paradas e custos.","approxTitle":"Localizações aproximadas","approxBody":"Os marcadores representam cidades, não bombas verificadas. Confirme o acesso antes de viajar.","mapTitle":"Mapa interativo da rota","mapDescription":"Trajeto rodoviário real · Abastecimentos estimados","mapAppearance":"Aparência do mapa","streets":"Ruas","minimal":"Minimalista","night":"Noturno","mapAria":"Mapa interativo da rota e dos abastecimentos aproximados","mapReady":"Mapa pronto · Escolha uma rota","fitRoute":"Ver rota completa","mapLegend":"Legenda do mapa","fuelStops":"Paradas","roadRoute":"Rota rodoviária","mapAttribution":"© Colaboradores do OpenStreetMap · OpenFreeMap","metricsAria":"Estatísticas da rota","breakdownAria":"Detalhamento do custo do combustível","breakdownTitle":"Entenda o custo do combustível","breakdownHelp":"Uma estimativa, não um recibo de posto","tripFuelValue":"Valor total do combustível","startingFuel":"Valor do combustível inicial","copy":"Copiar resumo","copied":"Copiado ✓","suggestedStops":"Paradas sugeridas para abastecer","estimated":"ESTIMADO","understanding":"Entenda esta estimativa","disclaimer":"Os preços são estimativas de dados sem data, em USD por galão. O total inclui o combustível do tanque inicial, portanto nem tudo representa novas compras. As paradas são pontos aproximados por cidade, não bombas verificadas.","documentation":"Código-fonte e documentação da API","statusLoading":"Buscando a rota e calculando o abastecimento estimado…","statusSuccess":"Rota calculada. Confira as paradas aproximadas antes de viajar.","statusError":"Não foi possível carregar a rota. Verifique a conexão e tente novamente.","apiError":"Não foi possível calcular esta rota.","copyError":"Não foi possível copiar o resumo. Confira as permissões da área de transferência.","swapped":"Origem e destino invertidos. Calcule novamente para atualizar a rota.","presetSelected":"Exemplo selecionado. Calcule para explorar a rota.","noStops":"Não é necessário comprar mais combustível considerando o tanque inicial cheio.","buy":"Abastecer","perGal":"/gal","approxStop":"Localização aproximada · Acesso à bomba não verificado","focusMap":"Ver no mapa ↗","focusAria":"Mostrar a localização aproximada da parada {count} no mapa","mapMapped":"Rota traçada · {count} paradas estimadas","distanceMetric":"Distância","timeMetric":"Tempo de direção","stopsMetric":"Paradas","purchasesMetric":"Compras de combustível","hours":"h","minutes":"min","warningFuelTotal":"Valor estimado do combustível da viagem: {total}, incluindo {initial} já presentes no tanque inicial.","warningProviderCalls":"Consultas ao serviço de rotas: {count}{cached}","cache":" (do cache)","warningApprox":"As paradas são pontos aproximados por cidade, não entradas de postos verificadas.","copyHeader":"Fuel Route Optimizer — viagem estimada","copyDistance":"Distância","copyStops":"Paradas estimadas","copyPurchased":"Combustível comprado durante o trajeto","copyTotal":"Valor total do combustível (inclui tanque inicial)","copyApprox":"As posições dos postos são aproximadas e não foram verificadas.","originTooltip":"Origem","destinationTooltip":"Destino","mapPopup":"localização aproximada","title":"Fuel Route Optimizer | Viagens mais inteligentes"}};
     const supported = ['en','es','fr','pt'];
     const browserLanguage = (navigator.language || 'en').slice(0,2).toLowerCase();
     let stored = '';
