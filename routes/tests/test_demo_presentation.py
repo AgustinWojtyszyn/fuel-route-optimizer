@@ -1,5 +1,4 @@
 """Regression tests for the self-contained multilingual route-planner demo."""
-import base64
 import json
 import re
 
@@ -12,15 +11,13 @@ class DemoPresentationTests(SimpleTestCase):
         self.assertEqual(response.status_code, 200)
         return response.content.decode("utf-8")
 
-    def test_brand_images_are_embedded_and_valid(self):
+    def test_custom_brand_uses_no_flaticon_png(self):
         html = self.get_page()
-        images = re.findall(r'(?:src|href)="data:image/png;base64,([^"]+)"', html)
-        self.assertEqual(len(images), 2)  # favicon and compact navigation logo
-        for image in images:
-            binary = base64.b64decode(image, validate=True)
-            self.assertTrue(binary.startswith(b"\x89PNG\r\n\x1a\n"))
-        self.assertNotIn("{% static", html)
-        self.assertNotIn('src="/static/routes/bomba-de-gas.png"', html)
+        self.assertIn('href="/static/routes/favicon.svg"', html)
+        self.assertIn('class="brand-type"', html)
+        self.assertIn('class="brand-type__main"', html)
+        self.assertNotIn("data:image/png;base64,", html)
+        self.assertNotIn("bomba-de-gas.png", html)
 
     def test_four_languages_and_translated_ui_hooks_exist(self):
         html = self.get_page()
