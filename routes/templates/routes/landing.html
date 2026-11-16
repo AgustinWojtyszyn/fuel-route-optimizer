@@ -52,22 +52,50 @@
           </div>
           <p class="hero__foot" data-i18n="heroFoot">Built with Django, HeiGIT and OpenFreeMap</p>
         </div>
-        <figure class="instrument" aria-labelledby="instrumentName">
-          <div class="instrument__top">
-            <span id="instrumentName" class="instrument__title" data-i18n="instrumentTitle">Assumed driving range</span>
+        <figure class="instrument journey-card" aria-labelledby="instrumentName">
+          <header class="journey-card__head">
+            <p class="journey-card__eyebrow" data-i18n="journeyKicker">FUEL RANGE / CONCEPT DIAGRAM</p>
+            <h2 id="instrumentName" class="journey-card__title" data-i18n="instrumentTitle">One full tank. Up to 500 miles.</h2>
+          </header>
+          <div class="journey-visual">
+            <svg class="journey-route" viewBox="0 0 640 340" role="img" aria-labelledby="journeySvgTitle" xmlns="http://www.w3.org/2000/svg">
+              <title id="journeySvgTitle" data-i18n="journeySvgTitle">Schematic route with six equal-distance milestones from 0 to 500 miles.</title>
+              <defs>
+                <pattern id="journeyGrid" width="32" height="32" patternUnits="userSpaceOnUse">
+                  <path d="M32 0H0V32" class="journey-gridline" fill="none"/>
+                </pattern>
+              </defs>
+              <rect width="640" height="340" fill="url(#journeyGrid)" aria-hidden="true"/>
+              <g class="journey-contours" aria-hidden="true">
+                <path d="M-60 265C100 175 130 325 300 227S511 104 706 172"/>
+                <path d="M-80 315C90 225 159 360 321 263S532 140 700 209"/>
+                <path d="M-80 205C70 115 110 265 273 171S504 55 704 120"/>
+              </g>
+              <path class="journey-roadbed" d="M48 260C104 248 94 160 164 174C220 188 188 285 266 265C342 245 289 115 364 122C420 127 411 195 474 172C522 155 510 104 592 86" aria-hidden="true"/>
+              <path class="journey-road" d="M48 260C104 248 94 160 164 174C220 188 188 285 266 265C342 245 289 115 364 122C420 127 411 195 474 172C522 155 510 104 592 86" aria-hidden="true"/>
+              <g class="journey-nodes" aria-hidden="true">
+                <circle cx="48" cy="260" r="7"/>
+                <circle cx="165" cy="174" r="7"/>
+                <circle cx="270" cy="264" r="7"/>
+                <circle cx="334" cy="130" r="7"/>
+                <circle cx="468" cy="174" r="7"/>
+                <circle class="journey-node--end" cx="592" cy="86" r="12"/>
+              </g>
+              <g class="journey-labels" text-anchor="middle" aria-hidden="true">
+                <text x="48" y="301">0</text>
+                <text x="165" y="143">100</text>
+                <text x="270" y="306">200</text>
+                <text x="334" y="98">300</text>
+                <text x="468" y="212">400</text>
+                <text class="journey-label--end" x="588" y="53">500 mi</text>
+              </g>
+            </svg>
+            <p class="journey-visual__note" data-i18n="journeyDisclaimer">Illustrative mileage diagram, not an actual road route or verified fuel stop.</p>
           </div>
-          <div>
-            <div class="instrument__number"><strong>500</strong><span data-i18n="instrumentUnit">mi</span></div>
-            <p class="instrument__caption" data-i18n="instrumentCaption">Based on a full 50-gallon tank and 10 miles per gallon.</p>
-          </div>
-          <div class="instrument__track">
-            <div class="instrument__scale" role="meter" aria-valuemin="0" aria-valuemax="500" aria-valuenow="500" aria-label="Maximum assumed range: 500 miles" data-i18n-aria="maxRangeLabel">
-              <span class="instrument__scale-rail" aria-hidden="true"></span>
-              <span class="instrument__scale-point" aria-hidden="true"></span>
-            </div>
-            <div class="instrument__ruler" aria-hidden="true"><span>0</span><span>100</span><span>200</span><span>300</span><span>400</span><span>500 mi</span></div>
-          </div>
-
+          <dl class="journey-measures">
+            <div><dt data-i18n="journeyTank">Starting tank</dt><dd>50 <span>gal</span></dd></div>
+            <div><dt data-i18n="journeyEfficiency">Fuel efficiency</dt><dd>10 <span>mpg</span></dd></div>
+          </dl>
         </figure>
       </section>
       <section class="method" id="features" aria-labelledby="methodHeading">
