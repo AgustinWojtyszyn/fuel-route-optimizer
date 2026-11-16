@@ -1,7 +1,7 @@
 /* Landing-only narrative and illustration. It never calls the routing API. */
 (() => {
   const translations = {
-    en:{
+    en:{navLabel:"Primary navigation",homeLabel:"Fuel Route Optimizer home",languageLabel:"Language",
       navMethod:"The method",navPlanner:"Route planner",headline:"Distance tells half the story.",
       intro:"The other half is fuel. Explore US road routes, estimate where refueling may be needed and understand the cost assumptions before you drive.",
       cta:"Open the route planner",secondary:"Explore the method",heroFoot:"Built with Django, HeiGIT and OpenFreeMap",
@@ -20,7 +20,7 @@
       disclaimer:"Fuel prices are undated observations. Suggested station markers use approximate city positions, not verified pump entrances.",
       footerLink:"Source code",pageTitle:"Fuel Route Optimizer | Fuel-aware US route planning"
     },
-    es:{
+    es:{navLabel:"Navegación principal",homeLabel:"Inicio de Fuel Route Optimizer",languageLabel:"Idioma",
       navMethod:"El método",navPlanner:"Planificador",headline:"La distancia cuenta solo la mitad.",
       intro:"La otra mitad es el combustible. Explorá rutas por Estados Unidos, estimá cuándo podrías necesitar cargar y entendé los supuestos antes de salir.",
       cta:"Abrir el planificador",secondary:"Conocer el método",heroFoot:"Desarrollado con Django, HeiGIT y OpenFreeMap",
@@ -39,7 +39,7 @@
       disclaimer:"Los precios provienen de observaciones sin fecha. Los marcadores son ubicaciones aproximadas por ciudad, no surtidores verificados.",
       footerLink:"Código fuente",pageTitle:"Fuel Route Optimizer | Planificación de rutas en EE. UU."
     },
-    fr:{
+    fr:{navLabel:"Navigation principale",homeLabel:"Accueil de Fuel Route Optimizer",languageLabel:"Langue",
       navMethod:"La méthode",navPlanner:"Planificateur",headline:"La distance ne dit pas tout.",
       intro:"Le carburant compte aussi. Explorez des itinéraires aux États-Unis, estimez les besoins en ravitaillement et comprenez les hypothèses avant le départ.",
       cta:"Ouvrir le planificateur",secondary:"Découvrir la méthode",heroFoot:"Conçu avec Django, HeiGIT et OpenFreeMap",
@@ -58,7 +58,7 @@
       disclaimer:"Les prix proviennent d'observations non datées. Les marqueurs indiquent des villes approximatives, et non des pompes vérifiées.",
       footerLink:"Code source",pageTitle:"Fuel Route Optimizer | Itinéraires et carburant"
     },
-    pt:{
+    pt:{navLabel:"Navegação principal",homeLabel:"Página inicial do Fuel Route Optimizer",languageLabel:"Idioma",
       navMethod:"O método",navPlanner:"Planejador",headline:"A distância é só metade da história.",
       intro:"A outra metade é combustível. Explore rotas nos Estados Unidos, estime onde será preciso abastecer e entenda as premissas antes de viajar.",
       cta:"Abrir o planejador",secondary:"Conhecer o método",heroFoot:"Desenvolvido com Django, HeiGIT e OpenFreeMap",
@@ -118,6 +118,10 @@
     document.querySelectorAll('[data-i18n]').forEach(element=>{
       const copy=translations[language][element.dataset.i18n];
       if(typeof copy==='string')element.textContent=copy;
+    });
+    document.querySelectorAll('[data-i18n-aria]').forEach(element=>{
+      const copy=translations[language][element.dataset.i18nAria];
+      if(typeof copy==='string')element.setAttribute('aria-label',copy);
     });
     updateRange();
     document.dispatchEvent(new Event('fuel:language-change'));
