@@ -5,7 +5,7 @@
       navMethod:"The method",navPlanner:"Route planner",headline:"Distance tells half the story.",
       intro:"The other half is fuel. Explore US road routes, estimate where refueling may be needed and understand the cost assumptions before you drive.",
       cta:"Open the route planner",secondary:"Explore the method",heroFoot:"Built with Django, HeiGIT and OpenFreeMap",
-      instrumentTitle:"The range assumption",instrumentSub:"Five equal 100-mile sections",
+      instrumentTitle:"The range assumption",instrumentSub:"A calibrated 500-mile reference scale",maxRangeLabel:"Maximum assumed range: 500 miles",presetsLabel:"Example distances",
       instrumentUnit:"mi",instrumentCaption:"An assumed full tank covers up to 500 miles at 10 mpg.",
       instrumentBottom:"50 gallons in the starting tank, assumed full.",instrumentFormula:"50 gal × 10 mpg",
       methodHeading:"The road. The prices. The decision.",
@@ -24,7 +24,7 @@
       navMethod:"El método",navPlanner:"Planificador",headline:"La distancia cuenta solo la mitad.",
       intro:"La otra mitad es el combustible. Explorá rutas por Estados Unidos, estimá cuándo podrías necesitar cargar y entendé los supuestos antes de salir.",
       cta:"Abrir el planificador",secondary:"Conocer el método",heroFoot:"Desarrollado con Django, HeiGIT y OpenFreeMap",
-      instrumentTitle:"La autonomía supuesta",instrumentSub:"Cinco tramos iguales de 100 millas",
+      instrumentTitle:"La autonomía supuesta",instrumentSub:"Escala de referencia de 500 millas",maxRangeLabel:"Autonomía máxima supuesta: 500 millas",presetsLabel:"Distancias de ejemplo",
       instrumentUnit:"mi",instrumentCaption:"Suponemos que un tanque lleno permite recorrer hasta 500 millas a 10 MPG.",
       instrumentBottom:"50 galones en el tanque inicial, supuesto lleno.",instrumentFormula:"50 gal × 10 mpg",
       methodHeading:"El camino. Los precios. La decisión.",
@@ -43,7 +43,7 @@
       navMethod:"La méthode",navPlanner:"Planificateur",headline:"La distance ne dit pas tout.",
       intro:"Le carburant compte aussi. Explorez des itinéraires aux États-Unis, estimez les besoins en ravitaillement et comprenez les hypothèses avant le départ.",
       cta:"Ouvrir le planificateur",secondary:"Découvrir la méthode",heroFoot:"Conçu avec Django, HeiGIT et OpenFreeMap",
-      instrumentTitle:"Hypothèse d'autonomie",instrumentSub:"Cinq segments égaux de 100 miles",
+      instrumentTitle:"Hypothèse d'autonomie",instrumentSub:"Échelle de référence de 500 miles",maxRangeLabel:"Autonomie maximale supposée : 500 miles",presetsLabel:"Distances exemples",
       instrumentUnit:"mi",instrumentCaption:"Un plein est supposé permettre jusqu'à 500 miles à 10 miles par gallon.",
       instrumentBottom:"50 gallons dans le réservoir de départ, supposé plein.",instrumentFormula:"50 gal × 10 mpg",
       methodHeading:"La route. Les prix. Le choix.",
@@ -62,7 +62,7 @@
       navMethod:"O método",navPlanner:"Planejador",headline:"A distância é só metade da história.",
       intro:"A outra metade é combustível. Explore rotas nos Estados Unidos, estime onde será preciso abastecer e entenda as premissas antes de viajar.",
       cta:"Abrir o planejador",secondary:"Conhecer o método",heroFoot:"Desenvolvido com Django, HeiGIT e OpenFreeMap",
-      instrumentTitle:"Autonomia considerada",instrumentSub:"Cinco partes iguais de 100 milhas",
+      instrumentTitle:"Autonomia considerada",instrumentSub:"Escala de referência de 500 milhas",maxRangeLabel:"Autonomia máxima estimada: 500 milhas",presetsLabel:"Distâncias de exemplo",
       instrumentUnit:"mi",instrumentCaption:"Um tanque cheio é considerado suficiente para até 500 milhas a 10 mpg.",
       instrumentBottom:"50 galões no tanque inicial, considerado cheio.",instrumentFormula:"50 gal × 10 mpg",
       methodHeading:"A estrada. Os preços. A decisão.",
@@ -99,6 +99,9 @@
     document.getElementById('distanceValue').textContent=formatNumber(distance);
     document.getElementById('refillValue').textContent=formatNumber(refills);
     document.getElementById('gallonsValue').textContent=formatNumber(usedGallons);
+    document.querySelectorAll('[data-distance]').forEach(button=>{
+      button.setAttribute('aria-pressed',String(Number(button.dataset.distance)===distance));
+    });
     rangeVisual.replaceChildren();
     let remaining=distance;
     while(remaining>0){
@@ -133,5 +136,12 @@
     apply();
   });
   slider?.addEventListener('input',updateRange);
+  document.querySelectorAll('[data-distance]').forEach(button=>{
+    button.addEventListener('click',()=>{
+      if(!slider)return;
+      slider.value=button.dataset.distance;
+      updateRange();
+    });
+  });
   apply();
 })();
