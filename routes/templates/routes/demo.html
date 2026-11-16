@@ -6,6 +6,7 @@
   <meta name="description" content="Django API demo for cost-aware US fuel stops using HeiGIT routing.">
   <title>Fuel Route Optimizer — Django API demo</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@6.3.0/dist/maplibre-gl.css">
   <style>
     :root{color-scheme:light;--ink:#12233f;--muted:#576782;--line:#dce4ee;--accent:#165ee8;--bg:#f5f8fd;--card:#fff;--warning:#fff7e8}
     [hidden]{display:none!important}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,Arial,sans-serif}
@@ -81,14 +82,21 @@
     </section>
   </main>
   <footer class="shell">Fuel prices are undated assumptions in USD/gallon. The total includes the estimated value of fuel in the starting tank; it is not entirely new spending. <a href="https://github.com/AgustinWojtyszyn/fuel-route-optimizer">Source and API documentation</a>.</footer>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
+  <script type="importmap">
+    {"imports":{
+      "leaflet":"https://unpkg.com/leaflet@1.9.4/dist/leaflet-src.esm.js",
+      "maplibre-gl":"https://unpkg.com/maplibre-gl@6.3.0/dist/maplibre-gl.mjs"
+    }}
+  </script>
+  <script type="module">
+    import * as L from "leaflet";
+    import {maplibreGL} from "https://unpkg.com/@maplibre/maplibre-gl-leaflet@0.1.4/dist/leaflet-maplibre-gl.mjs";
     'use strict';
     const select = name => document.getElementById(name);
     const availableMap = typeof L !== 'undefined';
     const map = availableMap ? L.map('map', {scrollWheelZoom:false}).setView([39,-98],4) : null;
-    if (map) L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution:'© OpenStreetMap contributors', maxZoom:18
+    if (map) maplibreGL({
+      style:'https://tiles.openfreemap.org/styles/liberty'
     }).addTo(map);
     let activeLayer = null;
     function status(message, isError) {
