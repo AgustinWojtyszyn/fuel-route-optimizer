@@ -25,16 +25,17 @@ def exhaustive(distance, stations):
 
 def example_plan():
     return {
-        'route': {'leg_distances_miles': [400, 300]},
+        'route': {'distance_miles': 700, 'leg_distances_miles': [400, 300]},
         'vehicle': {'mpg': 10, 'assumed_tank_gallons': 50, 'initial_fuel_gallons': 50},
         'stops': [{
-            'gallons_to_buy': '20.0000', 'price_usd_per_gallon': '3.00000000',
+            'route_mile': 400, 'gallons_to_buy': '20.0000', 'price_usd_per_gallon': '3.00000000',
             'stop_cost_usd': '60.00', 'fuel_before_stop_gallons': '10.0000',
             'fuel_after_stop_gallons': '30.0000',
         }],
         'fuel': {
             'consumed_gallons': '70.0000', 'purchased_en_route_gallons': '20.0000',
             'purchased_en_route_usd': '60.00', 'initial_fuel_estimated_cost_usd': '200.00',
+            'initial_fuel_reference_price_usd_per_gallon': '4.00',
             'estimated_total_trip_cost_usd': '260.00',
             'remaining_at_destination_gallons': '0.0000',
         },
