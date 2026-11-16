@@ -30,7 +30,7 @@
             <span class="theme-text" data-theme-text>Light</span>
           </button>
           <label>
-            <span class="visually-hidden">Language</span>
+            <span class="visually-hidden" data-i18n="languageLabel">Language</span>
             <select id="language" class="locale-select" aria-label="Language" data-i18n-aria="languageLabel">
               <option value="en">EN / English</option>
               <option value="es">ES / Español</option>
@@ -54,8 +54,8 @@
         </div>
         <figure class="instrument journey-card" aria-labelledby="instrumentName">
           <header class="journey-card__head">
-            <p class="journey-card__eyebrow" data-i18n="journeyKicker">FUEL RANGE / CONCEPT DIAGRAM</p>
             <h2 id="instrumentName" class="journey-card__title" data-i18n="instrumentTitle">One full tank. Up to 500 miles.</h2>
+            <p class="journey-card__caption" data-i18n="journeyKicker">Conceptual fuel range</p>
           </header>
           <div class="journey-visual">
             <svg class="journey-route" viewBox="0 0 640 340" role="img" aria-labelledby="journeySvgTitle" xmlns="http://www.w3.org/2000/svg">
@@ -104,9 +104,9 @@
           <p data-i18n="methodIntro">Real route geometry meets the supplied fuel-price dataset. The result separates money spent on new fuel from the estimated value already in the starting tank.</p>
         </div>
         <div class="method__rows">
-          <article class="method-row"><span class="method-row__index">01</span><h3 data-i18n="method1Title">Follow the road</h3><p data-i18n="method1Text">HeiGIT provides road distance and geometry for the route you request. This is not a straight-line mileage estimate.</p></article>
-          <article class="method-row"><span class="method-row__index">02</span><h3 data-i18n="method2Title">Consider fuel prices</h3><p data-i18n="method2Text">The supplied dataset contains undated fuel-price observations. Station locations are approximate city coordinates.</p></article>
-          <article class="method-row"><span class="method-row__index">03</span><h3 data-i18n="method3Title">Show the trade-off</h3><p data-i18n="method3Text">The optimizer proposes fuel purchases and reports their cost, alongside the assumptions and limitations.</p></article>
+          <article class="method-row"><h3 data-i18n="method1Title">Follow the road</h3><p data-i18n="method1Text">HeiGIT provides road distance and geometry for the route you request. This is not a straight-line mileage estimate.</p></article>
+          <article class="method-row"><h3 data-i18n="method2Title">Consider fuel prices</h3><p data-i18n="method2Text">The supplied dataset contains undated fuel-price observations. Station locations are approximate city coordinates.</p></article>
+          <article class="method-row"><h3 data-i18n="method3Title">Show the trade-off</h3><p data-i18n="method3Text">The optimizer proposes fuel purchases and reports their cost, alongside the assumptions and limitations.</p></article>
         </div>
       </section>
       <section class="lab" aria-labelledby="labHeading">

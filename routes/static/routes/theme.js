@@ -25,13 +25,14 @@
     if(text)text.textContent=translations[target+'Short'];
     const darkIcon=button.querySelector('[data-theme-dark-icon]');
     const lightIcon=button.querySelector('[data-theme-light-icon]');
-    if(darkIcon)darkIcon.hidden=mode!=='light';
-    if(lightIcon)lightIcon.hidden=mode!=='dark';
+    if(darkIcon)darkIcon.toggleAttribute('hidden',mode!=='light');
+    if(lightIcon)lightIcon.toggleAttribute('hidden',mode!=='dark');
   }
   button?.addEventListener('click',()=>{
     mode=mode==='dark'?'light':'dark';
     try{localStorage.setItem(KEY,mode);}catch(_){}
     redraw();
+    document.dispatchEvent(new Event('fuel:theme-change'));
   });
   document.addEventListener('fuel:language-change',redraw);
   redraw();
