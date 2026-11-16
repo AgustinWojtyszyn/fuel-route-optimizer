@@ -68,6 +68,14 @@ class LandingExperienceTests(SimpleTestCase):
         self.assertIn(':root[data-theme="light"]', landing_css)
         self.assertIn("prefers-reduced-motion", landing_css)
 
+    def test_range_instrument_explains_assumptions_once(self):
+        html = self.client.get("/").content.decode("utf-8")
+        self.assertIn('data-i18n="instrumentTitle">Assumed driving range', html)
+        self.assertIn('data-i18n="instrumentCaption">Based on a full 50-gallon tank', html)
+        self.assertNotIn('data-i18n="instrumentFormula"', html)
+        self.assertNotIn('class="instrument__bottom"', html)
+        self.assertNotIn('A calibrated 500-mile reference scale', html)
+
     def test_own_brand_is_used_consistently_across_both_pages(self):
         for route in ("/", "/demo/"):
             with self.subTest(route=route):
