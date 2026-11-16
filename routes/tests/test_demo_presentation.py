@@ -14,7 +14,7 @@ class DemoPresentationTests(SimpleTestCase):
     def test_brand_images_are_embedded_and_valid(self):
         html = self.get_page()
         images = re.findall(r'(?:src|href)="data:image/png;base64,([^"]+)"', html)
-        self.assertEqual(len(images), 3)  # favicon plus two branding placements
+        self.assertEqual(len(images), 2)  # favicon and compact navigation logo
         for image in images:
             binary = base64.b64decode(image, validate=True)
             self.assertTrue(binary.startswith(b"\x89PNG\r\n\x1a\n"))
@@ -37,3 +37,11 @@ class DemoPresentationTests(SimpleTestCase):
             self.assertIn(f'id="{element}"', html)
         self.assertIn("/api/v1/routes/optimize/", html)
         self.assertIn("tiles.openfreemap.org/styles/liberty", html)
+
+    def test_workspace_is_map_first_without_decorative_hero(self):
+        html = self.get_page()
+        self.assertNotIn('<div class="hero">', html)
+        self.assertIn('class="layout"', html)
+        self.assertIn('class="map-canvas"', html)
+        self.assertIn('class="style-switcher"', html)
+        self.assertIn('data-i18n="plannerTitle"', html)
