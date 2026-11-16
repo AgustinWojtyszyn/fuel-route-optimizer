@@ -1,78 +1,118 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#111d1b">
-  <meta name="description" content="Explore a US fuel-aware route planning API built with Django, HeiGIT and OpenFreeMap.">
-  <title>Fuel Route Optimizer | US route planner</title>
-  <link rel="stylesheet" href="/static/routes/product.css">
+  <meta name="theme-color" content="#101817">
+  <meta name="description" content="Understand the assumptions behind US fuel-aware routing, then explore real road routes and estimated purchases in the planner.">
+  <title>Fuel Route Optimizer | Fuel-aware US route planning</title>
+  <link rel="icon" type="image/png" href="data:image/png;base64,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">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('fuel-route-theme')==='light'?'light':'dark'}catch(_){document.documentElement.dataset.theme='dark'}</script>
+  <link rel="stylesheet" href="/static/routes/landing.css">
+  <script defer src="/static/routes/theme.js"></script>
+  <script defer src="/static/routes/landing.js"></script>
 </head>
-<body class="landing-page">
-  <div class="wrap">
-    <header class="top">
-      <a class="brand" href="/" aria-label="Fuel Route Optimizer home"><span class="logo" aria-hidden="true"><img alt="" width="26" height="26" src="data:image/png;base64,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"></span> FUEL ROUTE / OPTIMIZER</a>
-      <nav class="nav" aria-label="Primary navigation"><a href="#features" data-i18n="navHow">How it works</a><a href="/demo/" data-i18n="navPlanner">Planner</a>
-        <label><span class="sr-only">Language</span>
-          <select id="language" aria-label="Language">
-            <option value="en">EN / English</option><option value="es">ES / Español</option><option value="fr">FR / Français</option><option value="pt">PT / Português</option>
-          </select>
-        </label>
-      </nav>
+<body>
+  <div class="page-shell">
+    <header class="site-nav">
+      <a href="/" class="wordmark" aria-label="Fuel Route Optimizer home">
+        <span class="wordmark__icon"><img src="data:image/png;base64,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" alt="" width="30" height="30"></span>
+        <span>Fuel Route Optimizer</span>
+      </a>
+      <div class="nav-right">
+        <nav aria-label="Primary navigation">
+          <a class="nav-link nav-link--method" href="#features" data-i18n="navMethod">The method</a>
+        </nav>
+        <a class="nav-link nav-link--planner" href="/demo/" data-i18n="navPlanner">Route planner</a>
+        <div class="toolbar">
+          <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to light mode">
+            <svg data-theme-light-icon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20 15.3A8.5 8.5 0 0 1 8.7 4 8.5 8.5 0 1 0 20 15.3Z"/></svg>
+            <svg data-theme-dark-icon hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2m10-10h-2M4 12H2m17.1-7.1-1.4 1.4M6.3 17.7l-1.4 1.4m14.2 0-1.4-1.4M6.3 6.3 4.9 4.9"/></svg>
+            <span class="theme-text" data-theme-text>Light</span>
+          </button>
+          <label>
+            <span class="visually-hidden">Language</span>
+            <select id="language" class="locale-select" aria-label="Language">
+              <option value="en">EN / English</option>
+              <option value="es">ES / Español</option>
+              <option value="fr">FR / Français</option>
+              <option value="pt">PT / Português</option>
+            </select>
+          </label>
+        </div>
+      </div>
     </header>
     <main>
       <section class="hero" aria-labelledby="pageTitle">
-        <div>
-          <h1 id="pageTitle"><span data-i18n="headline1">US routes, fully in view.</span><span data-i18n="headline2"></span></h1>
-          <p class="lead" data-i18n="description">Plan your drive with road distances and transparent fuel estimates.</p>
-          <div class="actions">
-            <a class="button primary" href="/demo/"><span data-i18n="cta">Open the route planner</span></a>
-            <a class="source-link" href="https://github.com/AgustinWojtyszyn/fuel-route-optimizer" target="_blank" rel="noopener noreferrer"><span data-i18n="source">Explore the code</span></a>
+        <div class="hero__copy">
+          <h1 id="pageTitle" data-i18n="headline">Distance tells half the story.</h1>
+          <p class="hero__intro" data-i18n="intro">The other half is fuel. Explore US road routes, estimate where refueling may be needed and understand the cost assumptions before you drive.</p>
+          <div class="hero__actions">
+            <a class="action action--primary" href="/demo/"><span data-i18n="cta">Open the route planner</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+            <a class="action action--secondary" href="#features" data-i18n="secondary">Explore the method</a>
           </div>
-          <p class="notes"><span data-i18n="pill1">500-mile assumed range</span><span data-i18n="pill2">10 miles per gallon</span><span data-i18n="pill3">Django REST API</span></p>
+          <p class="hero__foot" data-i18n="heroFoot">Django API · HeiGIT routing · OpenFreeMap</p>
         </div>
-        <figure class="product-view">
-          <a href="/demo/" aria-label="Open Fuel Route Optimizer"><picture><source media="(max-width: 760px)" srcset="/static/routes/planner-map-preview.png"><img src="/static/routes/planner-preview.png" width="1440" height="960" fetchpriority="high" alt="Fuel Route Optimizer: US city inputs beside the interactive OpenFreeMap map"></picture></a>
-          <figcaption><span data-i18n="visualNote">The real planner. Choose your cities to calculate a route.</span><span class="preview-attribution">© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a> / <a href="https://openfreemap.org/">OpenFreeMap</a></span></figcaption>
+        <figure class="instrument" aria-labelledby="instrumentName">
+          <div class="instrument__top">
+            <span id="instrumentName" class="instrument__title" data-i18n="instrumentTitle">The range assumption</span>
+            <span class="instrument__sub" data-i18n="instrumentSub">An instrument, not a route preview</span>
+          </div>
+          <div>
+            <div class="instrument__number"><strong>500</strong><span data-i18n="instrumentUnit">mi</span></div>
+            <p class="instrument__caption" data-i18n="instrumentCaption">An assumed full tank covers up to 500 miles at 10 mpg.</p>
+          </div>
+          <div class="instrument__track" aria-hidden="true">
+            <div class="instrument__glyph">
+              <span style="--h:38%"></span><span style="--h:54%"></span><span style="--h:68%"></span><span style="--h:84%"></span><span style="--h:100%"></span>
+            </div>
+            <div class="instrument__ruler"><span>0 mi</span><span>125</span><span>250</span><span>375</span><span>500 mi</span></div>
+          </div>
+          <figcaption class="instrument__bottom">
+            <span data-i18n="instrumentBottom">50 gallons in the starting tank, assumed full.</span>
+            <strong data-i18n="instrumentFormula">50 gal × 10 mpg</strong>
+          </figcaption>
         </figure>
       </section>
-      <section class="section" id="features">
-        <div><h2 data-i18n="featuresTitle">Built around the journey.</h2><p data-i18n="featuresIntro">One API, a real road route and transparent fuel assumptions.</p></div>
-        <div class="features">
-          <article class="feature"><h3 data-i18n="f1Title">Real driving geometry</h3><p data-i18n="f1Text">Route distances and road shapes come from HeiGIT openrouteservice, not straight-line guesses.</p></article>
-          <article class="feature"><h3 data-i18n="f2Title">Fuel purchase estimates</h3><p data-i18n="f2Text">See suggested purchase quantities and new spending with a fixed 500-mile vehicle range.</p></article>
-          <article class="feature"><h3 data-i18n="f3Title">Understand the limits</h3><p data-i18n="f3Text">Station markers are approximate city locations, not verified pump entrances. Price observations have no dates.</p></article>
+      <section class="method" id="features" aria-labelledby="methodHeading">
+        <div class="method__heading">
+          <h2 id="methodHeading" data-i18n="methodHeading">The road. The prices. The decision.</h2>
+          <p data-i18n="methodIntro">Real route geometry meets the supplied fuel-price dataset. The result separates money spent on new fuel from the estimated value already in the starting tank.</p>
+        </div>
+        <div class="method__rows">
+          <article class="method-row"><span class="method-row__index">01</span><h3 data-i18n="method1Title">Follow the road</h3><p data-i18n="method1Text">HeiGIT provides road distance and geometry for the route you request. This is not a straight-line mileage estimate.</p></article>
+          <article class="method-row"><span class="method-row__index">02</span><h3 data-i18n="method2Title">Consider fuel prices</h3><p data-i18n="method2Text">The supplied dataset contains undated fuel-price observations. Station locations are approximate city coordinates.</p></article>
+          <article class="method-row"><span class="method-row__index">03</span><h3 data-i18n="method3Title">Show the trade-off</h3><p data-i18n="method3Text">The optimizer proposes fuel purchases and reports their cost, alongside the assumptions and limitations.</p></article>
         </div>
       </section>
+      <section class="lab" aria-labelledby="labHeading">
+        <div class="lab__frame">
+          <div>
+            <h2 id="labHeading" data-i18n="labHeading">What does 500 miles really mean?</h2>
+            <p class="lab__intro" data-i18n="labIntro">Change a hypothetical trip distance to see how the assumed range affects fuel consumption and the minimum number of refills.</p>
+            <p class="lab__warning" data-i18n="labWarning">Illustration only. These are arithmetic limits, not a road route, verified stations or optimized purchases.</p>
+          </div>
+          <div class="lab__work">
+            <label class="lab__label" for="distanceSlider"><span data-i18n="distanceLabel">Hypothetical distance</span><span><output id="distanceValue" for="distanceSlider">1,050</output> <span data-i18n="distanceUnit">miles</span></span></label>
+            <input class="lab__slider" type="range" id="distanceSlider" min="100" max="1500" step="50" value="1050">
+            <div class="lab__scale" aria-hidden="true"><span>100 mi</span><span>750 mi</span><span>1500 mi</span></div>
+            <div class="lab__segments" id="rangeSegments" aria-hidden="true"><span class="lab__segment"></span></div>
+            <div class="lab__results" aria-live="polite">
+              <div class="lab__result"><span data-i18n="stopsLabel">Minimum refills</span><strong id="refillValue">2</strong></div>
+              <div class="lab__result"><span data-i18n="gallonsLabel">Fuel consumed</span><strong><span id="gallonsValue">105</span> <small data-i18n="gallonsUnit">gallons</small></strong></div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="close" aria-labelledby="closeHeading">
+        <div><h2 id="closeHeading" data-i18n="closeHeading">Ready to test a real route?</h2><p data-i18n="closeText">Choose two US cities to see the actual road geometry, estimated fuel stops and fuel costs.</p></div>
+        <a class="action action--primary" href="/demo/"><span data-i18n="closeCta">Start planning</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+      </section>
     </main>
-    <footer class="bottom"><span data-i18n="footer">A Django / HeiGIT technical demonstration / Estimated fuel costs, not live pump prices.</span><a href="/demo/" data-i18n="footerCta">Start planning</a></footer>
+    <footer class="footer">
+      <p data-i18n="disclaimer">Fuel prices are undated observations. Suggested station markers use approximate city positions, not verified pump entrances.</p>
+      <a data-i18n="footerLink" href="https://github.com/AgustinWojtyszyn/fuel-route-optimizer" target="_blank" rel="noopener noreferrer">Source code</a>
+    </footer>
   </div>
-  <script>
-    (function(){
-      const locales={
-        en:{navHow:"How it works",navPlanner:"Planner",overline:"A ROUTE PLANNER BUILT FOR CLARITY",headline1:"US routes, fully in view.",headline2:"",description:"Plan your drive with road distances and transparent fuel estimates.",cta:"Open the route planner",source:"Explore the code",pill1:"500-mile assumed range",pill2:"10 miles per gallon",pill3:"Django REST API",visualTitle:"A clearer way to plan",legend1:"01  Route geometry",legend2:"02  Fuel estimates",legend3:"03  Clear breakdown",visualNote:"The real planner. Choose your cities to calculate a route.",overline2:"THE APPROACH",featuresTitle:"The route. The fuel. The assumptions.",featuresIntro:"One API, a real road route and transparent fuel assumptions.",f1Title:"Real driving geometry",f1Text:"Route distances and road shapes come from HeiGIT openrouteservice, not straight-line guesses.",f2Title:"Fuel purchase estimates",f2Text:"See suggested purchase quantities and new spending with a fixed 500-mile vehicle range.",f3Title:"Understand the limits",f3Text:"Station markers are approximate city locations, not verified pump entrances. Price observations have no dates.",footer:"A Django / HeiGIT technical demonstration / Estimated fuel costs, not live pump prices.",footerCta:"Start planning"},
-        es:{navHow:"Cómo funciona",navPlanner:"Planificador",overline:"UN PLANIFICADOR PENSADO PARA LA CLARIDAD",headline1:"Tu ruta por EE. UU., clara.",headline2:"",description:"Planificá con distancias por carretera y estimaciones transparentes de combustible.",cta:"Abrir el planificador",source:"Explorar el código",pill1:"Autonomía supuesta: 500 millas",pill2:"10 millas por galón",pill3:"API REST con Django",visualTitle:"Una forma más clara de planificar",legend1:"01  Recorrido",legend2:"02  Estimaciones",legend3:"03  Desglose",visualNote:"El planificador real. Elegí tus ciudades para calcular una ruta.",overline2:"EL ENFOQUE",featuresTitle:"El recorrido. El combustible. Los supuestos.",featuresIntro:"Una API, recorridos reales y supuestos transparentes.",f1Title:"Recorridos por carretera",f1Text:"Las distancias y geometrías provienen de HeiGIT openrouteservice, no de líneas rectas.",f2Title:"Estimaciones de combustible",f2Text:"Consultá cantidades sugeridas y nuevos gastos con una autonomía fija de 500 millas.",f3Title:"Limitaciones claras",f3Text:"Los marcadores son ubicaciones aproximadas por ciudad, no surtidores verificados. Los precios no tienen fecha.",footer:"Demostración técnica con Django y HeiGIT / Costos estimados, no precios actuales.",footerCta:"Planificar ruta"},
-        fr:{navHow:"Fonctionnement",navPlanner:"Planificateur",overline:"PLANIFIEZ EN TOUTE CLARTÉ",headline1:"Vos trajets américains, en clair.",headline2:"",description:"Planifiez avec des distances routières et des estimations de carburant transparentes.",cta:"Ouvrir le planificateur",source:"Voir le code",pill1:"Autonomie supposée : 500 miles",pill2:"10 miles par gallon",pill3:"API REST Django",visualTitle:"Une planification plus claire",legend1:"01  Itinéraire",legend2:"02  Carburant",legend3:"03  Détails",visualNote:"Le vrai planificateur. Choisissez vos villes pour calculer un trajet.",overline2:"NOTRE APPROCHE",featuresTitle:"Le trajet. Le carburant. Les hypothèses.",featuresIntro:"Une API, de vraies routes et des hypothèses explicites.",f1Title:"Itinéraires routiers",f1Text:"Les distances et tracés proviennent de HeiGIT openrouteservice, pas de lignes droites.",f2Title:"Achats de carburant estimés",f2Text:"Consultez les quantités et dépenses estimées avec une autonomie fixe de 500 miles.",f3Title:"Limites explicites",f3Text:"Les marqueurs représentent des centres de villes, pas des pompes vérifiées. Les prix ne sont pas datés.",footer:"Démo technique Django / HeiGIT / Coûts estimés, pas de prix en temps réel.",footerCta:"Planifier un trajet"},
-        pt:{navHow:"Como funciona",navPlanner:"Planejador",overline:"PLANEJAMENTO COM CLAREZA",headline1:"Sua rota nos EUA, por inteiro.",headline2:"",description:"Planeje com distâncias rodoviárias e estimativas transparentes de combustível.",cta:"Abrir planejador",source:"Explorar o código",pill1:"Autonomia estimada: 500 milhas",pill2:"10 milhas por galão",pill3:"API REST Django",visualTitle:"Uma forma mais clara de planejar",legend1:"01  Rota",legend2:"02  Combustível",legend3:"03  Detalhamento",visualNote:"O planejador real. Escolha suas cidades para calcular uma rota.",overline2:"A ABORDAGEM",featuresTitle:"A rota. O combustível. As premissas.",featuresIntro:"Uma API, rotas reais e premissas transparentes.",f1Title:"Rotas rodoviárias reais",f1Text:"Distâncias e trajetos vêm do HeiGIT openrouteservice, não de linhas retas.",f2Title:"Estimativas de combustível",f2Text:"Veja quantidades e custos estimados com autonomia fixa de 500 milhas.",f3Title:"Limitações claras",f3Text:"Marcadores representam cidades aproximadas, não bombas verificadas. Os preços não têm data.",footer:"Demonstração técnica Django / HeiGIT / Custos estimados, não preços atuais.",footerCta:"Planejar rota"}
-      };
-      let lang=(navigator.language||'en').slice(0,2).toLowerCase();
-      try{lang=localStorage.getItem('fuel-route-language')||lang}catch(_){}
-      if(!locales[lang])lang='en';
-      function apply(){
-        document.documentElement.lang=lang==='pt'?'pt-BR':lang;
-        document.getElementById('language').value=lang;
-        document.querySelectorAll('[data-i18n]').forEach(el=>{
-          const value=locales[lang][el.dataset.i18n];
-          if(value)el.textContent=value;
-        });
-      }
-      document.getElementById('language').addEventListener('change',e=>{
-        lang=e.target.value;
-        try{localStorage.setItem('fuel-route-language',lang)}catch(_){}
-        apply();
-      });
-      apply();
-    })();
-  </script>
 </body>
 </html>
