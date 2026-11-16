@@ -41,11 +41,17 @@ class Command(BaseCommand):
                             len(row['City'].strip()) > 160 or
                             len(row['State'].strip()) != 2):
                         raise ValueError(f'Invalid text length at row {line}')
-                    seen.add(tuple(row.items()))
+                    # Identical source rows do not constitute independent
+                    # price observations; counting them skews the lower median.
+                    # Normalize padding first to avoid duplicate whitespace.
+                    source_row = tuple(row[column].strip() for column in HEADER)
+                    duplicate = source_row in seen
+                    seen.add(source_row)
                     state = row['State'].strip().upper()
                     if state not in US_STATES: continue
                     us_count += 1
-                    grouped[ident].append((price,row))
+                    if not duplicate:
+                        grouped[ident].append((price,row))
         except (OSError, InvalidOperation, ValueError) as exc: raise CommandError(str(exc)) from exc
         cities = {(normalize(c.name),c.state):c for c in City.objects.all()}
         records=[]
