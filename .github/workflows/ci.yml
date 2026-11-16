@@ -33,5 +33,7 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Django integration tests with mocked provider
         run: python manage.py test routes -v 1
+      - name: Validate OpenAPI reference
+        run: python -m json.tool docs/openapi.json > /dev/null
       - name: Compile source
         run: python -m compileall -q config routes scripts tests

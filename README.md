@@ -2,6 +2,8 @@
 
 A Django 6.1.3 / Django REST Framework 3.18.3 API that plans fuel purchases along an openrouteservice driving route. SQLite stores an auditable OPIS-price catalog and an offline GeoNames city index. No commercial price file or API key is committed.
 
+[OpenAPI 3.1 reference](docs/openapi.json) · [Postman collection](postman/Fuel-Routes.postman_collection.json) · [GitHub CI](.github/workflows/ci.yml)
+
 ## Quick start
 
 Python 3.12+ is recommended (developed and tested on 3.12.14).

@@ -1,0 +1,531 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Fuel Route Optimizer API",
+    "version": "1.1.0",
+    "description": "Django backend assessment: estimate driving fuel stops using an OPIS-derived local dataset and HeiGIT openrouteservice. Station positions are city-centroid approximations, NOT verified pump entrances; never navigate using these coordinates without independent checking. Initial tank is assumed full."
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:8000",
+      "description": "Local development only"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Fuel routes"
+    },
+    {
+      "name": "Health"
+    }
+  ],
+  "paths": {
+    "/api/v1/routes/optimize/": {
+      "post": {
+        "tags": [
+          "Fuel routes"
+        ],
+        "summary": "Plan a US city-to-city road itinerary and fuel purchases",
+        "description": "Prices are undated and city centers are NOT verified pumps. One provider request for a short itinerary; typically two for stops, at most three. A cached response reports zero requests.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RouteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Road geometry and estimated fuel costs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RouteResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input or malformed JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Only application/json is accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unknown city or no feasible plan",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Per-client request throttle",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Upstream route response invalid or provider unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "No HeiGIT key configured, quota reached or provider rejected access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Routing provider timed out",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health/": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "summary": "Check imported station catalog readiness",
+        "responses": {
+          "200": {
+            "description": "At least one imported station",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "const": "ok"
+                    },
+                    "stations": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Station catalog not imported",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "const": "catalog_missing"
+                    },
+                    "stations": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Place": {
+        "type": "object",
+        "required": [
+          "city",
+          "state"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "city": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160,
+            "examples": [
+              "Chicago"
+            ]
+          },
+          "state": {
+            "type": "string",
+            "pattern": "^[A-Za-z]{2}$",
+            "examples": [
+              "IL"
+            ]
+          }
+        }
+      },
+      "RouteRequest": {
+        "type": "object",
+        "required": [
+          "start",
+          "finish"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "start": {
+            "$ref": "#/components/schemas/Place"
+          },
+          "finish": {
+            "$ref": "#/components/schemas/Place"
+          }
+        },
+        "example": {
+          "start": {
+            "city": "Chicago",
+            "state": "IL"
+          },
+          "finish": {
+            "city": "Denver",
+            "state": "CO"
+          }
+        }
+      },
+      "RouteResult": {
+        "type": "object",
+        "required": [
+          "route",
+          "vehicle",
+          "fuel",
+          "stops",
+          "meta"
+        ],
+        "properties": {
+          "route": {
+            "type": "object",
+            "required": [
+              "distance_miles",
+              "duration_minutes",
+              "leg_distances_miles",
+              "geometry",
+              "provider"
+            ],
+            "properties": {
+              "distance_miles": {
+                "type": "number",
+                "description": "Total driving distance; display rounded to three decimals"
+              },
+              "duration_minutes": {
+                "type": "number",
+                "description": "Estimated driving time in minutes"
+              },
+              "leg_distances_miles": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "description": "Full-precision distance of each road segment; length equals number of purchases plus one"
+              },
+              "geometry": {
+                "type": "object",
+                "required": [
+                  "type",
+                  "coordinates"
+                ],
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "LineString"
+                  },
+                  "coordinates": {
+                    "type": "array",
+                    "minItems": 2,
+                    "items": {
+                      "type": "array",
+                      "minItems": 2,
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              },
+              "provider": {
+                "type": "string",
+                "const": "openrouteservice"
+              }
+            }
+          },
+          "vehicle": {
+            "type": "object",
+            "required": [
+              "max_range_miles",
+              "mpg",
+              "assumed_tank_gallons",
+              "initial_fuel_gallons"
+            ],
+            "properties": {
+              "max_range_miles": {
+                "type": "number",
+                "description": "500-mile range at ten mpg"
+              },
+              "mpg": {
+                "type": "number",
+                "description": "10 mpg"
+              },
+              "assumed_tank_gallons": {
+                "type": "number",
+                "description": "50-gallon tank"
+              },
+              "initial_fuel_gallons": {
+                "type": "number",
+                "description": "Assumes departure with a full 50-gallon tank"
+              }
+            }
+          },
+          "fuel": {
+            "type": "object",
+            "required": [
+              "consumed_gallons",
+              "purchased_en_route_gallons",
+              "purchased_en_route_usd",
+              "initial_fuel_estimated_cost_usd",
+              "estimated_total_trip_cost_usd",
+              "remaining_at_destination_gallons",
+              "initial_fuel_reference_price_usd_per_gallon",
+              "initial_price_source"
+            ],
+            "properties": {
+              "consumed_gallons": {
+                "type": "string",
+                "description": "Exact decimal gallons required by returned road legs"
+              },
+              "purchased_en_route_gallons": {
+                "type": "string",
+                "description": "Exact decimal gallons purchased at modeled stops"
+              },
+              "purchased_en_route_usd": {
+                "type": "string",
+                "description": "Sum of per-station receipts, each rounded to cents"
+              },
+              "initial_fuel_estimated_cost_usd": {
+                "type": "string",
+                "description": "Notional value of fuel used from the initial full tank (not new spending)"
+              },
+              "estimated_total_trip_cost_usd": {
+                "type": "string",
+                "description": "Estimated initial fuel cost plus all displayed stop receipts"
+              },
+              "remaining_at_destination_gallons": {
+                "type": "string",
+                "description": "Exact decimal gallons after final road leg"
+              },
+              "initial_fuel_reference_price_usd_per_gallon": {
+                "type": "string",
+                "description": "Reference price derived from state or national observed medians"
+              },
+              "initial_price_source": {
+                "type": "string",
+                "enum": [
+                  "state_median",
+                  "us_median"
+                ]
+              }
+            }
+          },
+          "stops": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Stop"
+            }
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "routing_api_calls",
+              "station_access_verified",
+              "price_policy",
+              "warnings",
+              "cache_hit",
+              "dataset_version"
+            ],
+            "properties": {
+              "routing_api_calls": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 3,
+                "description": "Zero on cache hit; one to three real provider calls for new plans"
+              },
+              "station_access_verified": {
+                "type": "boolean",
+                "const": false
+              },
+              "price_policy": {
+                "type": "string",
+                "description": "Observed lower median per OPIS station ID"
+              },
+              "warnings": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "cache_hit": {
+                "type": "boolean"
+              },
+              "dataset_version": {
+                "type": "string",
+                "description": "SHA-256 digest for imported price dataset"
+              }
+            }
+          }
+        }
+      },
+      "Stop": {
+        "type": "object",
+        "required": [
+          "opis_id",
+          "name",
+          "address",
+          "city",
+          "state",
+          "lat",
+          "lon",
+          "location_quality",
+          "station_access_verified",
+          "route_mile",
+          "price_usd_per_gallon",
+          "gallons_to_buy",
+          "fuel_before_stop_gallons",
+          "fuel_after_stop_gallons",
+          "stop_cost_usd"
+        ],
+        "properties": {
+          "opis_id": {
+            "type": "string",
+            "description": "Station ID from supplied OPIS assessment CSV"
+          },
+          "name": {
+            "type": "string",
+            "description": "Imported station name, not independently verified"
+          },
+          "address": {
+            "type": "string",
+            "description": "Imported address or highway-exit description"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "lat": {
+            "type": "number",
+            "description": "Approximate city center longitude/latitude coordinate pair; this field is latitude"
+          },
+          "lon": {
+            "type": "number",
+            "description": "Approximate city-center longitude"
+          },
+          "location_quality": {
+            "type": "string",
+            "enum": [
+              "city_approx",
+              "unlocated"
+            ],
+            "description": "City-center approximation is not a verified pump position"
+          },
+          "station_access_verified": {
+            "type": "boolean",
+            "const": false
+          },
+          "route_mile": {
+            "type": "number",
+            "description": "Approximate mileage along verified waypoint route"
+          },
+          "price_usd_per_gallon": {
+            "type": "string",
+            "description": "Undated imported price; USD/gallon assumed"
+          },
+          "gallons_to_buy": {
+            "type": "string",
+            "description": "Exact decimal amount; may require more than four fractional places"
+          },
+          "fuel_before_stop_gallons": {
+            "type": "string",
+            "description": "Tank before purchase"
+          },
+          "fuel_after_stop_gallons": {
+            "type": "string",
+            "description": "Tank after purchase"
+          },
+          "stop_cost_usd": {
+            "type": "string",
+            "description": "Price times gallons, rounded to cents"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "details"
+            ],
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "details": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": []
+}
