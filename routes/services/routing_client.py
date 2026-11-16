@@ -1,0 +1,46 @@
+import os
+import math
+import httpx
+URL = 'https://api.heigit.org/openrouteservice/v2/directions/driving-car/geojson'
+class RoutingError(Exception):
+    def __init__(self, code, message, status=502):
+        self.code, self.message, self.status = code, message, status
+        super().__init__(message)
+
+def get_route(points):
+    key = os.getenv('ORS_API_KEY')
+    if not key:
+        raise RoutingError('routing_not_configured', 'Set ORS_API_KEY to run live routing.', 503)
+    if not 2 <= len(points) <= 50:
+        raise RoutingError('too_many_waypoints', 'Route requires 2–50 waypoints.', 422)
+    try:
+        response = httpx.post(URL, headers={'Authorization':key}, json={'coordinates':points, 'instructions':True}, timeout=float(os.getenv('ORS_TIMEOUT_SECONDS', '20')))
+        if response.status_code in (401,403,429):
+            raise RoutingError('routing_access', 'Routing key or provider quota rejected the request.', 503)
+        if response.status_code >= 400:
+            raise RoutingError('routing_failed', 'Routing provider could not calculate the route.', 422 if response.status_code in (404, 400) else 502)
+        data = response.json()
+        feature = data['features'][0]
+        geometry, props = feature['geometry'], feature['properties']
+        segments = props['segments']
+        coords = geometry['coordinates']
+        if geometry['type'] != 'LineString' or len(coords) < 2 or len(segments) != len(points)-1:
+            raise ValueError('Invalid geometry or segment count')
+        if any(len(p) < 2 or not all(math.isfinite(float(v)) for v in p[:2])
+               or not -180 <= float(p[0]) <= 180 or not -90 <= float(p[1]) <= 90
+               for p in coords):
+            raise ValueError('Invalid geometry coordinates')
+        distances = [float(s['distance'])/1609.344 for s in segments]
+        summary = float(props['summary']['distance'])/1609.344
+        duration = float(props['summary']['duration'])/60
+        if (not all(math.isfinite(x) and x > 0 for x in distances)
+                or not math.isfinite(summary) or not math.isfinite(duration) or duration <= 0
+                or abs(sum(distances)-summary) > 0.1):
+            raise ValueError('Invalid route distance')
+        return {'geometry':geometry,'distance_miles':sum(distances), 'duration_minutes':duration, 'legs_miles':distances}
+    except httpx.TimeoutException as exc:
+        raise RoutingError('routing_timeout','Routing provider timed out.',504) from exc
+    except httpx.RequestError as exc:
+        raise RoutingError('routing_network','Routing provider is unavailable.',502) from exc
+    except (ValueError, KeyError, IndexError, TypeError) as exc:
+        raise RoutingError('routing_response','Routing provider returned an invalid response.',502) from exc

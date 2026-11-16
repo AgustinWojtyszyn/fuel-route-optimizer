@@ -1,0 +1,106 @@
+{
+  "info": {
+    "name": "Fuel Route Planner",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:8000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/health/"
+      }
+    },
+    {
+      "name": "Short route",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"start\":{\"city\":\"Chicago\",\"state\":\"IL\"},\"finish\":{\"city\":\"Indianapolis\",\"state\":\"IN\"}}"
+        },
+        "url": "{{baseUrl}}/api/v1/routes/optimize/"
+      }
+    },
+    {
+      "name": "Long route",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"start\":{\"city\":\"Chicago\",\"state\":\"IL\"},\"finish\":{\"city\":\"Denver\",\"state\":\"CO\"}}"
+        },
+        "url": "{{baseUrl}}/api/v1/routes/optimize/"
+      }
+    },
+    {
+      "name": "Invalid city",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"start\":{\"city\":\"Not A City\",\"state\":\"IL\"},\"finish\":{\"city\":\"Denver\",\"state\":\"CO\"}}"
+        },
+        "url": "{{baseUrl}}/api/v1/routes/optimize/"
+      }
+    },
+    {
+      "name": "Los Angeles to Las Vegas",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"start\": {\"city\": \"Los Angeles\", \"state\": \"CA\"}, \"finish\": {\"city\": \"Las Vegas\", \"state\": \"NV\"}}"
+        },
+        "url": "{{baseUrl}}/api/v1/routes/optimize/"
+      }
+    },
+    {
+      "name": "New York to Miami",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"start\": {\"city\": \"New York City\", \"state\": \"NY\"}, \"finish\": {\"city\": \"Miami\", \"state\": \"FL\"}}"
+        },
+        "url": "{{baseUrl}}/api/v1/routes/optimize/"
+      }
+    }
+  ]
+}

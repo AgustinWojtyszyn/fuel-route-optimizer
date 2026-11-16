@@ -1,0 +1,60 @@
+# US Fuel Route Planner — Django Backend Assessment
+
+A Django 6.1.3 / Django REST Framework 3.18.3 API that plans fuel purchases along an openrouteservice driving route. SQLite stores an auditable OPIS-price catalog and an offline GeoNames city index. No commercial price file or API key is committed.
+
+## Quick start
+
+Python 3.12+ is recommended (developed and tested on 3.12.14).
+
+```bash
+python -m venv .venv
+. .venv/bin/activate
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py import_cities
+python manage.py import_stations /private/path/fuel-prices-for-be-assessment.csv
+export ORS_API_KEY='your-key-from-account.heigit.org'
+python manage.py runserver
+```
+
+Open `http://127.0.0.1:8000/demo/` for a lightweight Leaflet viewer. `GET /health/` checks that the catalog is loaded without contacting the provider. `POST /api/v1/routes/optimize/` accepts:
+
+```json
+{"start":{"city":"Chicago","state":"IL"},"finish":{"city":"Denver","state":"CO"}}
+```
+
+```bash
+curl -X POST http://127.0.0.1:8000/api/v1/routes/optimize/ \
+  -H 'Content-Type: application/json' \
+  -d '{"start":{"city":"Chicago","state":"IL"},"finish":{"city":"Denver","state":"CO"}}'
+```
+
+Import `postman/Fuel-Routes.postman_collection.json` into Postman and set `baseUrl` to your local server. Run `python manage.py test routes -v 1` for offline tests. Set `DJANGO_SECRET_KEY`, `DJANGO_ALLOWED_HOSTS`, `DJANGO_DEBUG=0`, `ORS_TIMEOUT_SECONDS` through the environment for deployment; `.env.example` is a reference, not loaded automatically.
+
+## Result contract
+
+The result contains `route` (complete GeoJSON LineString, driving distance, duration and each verified leg length), `vehicle`, `fuel`, `stops`, and `meta`. Stops include OPIS ID, undated observed price, planned gallons and city-center coordinates labeled `city_approx` and `station_access_verified: false`. `fuel.purchased_en_route_usd` is new spending; `fuel.estimated_total_trip_cost_usd` also values the initial fuel consumed, using the origin state's median price as a reference (US median fallback). These amounts are estimates in USD assuming the source prices mean USD per gallon. The vehicle starts with 50 gallons, equivalent to 500 miles at 10 mpg. Amounts remain decimal internally and monetary outputs are rounded only at presentation.
+
+`meta.routing_api_calls` is 1 for a direct route with no purchase, 2 for a route with stops, and at most 3 if an unused waypoint must be removed. It is 0 for a cache hit. Successful results are cached locally for 24 hours using the price-file and city-index digests. Errors return `{"error":{"code":"...","message":"...","details":{}}}` with 400 for malformed input, 422 for unknown cities or infeasible plans, and 502/503/504 for provider failures. This development API has no authentication or public deployment configuration.
+
+## How it works
+
+1. Import the supplied CSV locally. Exclude Canadian records; trim whitespace; group by OPIS ID; select the lower observed median price. Retain min/max, number of observations and conflict flag.
+2. Import offline GeoNames cities (population >=500, bundled by `geonamescache`). Match city and US state. This provides **approximate city centers**, never exact truckstop positions. Unknown cities are left unlocated.
+3. Request direct road geometry once from `https://api.heigit.org/openrouteservice/v2/directions/driving-car/geojson`, then project located stations within a 12-mile corridor onto the polyline's cumulative distance.
+4. On the fixed candidate order, buy only enough to reach the next strictly cheaper reachable station, otherwise enough to fill the 50-gallon tank or reach the destination. Simulate every segment and fail if any leg runs out of fuel.
+5. When purchases are planned, request a waypoint route through the selected **city centers**. Recalculate the fuel plan using the returned road segment distances. Reject the route if its segments make the plan infeasible. If a waypoint no longer needs fuel after recalculation, one final routing request removes it. The resulting route geometry is returned, with at most three provider requests.
+
+The purchase algorithm is optimal for a fixed one-dimensional route and selected stations without access or detour penalties. It does **not** prove global optimality across alternate roads, exact station entrances, or current station availability. Even the waypoint call verifies drivable city-center waypoints, not the precise pump. A city may span several exits; verify station access before use. Routes lacking enough candidate stations return an error, never invented stops.
+
+## Data, attribution, limits
+
+The original assessment CSV appears to contain OPIS data. Its redistribution permission was not established, so it is excluded by `.gitignore` and the project ZIP. Obtain it from the evaluator and import locally. GeoNames city data are provided by [GeoNames](https://www.geonames.org/) under CC BY 4.0 through [geonamescache](https://github.com/yaph/geonamescache). Map data © OpenStreetMap contributors; Leaflet assets and OSM tiles load in the browser with attribution. Follow the [OSM tile usage policy](https://operations.osmfoundation.org/policies/tiles/) before public traffic. The routing provider is [openrouteservice / HeiGIT](https://openrouteservice.org/) and requires a free key. Its hosted driving limit is 6,000 km and 50 waypoints; quota and routing availability depend on the account. There is no live provider result in the bundled evidence because no key was available in the build environment.
+
+The city gazetteer and CSV have no dates for station price observations or exact station coordinates. Alaska and Hawaii are outside the supplied price catalog; some itineraries crossing Canada may not be covered. Cache is per process; use shared caching for a multi-worker deployment. See `docs/verification.md` for measured results and `docs/loom-script.md` for a short demonstration script.
+
+## Live verification and production settings
+
+With a valid `ORS_API_KEY` in the environment, run `python scripts/run_live_checks.py`. It makes cold requests for Los Angeles→Las Vegas, Chicago→Denver, and New York City→Miami; prints HTTP status, distance, duration, stops, gallons, costs, actual provider request count and wall times, and checks the tank against each returned leg. Full JSON results are saved under ignored `live_results/` for private review. Do not publish these derived OPIS prices without permission. Without the key, the script exits before any external request.
+
+The supplied encoded metadata string is not an ORS key. Supply the actual secret through the host environment. For deployment, set `DJANGO_DEBUG=0`, a long random `DJANGO_SECRET_KEY`, allowed hosts, and HTTPS. Production settings enable secure cookies, redirect and HSTS. If behind a trusted TLS reverse proxy, configure its forwarded scheme securely before enabling redirect. Authentication and quota protection are not included; do not expose the development API publicly as-is.
