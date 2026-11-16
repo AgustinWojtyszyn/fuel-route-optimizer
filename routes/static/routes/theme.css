@@ -1,0 +1,46 @@
+/* Hallmark · v2.0.0 · scope: app · shared dark-first workspace theme with light opt-in */
+/* Hallmark · pre-emit critique: P4 H4 E4 S5 R5 V4 · existing mapping/controls are kept; only their surface palette and theme switch change. */
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --color-paper:#111b1c;
+  --color-paper-2:#192628;
+  --color-paper-3:#273738;
+  --color-ink:#edf2ed;
+  --color-ink-2:#c7d4cb;
+  --color-muted:#a5b8ad;
+  --color-rule:#3d504a;
+  --color-rule-2:#5f786c;
+  --color-accent:#f2ad7f;
+  --color-accent-2:#ffd1aa;
+  --color-accent-ink:#182320;
+  --color-focus:#ffbd91;
+  --color-error:#ff9c9b;
+  --color-success:#83d1aa;
+  --color-night:#0c1313;
+  --color-night-2:#182322;
+  --color-night-text:#f1f5f1;
+  --color-night-muted:#9cafa3;
+  --color-map:#e3e9e5;
+  --color-route:#6798fa;
+  --color-start:#74d9a6;
+  --color-finish:#ff998e;
+  --shadow-card:0 18px 48px -30px #050a09cb;
+}
+:root[data-theme="light"]{color-scheme:light}
+.demo-page .theme-toggle{display:inline-flex;align-items:center;gap:var(--space-xs);height:40px;padding:var(--space-xs) var(--space-sm);background:var(--color-paper-2);border:1px solid var(--color-rule);border-radius:6px;color:var(--color-ink);font-size:12px;font-weight:690;white-space:nowrap}
+.demo-page .theme-toggle:hover{background:var(--color-paper-3)}
+.demo-page .theme-toggle svg{width:16px;height:16px}
+.demo-page .theme-toggle [hidden]{display:none!important}
+.demo-page .top-actions{flex-wrap:wrap;justify-content:flex-end}
+.demo-page .site-header .theme-toggle{background:var(--color-night-2);border-color:var(--color-night-muted);color:var(--color-night-text)}
+.demo-page .site-header .theme-toggle:hover{background:var(--color-night)}
+:root[data-theme="dark"] .demo-page .map-panel{border-color:var(--color-rule)}
+:root[data-theme="dark"] .demo-page .map-heading{border-bottom:1px solid var(--color-rule)}
+:root[data-theme="dark"] .demo-page .map-legend{border-top:1px solid var(--color-rule)}
+:root[data-theme="dark"] .demo-page .map-style[aria-pressed="true"]{color:var(--color-accent)}
+:root[data-theme="dark"] .demo-page .map-glass{background:var(--color-paper);color:var(--color-ink)}
+:root[data-theme="dark"] .demo-page .leaflet-control-zoom a{background:var(--color-paper);color:var(--color-ink);border-color:var(--color-rule)}
+:root[data-theme="dark"] .demo-page .leaflet-control-zoom a:hover{background:var(--color-paper-2)}
+:root[data-theme="dark"] .demo-page .leaflet-control-attribution{background:var(--color-paper)!important;color:var(--color-ink)!important}
+:root[data-theme="dark"] .demo-page .leaflet-control-attribution a{color:var(--color-accent)!important}
+@media(max-width:640px){.demo-page .theme-toggle{padding:var(--space-xs)}.demo-page .theme-toggle .theme-text{display:none}.demo-page .top-actions{gap:var(--space-xs)}}
