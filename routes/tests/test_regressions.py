@@ -125,7 +125,8 @@ class InvalidGeometryTests(SimpleTestCase):
         from django.template.loader import render_to_string
         page = render_to_string('routes/demo.html')
         self.assertIn('textContent =', page)
-        self.assertIn('pump access NOT verified', page)
+        self.assertIn('data-i18n="approxBody"', page)
+        self.assertIn('Pump access not verified', page)
         self.assertIn('Fuel Route Optimizer', page)
 
 
