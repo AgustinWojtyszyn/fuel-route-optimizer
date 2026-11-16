@@ -1,5 +1,4 @@
 <!doctype html>
-{% load static %}
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -7,7 +6,7 @@
   <meta name="theme-color" content="#0b1831">
   <meta name="description" content="Explore efficient US driving routes and estimated fuel stops, powered by Django and HeiGIT.">
   <title>Fuel Route Optimizer | Route planning & fuel insights</title>
-  <link rel="icon" type="image/png" href="{% static 'routes/bomba-de-gas.png' %}">
+  <link rel="icon" type="image/png" href="data:image/png;base64,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">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@6.3.0/dist/maplibre-gl.css">
   <style>
@@ -289,6 +288,72 @@
       .metrics { grid-template-columns:repeat(2,minmax(0,1fr)); }
       .metric-value { font-size:clamp(19px,5vw,25px); }
     }
+    /* v3: enterprise-grade UI refinements / locale-aware responsiveness */
+    .screen-reader { position:absolute;clip:rect(0,0,0,0);clip-path:inset(50%);width:1px;height:1px;overflow:hidden;white-space:nowrap; }
+    .top-actions { display:flex;align-items:center;justify-content:flex-end;gap:19px;min-width:0; }
+    .top-actions .top-meta { overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }
+    .language-switch { position:relative;display:inline-flex;align-items:center;gap:9px;min-width:0;border:1px solid rgba(209,227,255,.22);border-radius:12px;background:rgba(255,255,255,.075);color:#dfeaff;padding:5px 9px 5px 12px;transition:border-color .2s,background .2s; }
+    .language-switch:hover,.language-switch:focus-within {border-color:rgba(217,233,255,.55);background:rgba(255,255,255,.11);}
+    .language-switch select { max-width:145px;min-width:90px;padding:5px 15px 5px 2px;border:0;background:transparent;color:#fff;font-size:12px;outline-offset:4px;cursor:pointer;font-weight:700; }
+    .language-switch select option {background:#fff;color:#172944;}
+    .brand-small img,.hero-mark img { image-rendering:auto; }
+    .site-header { background:linear-gradient(120deg,#060f20 0%,#112340 50%,#183963 100%); }
+    .site-header::before {background:radial-gradient(circle,rgba(59,129,246,.30),transparent 68%);}
+    .site-header .container {position:relative;}
+    .site-header .container::before {content:"";position:absolute;inset:0;pointer-events:none;opacity:.06;background-image:linear-gradient(rgba(255,255,255,.24) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.24) 1px,transparent 1px);background-size:48px 48px;mask-image:linear-gradient(to right,transparent,black);}
+    .hero {position:relative;}
+    .hero-copy {flex:1;max-width:800px;}
+    .hero-description {font-size:clamp(13px,1.3vw,15px);line-height:1.75;max-width:670px;}
+    .hero-title-row {min-width:0;}
+    .hero-title-row h1 {min-width:0;overflow-wrap:break-word;}
+    .hero-mark {background:linear-gradient(145deg,#fff,#f3f7ff);border:1px solid #fff;border-radius:18px;}
+    .workspace {position:relative;}
+    .workspace-head {margin-bottom:21px;}
+    .panel,.metric {box-shadow:0 3px 7px rgba(10,27,60,.025),0 20px 48px rgba(10,27,60,.055);transition:box-shadow .22s,border-color .22s;}
+    .panel:focus-within {border-color:#ccd9ef;}
+    .map-panel {min-width:0;}
+    .map-heading {flex-wrap:wrap;gap:16px;}
+    .map-heading-left {min-width:0;}
+    .map-heading-left>div:last-child {min-width:0;}
+    .map-heading h2 {line-height:1.35;}
+    .map-heading p {line-height:1.45;}
+    .map-actions {margin-left:auto;}
+    .primary-button {letter-spacing:.01em;}
+    .primary-button:active:not(:disabled) {transform:translateY(1px);}
+    .stop-card {transition:transform .16s,border-color .16s,box-shadow .16s;}
+    .stop-card:hover {transform:translateY(-1px);border-color:#cddcf4;box-shadow:0 12px 28px rgba(25,72,130,.07);}
+    .stop-title,.stop-cost {overflow-wrap:anywhere;}
+    .map-style:focus-visible,.language-switch select:focus-visible,.stop-focus:focus-visible {outline:3px solid #a3c8ff;outline-offset:2px;}
+    .map-glass,.map-recenter {backdrop-filter:blur(13px);}
+    .site-footer {line-height:1.65;}
+    .map-legend {row-gap:8px;}
+    @media(max-width:1250px) { .top-meta {display:none;} .hero-points {max-width:330px;} }
+    @media(max-width:1090px) { .layout {grid-template-columns:minmax(290px,340px) minmax(0,1fr);} .map-heading {align-items:flex-start;} .map-actions {width:100%;margin-left:0;} }
+    @media(max-width:900px) { .layout {grid-template-columns:minmax(0,1fr);} .map-heading .map-actions {width:auto;margin-left:auto;} .map-heading {align-items:center;} }
+    @media(max-width:640px) {
+      .container {width:calc(100% - 28px);}
+      .hero {gap:18px;}
+      .hero-points {max-width:100%;flex-wrap:wrap;}
+      .brand-small {font-size:10px;}
+      .topbar {gap:12px;}
+      .top-actions {gap:8px;}
+      .language-switch {padding:5px 6px 5px 8px;}
+      .language-switch select {max-width:111px;min-width:85px;font-size:11px;}
+      .hero-title-row {align-items:flex-start;}
+      .hero-mark {width:42px;height:42px;flex:0 0 42px;border-radius:12px;}
+      .hero-mark img {width:31px;height:31px;}
+      h1 {font-size:clamp(25px,7.5vw,37px);line-height:1.13;letter-spacing:-.045em;}
+      .map-heading {padding:17px;gap:11px;}
+      .map-heading .map-actions {width:100%;margin:0;}
+      .style-switcher {width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));}
+      .map-style {padding:10px 4px;white-space:normal;}
+      .map-legend {gap:9px;}
+      .map-legend .legend-item {font-size:10px;}
+      .site-header {padding-bottom:55px;}
+      .workspace-head h2 {font-size:23px;}
+      .results .panel {padding:17px;}
+    }
+    @media(prefers-reduced-motion:reduce) { .stop-card:hover,.primary-button:hover:not(:disabled) {transform:none;} }
   </style>
 </head>
 <body>
@@ -296,28 +361,40 @@
     <div class="container">
       <nav class="topbar" aria-label="Product identity">
         <a class="brand-small" href="/demo/" id="brandHome">
-          <img src="{% static 'routes/bomba-de-gas.png' %}" alt="">
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAHYAAAB2AH6XKZyAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAB6pJREFUeJzdm39slHcdx1+f79Nr10KhyBYcsMFwapxuIRMJOHG1pZX+wZSYbvRwBOFaFpWg/KNOgzXGaIxxS5xojiKMX2Ve9A8gIm3HatxCGAITIpu4LRNwBtxWfvQK7d19P/5xz3Ncj+vdQWnLc+/kcp/v59f3+7zv+zz3/fUIedBb/ZkPY8xaRBcDs4DyfDE3gX4RzgB/jtnEs1UHjrw1AnVkheQy9tXMXWKF54HKUWoPwIAi6ypfPPTr0ahsSAKiNXMaVMwewBmNhmRCRFaP6zoUHvF6sil1/vzyaEXiFDB9pBuQA1eMox+v6Dh8ZiQrMdmU0XK7lLG9eIDyRMI0j3QlJVm1orWZKhso4/3HHide9aFb3ginr5fJeyM4ly9lWLQWWA+wuKWlov+y/YmKWhHTVTZO/rInHO4bbt3ZCYCpmYreOfO5UNMw3PqGhNN7mcl7fj9IJzDNk/ujiUYV+RYIqrruaq9G65aFdotlc0d7W+fN1pv1FhAIZOrsHXfcbB0FwZZlzV/qCSK8ApxNs41DaVKhoy4YOly3rHlJa2tr1uvJhRsOGCvs377pzUc+Nn2GinlI0TVAJ5BwzXNQ/eMrp84erw+u+vyN5B3qFrgt0draaoET7ue5muVPTSuJx5sV1gJVwCcVeaku2LwhFgt8rzuyoTdfTt/0gGw4sPW3/+nY2daqMTMTlZ8CMcCAfrO0dOBU9dKVc/Ll8DUBHroi4Yud7RufVjGfVuUYgCp3B8QcrG8K1eSKLQoCPHTtCJ8QwxsphVCiwr6FwdCXhoopKgLqm1Z9GaUJQKDHVZcKtC9savlctpiiIkBFfuiKV0VlAfBjt1wuYncvWvrUzMyYoiHgi19ddT8wG0Bh6/72jf/o3Nm2HtjsukxKmPj2xsbGQZO7oiHAJkxq1IjI3zyxN1b5DeA1t/hIT2nVyvS4oiFAEW9QhKje5ckHI89cUasrgbhr+376iLFoCCiv5CgwAKDKonRb165Nx4ANbnHGwTdPP+jZioaAPeFwn0IHgAgLMofEKnrIky3ODE8uGgIADLQCCqCY3yxuaanwbGr54JqsVWkxty+i4kysCzavrXmi5SOF+HfsbDuCEEmW9IErvfYZz2aMpHIY1dTCQ8EEiLWFut4cVK9TDYipAH3Wceyp+mBoR+3y5ZPzpYkF4quBfwMItNQ1Na9raFhTJsq3vZoGcF72/AsmoOLkcQI97xXqfkNwor1UHns1l4tRCJp46asLl7fcm8uxe8uWC8bwJO4DEdFfxKv6Dikke4AQ6W4Ppy4k66JotHbuXxWyDh1HExY595Upn1qDyI9QPgEgcNzpKZ+7b9+v+nPF1jWFmhC2M/hH7tESM7tra/i0p7itnwEGtZ07N0VigfhnBQ4CKDwUm3Tlu/liO9vb2q3oD1IKkV4V82j6xSfr8AG6t2y5gE08AUQBBFlXvWJFVZ4wSsTZ4skC7V07wicyfXxBAEDHrs1ngF8mSzqhtD8QvJF4Vb2STe8bAgASCfO8J6vo47cip68IOPBC+C2Fo25xXkPDmrLh5vQVAQBGksNdoGygKvrwsPMNN8FoQ1VPerLg5F30zAffEYDV1z1RxM4cbjrfESCB2Ou4Ex6BGbl8+xPEUnFZdrvAhwR0bNsWBfoAFKbkdP7v1AuABVAh6zzCdwS4iCa/JOeGZXd3axy4AIByZzYfvxLgbXkVcl7pPADC3dmMviRAXAIECtmyfhsAZVbmijD4lADcW0A1PwGinHLFsp5A5XUPTV8SYCE5AhRyTomTkH+lJOH+TKsvCRAY737n3f62QtqZQ2dWpt2XBKCMc6VoPlfH2BQBoly3tuhPAiTZA7SAHtB/9p53SJ4bQFWLhACSPUCRvD2gu7s1LnAaQKQIeoC71l8CYNDMc3VZYZV3ARTuybT5joDLPQMTUgXhYiExAt4q8KTqFSsG/XX6joBAoCz94HZBPUCF/3lyeaxk0JDYdwQYE0ttd6FytZCYtB5Awprxg/LdspaNEuKqqSmuqi2o/apc9mRxqEi3+Y4Ao6XX5vgiBbXfiKTOQyb02hoB+JAAsQOpbq/K+Fy+aX6pX93GGXTA2ncETEz0nsM7IivcV1CQpI7+q7Ul59JNviMgEokMAN4EZx55XvtJQme7wpnM47O+IwBABO94/NT6Zc2LcvkuDK6cBTwIoO7+Yjp8SoDdhHcSRPW5hmWhId9uEZyfXYuTFzLtviRg//bf/V1gm1ucFVdeqws2f6cuuPqjnk/tsq89UB8M7QBtdFUnPhgnezNzXXf/1DWFmqbYWNt7TklFopDba4QgKHclYonzTun62LvTf+4ucKZQ3fj18YHAwF7g0QLSRa3IF17csfFwpmHQGlldMPQ0woaocQI6hhefhBA1jgFqncpL094+cXR3uvWdk4cH7p382Han8lIceJih1wffMOiSzp1t1118shYX9U+G7tME/2SIDYSxhqpZ0NUefjmbbWFjy0QT0AbFzlPkThEMqucVealnvPnTkXA4li0O0t4YsXGqRW7PiwcQsfVAVgK6IuGLwC73c0NIPQRFZEIux7GHjkj7fPkvcCuRIkCxiVyOYw3FjMhBxWu3ACX7cdfObkO8L2L/MBKJ/w8pr33ZfPcaMwAAAABJRU5ErkJggg==" alt="">
           <span>FUEL ROUTE <span style="color:#8fb7ff">/</span> OPTIMIZER</span>
         </a>
-        <span class="top-meta">DJANGO REST API &nbsp;·&nbsp; HEIGIT &nbsp;·&nbsp; OPENFREEMAP</span>
+        <div class="top-actions">
+          <span class="top-meta">DJANGO REST API &nbsp;·&nbsp; HEIGIT &nbsp;·&nbsp; OPENFREEMAP</span>
+          <label class="language-switch" for="languageSelect">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c4 5 4 13 0 18M12 3c-4 5-4 13 0 18"/></svg>
+            <span class="screen-reader" data-i18n="language">Language</span>
+            <select id="languageSelect" aria-label="Select language" data-i18n-aria="language">
+              <option value="en">EN · English</option>
+              <option value="es">ES · Español</option>
+              <option value="fr">FR · Français</option>
+              <option value="pt">PT · Português</option>
+            </select>
+          </label>
+        </div>
       </nav>
       <div class="hero">
         <div class="hero-copy">
-          <p class="eyebrow">Intelligent road-trip planning</p>
+          <p class="eyebrow" data-i18n="eyebrow">Intelligent road-trip planning</p>
           <div class="hero-title-row">
-            <span class="hero-mark" aria-hidden="true"><img src="{% static 'routes/bomba-de-gas.png' %}" alt=""></span>
+            <span class="hero-mark" aria-hidden="true"><img src="data:image/png;base64,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" alt=""></span>
             <h1>Fuel Route Optimizer<span style="color:#6fa2ff">.</span></h1>
           </div>
-          <p class="hero-description">Find a road route across the US, explore estimated fuel stops, and understand what your journey could cost.</p>
+          <p class="hero-description" data-i18n="heroDescription">Find a road route across the US, explore estimated fuel stops, and understand what your journey could cost.</p>
         </div>
         <div class="hero-points" aria-label="Planning assumptions">
           <span class="hero-pill">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 16V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v15H4Z"/><path d="M6 8h7M15 8h2l3 3v5a2 2 0 0 1-4 0v-4"/><path d="M2 20h15"/></svg>
-            500 mi range
+            <span data-i18n="range">500 mi range</span>
           </span>
           <span class="hero-pill">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg>
-            10 miles / gallon
+            <span data-i18n="efficiency">10 miles / gallon</span>
           </span>
         </div>
       </div>
@@ -327,13 +404,13 @@
   <main class="container workspace">
     <div class="workspace-head">
       <div>
-        <p class="section-kicker">Plan your journey</p>
-        <h2>Route planner</h2>
-        <p class="section-subtitle">Choose your stops and visualize your next drive.</p>
+        <p class="section-kicker" data-i18n="sectionKicker">Plan your journey</p>
+        <h2 data-i18n="plannerTitle">Route planner</h2>
+        <p class="section-subtitle" data-i18n="plannerDescription">Choose your stops and visualize your next drive.</p>
       </div>
       <span class="workspace-chip">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 18 6-6-6-6"/><circle cx="12" cy="12" r="10"/></svg>
-        United States routes
+        <span data-i18n="usRoutes">United States routes</span>
       </span>
     </div>
 
@@ -341,37 +418,37 @@
       <section class="panel form-panel" aria-labelledby="formTitle">
         <div class="card-header">
           <span class="card-icon" aria-hidden="true"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="19" r="2"/><path d="M8 19h6a5 5 0 0 0 0-10h-3a5 5 0 0 1 0-10" transform="translate(0 2)"/><circle cx="18" cy="5" r="2"/></svg></span>
-          <div><h2 id="formTitle">Where are we going?</h2><p>Enter two US cities to calculate the trip.</p></div>
+          <div><h2 id="formTitle" data-i18n="formTitle">Where are we going?</h2><p data-i18n="formHelp">Enter two US cities to calculate the trip.</p></div>
         </div>
         <form id="routeForm">
           <div class="field-group">
-            <label for="startCity"><span class="label-number">01</span> Origin</label>
+            <label for="startCity"><span class="label-number">01</span><span data-i18n="origin">Origin</span></label>
             <div class="field-row">
-              <input id="startCity" name="startCity" value="Chicago" required maxlength="160" autocomplete="off" placeholder="City">
-              <input id="startState" name="startState" class="state-input" aria-label="Origin state abbreviation" value="IL" required maxlength="2" pattern="[A-Za-z]{2}" placeholder="ST">
+              <input id="startCity" name="startCity" value="Chicago" required maxlength="160" autocomplete="off" placeholder="City" data-i18n-placeholder="city">
+              <input id="startState" name="startState" class="state-input" aria-label="Origin state abbreviation" data-i18n-aria="originState" value="IL" required maxlength="2" pattern="[A-Za-z]{2}" placeholder="ST">
             </div>
           </div>
           <div class="swap-wrap">
             <span class="swap-rule" aria-hidden="true"></span>
-            <button type="button" id="swapButton" class="swap-button" title="Swap origin and destination" aria-label="Swap origin and destination">
+            <button type="button" id="swapButton" class="swap-button" title="Swap origin and destination" data-i18n-title="swap" aria-label="Swap origin and destination" data-i18n-aria="swap">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 3-3 3 3 3M5 6h14M16 21l3-3-3-3M19 18H5"/></svg>
             </button>
           </div>
           <div class="field-group">
-            <label for="finishCity"><span class="label-number">02</span> Destination</label>
+            <label for="finishCity"><span class="label-number">02</span><span data-i18n="destination">Destination</span></label>
             <div class="field-row">
-              <input id="finishCity" name="finishCity" value="Denver" required maxlength="160" autocomplete="off" placeholder="City">
-              <input id="finishState" name="finishState" class="state-input" aria-label="Destination state abbreviation" value="CO" required maxlength="2" pattern="[A-Za-z]{2}" placeholder="ST">
+              <input id="finishCity" name="finishCity" value="Denver" required maxlength="160" autocomplete="off" placeholder="City" data-i18n-placeholder="city">
+              <input id="finishState" name="finishState" class="state-input" aria-label="Destination state abbreviation" data-i18n-aria="destinationState" value="CO" required maxlength="2" pattern="[A-Za-z]{2}" placeholder="ST">
             </div>
           </div>
           <button class="primary-button" id="submitButton" type="submit">
             <svg class="button-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h18m-7-7 7 7-7 7"/></svg>
-            <span id="submitText">Calculate route &amp; fuel stops</span>
+            <span id="submitText" data-i18n="calculate">Calculate route &amp; fuel stops</span>
             <span class="spinner" aria-hidden="true"></span>
           </button>
         </form>
         <div class="preset-group">
-          <p class="tiny-label">Try a sample route</p>
+          <p class="tiny-label" data-i18n="samples">Try a sample route</p>
           <div class="presets">
             <button type="button" class="preset" data-start-city="Chicago" data-start-state="IL" data-finish-city="Denver" data-finish-state="CO">Chicago → Denver</button>
             <button type="button" class="preset" data-start-city="Los Angeles" data-start-state="CA" data-finish-city="Las Vegas" data-finish-state="NV">LA → Las Vegas</button>
@@ -380,67 +457,102 @@
         </div>
         <div id="status" class="status" role="status" aria-live="polite">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 11v6M12 7h.01"/></svg>
-          <span id="statusText">Ready to plan. Select a route and calculate your fuel estimate.</span>
+          <span id="statusText" data-i18n="ready">Ready to plan. Select a route and calculate your fuel estimate.</span>
         </div>
         <div class="notice">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m12 3 10 18H2L12 3Z"/><path d="M12 9v4M12 17h.01"/></svg>
-          <div><strong>Station locations are approximate</strong><p>Markers may represent city centers, not verified fuel pumps. Always confirm station access before traveling.</p></div>
+          <div><strong data-i18n="approxTitle">Station locations are approximate</strong><p data-i18n="approxBody">Markers may represent city centers, not verified fuel pumps. Always confirm station access before traveling.</p></div>
         </div>
       </section>
 
-      <section class="panel map-panel" aria-label="Route map">
+      <section class="panel map-panel" aria-label="Route map" data-i18n-aria="mapTitle">
         <div class="map-heading">
           <div class="map-heading-left">
             <span class="map-icon" aria-hidden="true"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3zM9 3v15m6-12v15"/></svg></span>
-            <div><h2>Interactive route map</h2><p>Road geometry and estimated refueling points</p></div>
+            <div><h2 data-i18n="mapTitle">Interactive route map</h2><p data-i18n="mapDescription">Road geometry and estimated refueling points</p></div>
           </div>
-          <div class="map-actions" role="group" aria-label="Map appearance">
+          <div class="map-actions" role="group" aria-label="Map appearance" data-i18n-aria="mapAppearance">
             <div class="style-switcher">
-              <button class="map-style" type="button" data-map-style="liberty" aria-pressed="true">Streets</button>
-              <button class="map-style" type="button" data-map-style="positron" aria-pressed="false">Minimal</button>
-              <button class="map-style" type="button" data-map-style="dark" aria-pressed="false">Night</button>
+              <button class="map-style" type="button" data-map-style="liberty" aria-pressed="true" data-i18n="streets">Streets</button>
+              <button class="map-style" type="button" data-map-style="positron" aria-pressed="false" data-i18n="minimal">Minimal</button>
+              <button class="map-style" type="button" data-map-style="dark" aria-pressed="false" data-i18n="night">Night</button>
             </div>
           </div>
         </div>
         <div class="map-canvas">
-          <div id="map" aria-label="Interactive map of road route and approximate fuel stops"></div>
-          <div class="map-glass" aria-live="polite"><span class="map-glass-icon" aria-hidden="true"></span><span id="mapLiveLabel">Map ready · Select your journey</span></div>
-          <button type="button" id="fitRouteButton" class="map-recenter" hidden aria-label="Show the entire calculated route">⤢ &nbsp; View full route</button>
+          <div id="map" aria-label="Interactive map of road route and approximate fuel stops" data-i18n-aria="mapAria"></div>
+          <div class="map-glass" aria-live="polite"><span class="map-glass-icon" aria-hidden="true"></span><span id="mapLiveLabel" data-i18n="mapReady">Map ready · Select your journey</span></div>
+          <button type="button" id="fitRouteButton" class="map-recenter" hidden aria-label="Show the entire calculated route" data-i18n-aria="fitRoute" ><span aria-hidden="true">⤢</span> &nbsp;<span data-i18n="fitRoute">View full route</span></button>
         </div>
-        <div class="map-legend" aria-label="Map legend">
-          <span class="legend-item"><span class="legend-dot"></span>Origin</span>
-          <span class="legend-item"><span class="legend-dot finish"></span>Destination</span>
-          <span class="legend-item"><span class="legend-dot stop"></span>Fuel stops</span>
-          <span class="legend-item"><span class="legend-line"></span>Road route</span>
-          <span class="legend-caption">Map data © OpenStreetMap contributors</span>
+        <div class="map-legend" aria-label="Map legend" data-i18n-aria="mapLegend">
+          <span class="legend-item"><span class="legend-dot"></span><span data-i18n="origin">Origin</span></span>
+          <span class="legend-item"><span class="legend-dot finish"></span><span data-i18n="destination">Destination</span></span>
+          <span class="legend-item"><span class="legend-dot stop"></span><span data-i18n="fuelStops">Fuel stops</span></span>
+          <span class="legend-item"><span class="legend-line"></span><span data-i18n="roadRoute">Road route</span></span>
+          <span class="legend-caption" data-i18n="mapAttribution">Map data © OpenStreetMap contributors</span>
         </div>
       </section>
     </div>
 
-    <section id="metrics" class="metrics" aria-label="Calculated route statistics" aria-live="polite" hidden></section>
-    <section id="tripSummary" class="summary-bar" aria-label="Estimated fuel cost breakdown" hidden>
-      <div><h2>Trip fuel cost breakdown</h2><p>Estimated figures, not verified pump receipts</p></div>
-      <div class="summary-value"><span>Estimated trip fuel value</span><strong id="tripTotal">$0.00</strong></div>
-      <div class="summary-value"><span>Fuel already in starting tank</span><strong id="initialTotal">$0.00</strong></div>
-      <button id="copySummary" type="button" class="summary-copy" aria-label="Copy estimated trip summary">Copy summary ↗</button>
+    <section id="metrics" class="metrics" aria-label="Calculated route statistics" data-i18n-aria="metricsAria" aria-live="polite" hidden></section>
+    <section id="tripSummary" class="summary-bar" aria-label="Estimated fuel cost breakdown" data-i18n-aria="breakdownAria" hidden>
+      <div><h2 data-i18n="breakdownTitle">Trip fuel cost breakdown</h2><p data-i18n="breakdownHelp">Estimated figures, not verified pump receipts</p></div>
+      <div class="summary-value"><span data-i18n="tripFuelValue">Estimated trip fuel value</span><strong id="tripTotal">$0.00</strong></div>
+      <div class="summary-value"><span data-i18n="startingFuel">Fuel already in starting tank</span><strong id="initialTotal">$0.00</strong></div>
+      <button id="copySummary" type="button" class="summary-copy" aria-label="Copy estimated trip summary" data-i18n-aria="copy" ><span data-i18n="copy">Copy summary</span> ↗</button>
     </section>
     <section id="details" class="results" hidden>
       <div class="panel">
-        <div class="result-heading"><h2>Suggested fuel stops</h2><span class="result-tag">ESTIMATED</span></div>
+        <div class="result-heading"><h2 data-i18n="suggestedStops">Suggested fuel stops</h2><span class="result-tag" data-i18n="estimated">ESTIMATED</span></div>
         <div id="stops" class="stop-list"></div>
       </div>
       <div class="panel">
-        <div class="result-heading"><h2>Understanding this estimate</h2></div>
+        <div class="result-heading"><h2 data-i18n="understanding">Understanding this estimate</h2></div>
         <ul id="warnings" class="facts"></ul>
       </div>
     </section>
   </main>
   <footer class="container site-footer">
-    <p>Fuel prices are undated source-data assumptions in USD/gallon. Estimated trip cost includes the value of fuel in the starting tank; it does not all represent new purchases. This is a demonstration, not verified pump-by-pump navigation.</p>
-    <a href="https://github.com/AgustinWojtyszyn/fuel-route-optimizer" target="_blank" rel="noopener noreferrer">Source code &amp; API documentation ↗</a>
+    <p data-i18n="disclaimer">Fuel prices are undated source-data assumptions in USD/gallon. Estimated trip cost includes the value of fuel in the starting tank; it does not all represent new purchases. This is a demonstration, not verified pump-by-pump navigation.</p>
+    <a href="https://github.com/AgustinWojtyszyn/fuel-route-optimizer" target="_blank" rel="noopener noreferrer"><span data-i18n="documentation">Source code &amp; API documentation</span> ↗</a>
   </footer>
 
-  <script type="importmap">
+  <script>
+  /* Translation catalogs are intentionally self-contained: no external translation API, no keys. */
+  (function () {
+    const translations = {"en":{"language":"Language","eyebrow":"Intelligent road-trip planning","heroDescription":"Plan a drive across the United States, find estimated fuel stops, and understand the real cost of your journey.","range":"500 mi range","efficiency":"10 miles / gallon","sectionKicker":"THE ROAD AHEAD","plannerTitle":"Plan your perfect route","plannerDescription":"From departure to destination, every mile made clearer.","usRoutes":"United States routes","formTitle":"Where are we going?","formHelp":"Enter two US cities to calculate your trip.","origin":"Origin","destination":"Destination","originState":"Origin state abbreviation","destinationState":"Destination state abbreviation","city":"City","swap":"Swap origin and destination","calculate":"Calculate route & fuel stops","calculating":"Planning your route…","samples":"QUICK ROUTES","ready":"Ready when you are. Pick a route to see distance, fuel stops, and costs.","approxTitle":"Station positions are approximate","approxBody":"Markers use city-level estimates, not verified pump locations. Check real station access before you travel.","mapTitle":"Interactive route map","mapDescription":"Real road geometry · Approximate refueling waypoints","mapAppearance":"Map appearance","streets":"Streets","minimal":"Minimal","night":"Night","mapAria":"Interactive map showing the road route and approximate fuel stops","mapReady":"Map ready · Choose your route","fitRoute":"View entire route","mapLegend":"Map legend","fuelStops":"Fuel stops","roadRoute":"Road route","mapAttribution":"© OpenStreetMap contributors · OpenFreeMap","metricsAria":"Route summary statistics","breakdownAria":"Estimated fuel cost breakdown","breakdownTitle":"Your fuel cost, explained","breakdownHelp":"An estimate, not a receipt from a fuel station","tripFuelValue":"Total fuel value of trip","startingFuel":"Value of starting fuel","copy":"Copy summary","copied":"Copied ✓","suggestedStops":"Recommended fuel stops","estimated":"ESTIMATED","understanding":"About these estimates","disclaimer":"Prices are undated source-data assumptions in USD per gallon. The total includes the value of fuel in the initial tank, so it is not all new spending. Stops are approximate city points, not verified fuel-pump locations.","documentation":"Source code & API documentation","statusLoading":"Finding the road route and calculating estimated fuel purchases…","statusSuccess":"Route calculated. Review approximate fuel stops before traveling.","statusError":"Unable to load the route. Check your connection and try again.","apiError":"Unable to calculate this route.","copyError":"Couldn't copy the summary. Check your clipboard permissions.","swapped":"Origin and destination swapped. Calculate to update the route.","presetSelected":"Example selected. Calculate to explore the route.","noStops":"No additional fuel purchase is required with the assumed full starting tank.","buy":"Buy","perGal":"/gal","approxStop":"Approximate city location · Pump access not verified","focusMap":"Locate on map ↗","focusAria":"Show approximate location of stop {count} on map","mapMapped":"Route drawn · {count} estimated fuel stops","distanceMetric":"Road distance","timeMetric":"Driving time","stopsMetric":"Fuel stops","purchasesMetric":"New fuel purchases","hours":"h","minutes":"m","warningFuelTotal":"Estimated fuel value of this trip: {total}, including {initial} already in the starting tank.","warningProviderCalls":"Routing-provider requests: {count}{cached}","cache":" (from cache)","warningApprox":"Stop locations are approximate city waypoints, not verified fuel-pump entrances.","copyHeader":"Fuel Route Optimizer — estimated trip","copyDistance":"Distance","copyStops":"Estimated fuel stops","copyPurchased":"Fuel bought along the way","copyTotal":"Estimated full-trip fuel value (includes starting tank)","copyApprox":"Station locations are approximate and unverified.","originTooltip":"Origin","destinationTooltip":"Destination","mapPopup":"approximate location","title":"Fuel Route Optimizer | Smarter road trips"},"es":{"language":"Idioma","eyebrow":"Planificación inteligente de viajes","heroDescription":"Planificá tu recorrido por Estados Unidos, explorá paradas estimadas para cargar combustible y conocé el costo de tu viaje.","range":"Autonomía de 500 mi","efficiency":"10 millas / galón","sectionKicker":"TU PRÓXIMO RECORRIDO","plannerTitle":"Planificá tu ruta ideal","plannerDescription":"Del punto de partida al destino, cada kilómetro más claro.","usRoutes":"Rutas en Estados Unidos","formTitle":"¿A dónde vamos?","formHelp":"Ingresá dos ciudades estadounidenses para calcular el recorrido.","origin":"Origen","destination":"Destino","originState":"Abreviatura del estado de origen","destinationState":"Abreviatura del estado de destino","city":"Ciudad","swap":"Intercambiar origen y destino","calculate":"Calcular ruta y combustible","calculating":"Calculando recorrido…","samples":"RUTAS DE EJEMPLO","ready":"Todo listo. Elegí una ruta para conocer distancias, paradas y costos.","approxTitle":"Ubicaciones aproximadas","approxBody":"Los marcadores son estimaciones por ciudad, no surtidores verificados. Confirmá cada parada antes de viajar.","mapTitle":"Mapa interactivo de la ruta","mapDescription":"Recorrido real por carretera · Paradas estimadas","mapAppearance":"Apariencia del mapa","streets":"Calles","minimal":"Minimalista","night":"Nocturno","mapAria":"Mapa interactivo con el recorrido y las paradas aproximadas","mapReady":"Mapa listo · Elegí una ruta","fitRoute":"Ver recorrido completo","mapLegend":"Referencias del mapa","fuelStops":"Paradas","roadRoute":"Recorrido","mapAttribution":"© Colaboradores de OpenStreetMap · OpenFreeMap","metricsAria":"Resumen del recorrido","breakdownAria":"Desglose del costo de combustible","breakdownTitle":"Tu costo de combustible, explicado","breakdownHelp":"Es una estimación, no un comprobante de surtidor","tripFuelValue":"Valor total del combustible","startingFuel":"Valor del combustible inicial","copy":"Copiar resumen","copied":"Copiado ✓","suggestedStops":"Paradas de combustible sugeridas","estimated":"ESTIMADO","understanding":"Cómo interpretar el cálculo","disclaimer":"Los precios son supuestos del archivo original, sin fecha y expresados en USD por galón. El total incluye el combustible del tanque inicial, así que no todo representa una compra nueva. Las paradas son puntos aproximados por ciudad, no surtidores verificados.","documentation":"Código fuente y documentación de la API","statusLoading":"Buscando el recorrido por carretera y calculando las cargas estimadas…","statusSuccess":"Ruta calculada. Verificá las paradas aproximadas antes de viajar.","statusError":"No se pudo cargar la ruta. Revisá tu conexión e intentá nuevamente.","apiError":"No se pudo calcular esta ruta.","copyError":"No se pudo copiar el resumen. Revisá los permisos del portapapeles.","swapped":"Origen y destino intercambiados. Calculá para actualizar la ruta.","presetSelected":"Elegiste un ejemplo. Calculá para explorar el recorrido.","noStops":"No hace falta comprar más combustible con el tanque inicial lleno supuesto.","buy":"Cargar","perGal":"/gal","approxStop":"Ubicación aproximada · Surtidor sin verificar","focusMap":"Ubicar en el mapa ↗","focusAria":"Mostrar en el mapa la ubicación aproximada de la parada {count}","mapMapped":"Ruta trazada · {count} paradas estimadas","distanceMetric":"Distancia","timeMetric":"Tiempo de conducción","stopsMetric":"Paradas","purchasesMetric":"Compras en el recorrido","hours":"h","minutes":"min","warningFuelTotal":"Valor estimado del combustible del viaje: {total}, incluidos {initial} del tanque inicial.","warningProviderCalls":"Consultas al servicio de rutas: {count}{cached}","cache":" (desde caché)","warningApprox":"Las paradas son puntos aproximados por ciudad, no entradas a surtidores verificados.","copyHeader":"Fuel Route Optimizer — viaje estimado","copyDistance":"Distancia","copyStops":"Paradas estimadas","copyPurchased":"Combustible comprado durante el recorrido","copyTotal":"Valor total del combustible (incluye tanque inicial)","copyApprox":"Los puntos de combustible son aproximados y no están verificados.","originTooltip":"Origen","destinationTooltip":"Destino","mapPopup":"ubicación aproximada","title":"Fuel Route Optimizer | Rutas más inteligentes"},"fr":{"language":"Langue","eyebrow":"Planification intelligente de voyages","heroDescription":"Planifiez votre trajet aux États-Unis, découvrez les arrêts carburant estimés et comprenez le coût de votre voyage.","range":"Autonomie : 500 mi","efficiency":"10 miles / gallon","sectionKicker":"PRENEZ LA ROUTE","plannerTitle":"Planifiez votre itinéraire","plannerDescription":"Du départ à l'arrivée, chaque étape devient plus claire.","usRoutes":"Trajets aux États-Unis","formTitle":"Où allons-nous ?","formHelp":"Saisissez deux villes américaines pour calculer votre trajet.","origin":"Départ","destination":"Arrivée","originState":"Abréviation de l'État de départ","destinationState":"Abréviation de l'État d'arrivée","city":"Ville","swap":"Inverser le départ et l'arrivée","calculate":"Calculer l'itinéraire et le carburant","calculating":"Calcul du trajet…","samples":"ITINÉRAIRES SUGGÉRÉS","ready":"Tout est prêt. Choisissez un trajet pour voir la distance, les arrêts et les coûts.","approxTitle":"Positions des stations approximatives","approxBody":"Les repères indiquent des villes, pas des pompes vérifiées. Confirmez l'accès avant votre départ.","mapTitle":"Carte interactive du trajet","mapDescription":"Itinéraire routier réel · Arrêts carburant estimés","mapAppearance":"Style de la carte","streets":"Rues","minimal":"Épurée","night":"Nuit","mapAria":"Carte interactive du trajet routier et des arrêts carburant approximatifs","mapReady":"Carte prête · Choisissez un trajet","fitRoute":"Afficher tout le trajet","mapLegend":"Légende de la carte","fuelStops":"Arrêts carburant","roadRoute":"Trajet routier","mapAttribution":"© Contributeurs OpenStreetMap · OpenFreeMap","metricsAria":"Statistiques du trajet","breakdownAria":"Détail du coût estimé du carburant","breakdownTitle":"Comprendre vos coûts de carburant","breakdownHelp":"Une estimation, pas un reçu de station-service","tripFuelValue":"Valeur totale du carburant","startingFuel":"Valeur du carburant initial","copy":"Copier le résumé","copied":"Copié ✓","suggestedStops":"Arrêts carburant recommandés","estimated":"ESTIMÉ","understanding":"Comprendre les estimations","disclaimer":"Les prix proviennent de données non datées, exprimées en USD par gallon. Le total inclut le carburant du réservoir initial et ne correspond donc pas uniquement à de nouveaux achats. Les arrêts sont des points approximatifs par ville, pas des pompes vérifiées.","documentation":"Code source et documentation de l'API","statusLoading":"Recherche de l'itinéraire et estimation des achats de carburant…","statusSuccess":"Itinéraire calculé. Vérifiez les arrêts approximatifs avant de voyager.","statusError":"Impossible de charger le trajet. Vérifiez votre connexion et réessayez.","apiError":"Impossible de calculer cet itinéraire.","copyError":"Impossible de copier le résumé. Vérifiez les autorisations du presse-papiers.","swapped":"Départ et arrivée inversés. Recalculez pour actualiser le trajet.","presetSelected":"Exemple sélectionné. Lancez le calcul pour voir le trajet.","noStops":"Aucun achat supplémentaire nécessaire avec le réservoir initial supposé plein.","buy":"Acheter","perGal":"/gal","approxStop":"Position approximative · Accès à la pompe non vérifié","focusMap":"Voir sur la carte ↗","focusAria":"Afficher la position approximative de l'arrêt {count} sur la carte","mapMapped":"Trajet tracé · {count} arrêts estimés","distanceMetric":"Distance routière","timeMetric":"Temps de conduite","stopsMetric":"Arrêts carburant","purchasesMetric":"Achats de carburant","hours":"h","minutes":"min","warningFuelTotal":"Valeur estimée du carburant du trajet : {total}, dont {initial} déjà présents dans le réservoir initial.","warningProviderCalls":"Appels au service d'itinéraires : {count}{cached}","cache":" (depuis le cache)","warningApprox":"Les arrêts sont des points approximatifs par ville, pas des entrées de stations vérifiées.","copyHeader":"Fuel Route Optimizer — estimation de trajet","copyDistance":"Distance","copyStops":"Arrêts estimés","copyPurchased":"Carburant acheté en route","copyTotal":"Valeur totale du carburant (réservoir initial inclus)","copyApprox":"Les emplacements des stations sont approximatifs et non vérifiés.","originTooltip":"Départ","destinationTooltip":"Arrivée","mapPopup":"position approximative","title":"Fuel Route Optimizer | Des trajets plus intelligents"},"pt":{"language":"Idioma","eyebrow":"Planejamento inteligente de viagens","heroDescription":"Planeje sua viagem pelos Estados Unidos, descubra paradas estimadas para abastecimento e entenda os custos do trajeto.","range":"Autonomia de 500 mi","efficiency":"10 milhas / galão","sectionKicker":"SUA PRÓXIMA VIAGEM","plannerTitle":"Planeje sua melhor rota","plannerDescription":"Da partida ao destino, cada etapa fica mais clara.","usRoutes":"Rotas nos Estados Unidos","formTitle":"Para onde vamos?","formHelp":"Informe duas cidades dos EUA para calcular a viagem.","origin":"Origem","destination":"Destino","originState":"Sigla do estado de origem","destinationState":"Sigla do estado de destino","city":"Cidade","swap":"Inverter origem e destino","calculate":"Calcular rota e combustível","calculating":"Calculando rota…","samples":"ROTAS DE EXEMPLO","ready":"Tudo pronto. Escolha uma rota para ver distância, paradas e custos.","approxTitle":"Localizações aproximadas","approxBody":"Os marcadores representam cidades, não bombas verificadas. Confirme o acesso antes de viajar.","mapTitle":"Mapa interativo da rota","mapDescription":"Trajeto rodoviário real · Abastecimentos estimados","mapAppearance":"Aparência do mapa","streets":"Ruas","minimal":"Minimalista","night":"Noturno","mapAria":"Mapa interativo da rota e dos abastecimentos aproximados","mapReady":"Mapa pronto · Escolha uma rota","fitRoute":"Ver rota completa","mapLegend":"Legenda do mapa","fuelStops":"Paradas","roadRoute":"Rota rodoviária","mapAttribution":"© Colaboradores do OpenStreetMap · OpenFreeMap","metricsAria":"Estatísticas da rota","breakdownAria":"Detalhamento do custo do combustível","breakdownTitle":"Entenda o custo do combustível","breakdownHelp":"Uma estimativa, não um recibo de posto","tripFuelValue":"Valor total do combustível","startingFuel":"Valor do combustível inicial","copy":"Copiar resumo","copied":"Copiado ✓","suggestedStops":"Paradas sugeridas para abastecer","estimated":"ESTIMADO","understanding":"Entenda esta estimativa","disclaimer":"Os preços são estimativas de dados sem data, em USD por galão. O total inclui o combustível do tanque inicial, portanto nem tudo representa novas compras. As paradas são pontos aproximados por cidade, não bombas verificadas.","documentation":"Código-fonte e documentação da API","statusLoading":"Buscando a rota e calculando o abastecimento estimado…","statusSuccess":"Rota calculada. Confira as paradas aproximadas antes de viajar.","statusError":"Não foi possível carregar a rota. Verifique a conexão e tente novamente.","apiError":"Não foi possível calcular esta rota.","copyError":"Não foi possível copiar o resumo. Confira as permissões da área de transferência.","swapped":"Origem e destino invertidos. Calcule novamente para atualizar a rota.","presetSelected":"Exemplo selecionado. Calcule para explorar a rota.","noStops":"Não é necessário comprar mais combustível considerando o tanque inicial cheio.","buy":"Abastecer","perGal":"/gal","approxStop":"Localização aproximada · Acesso à bomba não verificado","focusMap":"Ver no mapa ↗","focusAria":"Mostrar a localização aproximada da parada {count} no mapa","mapMapped":"Rota traçada · {count} paradas estimadas","distanceMetric":"Distância","timeMetric":"Tempo de direção","stopsMetric":"Paradas","purchasesMetric":"Compras de combustível","hours":"h","minutes":"min","warningFuelTotal":"Valor estimado do combustível da viagem: {total}, incluindo {initial} já presentes no tanque inicial.","warningProviderCalls":"Consultas ao serviço de rotas: {count}{cached}","cache":" (do cache)","warningApprox":"As paradas são pontos aproximados por cidade, não entradas de postos verificadas.","copyHeader":"Fuel Route Optimizer — viagem estimada","copyDistance":"Distância","copyStops":"Paradas estimadas","copyPurchased":"Combustível comprado durante o trajeto","copyTotal":"Valor total do combustível (inclui tanque inicial)","copyApprox":"As posições dos postos são aproximadas e não foram verificadas.","originTooltip":"Origem","destinationTooltip":"Destino","mapPopup":"localização aproximada","title":"Fuel Route Optimizer | Viagens mais inteligentes"}};
+    const supported = ['en','es','fr','pt'];
+    const browserLanguage = (navigator.language || 'en').slice(0,2).toLowerCase();
+    let stored = '';
+    try { stored = localStorage.getItem('fuel-route-language') || ''; } catch (_) {}
+    let current = supported.includes(stored) ? stored : (supported.includes(browserLanguage) ? browserLanguage : 'en');
+    function t(key,variables) {
+      let value = translations[current][key] || translations.en[key] || key;
+      if (variables) value = value.replace(/\{([a-zA-Z]+)\}/g, (_,name) => String(variables[name] ?? ''));
+      return value;
+    }
+    function apply() {
+      document.documentElement.lang = current === 'pt' ? 'pt-BR' : current;
+      document.title = t('title');
+      document.querySelectorAll('[data-i18n]').forEach(node => {node.textContent = t(node.dataset.i18n);});
+      document.querySelectorAll('[data-i18n-aria]').forEach(node => {node.setAttribute('aria-label',t(node.dataset.i18nAria));});
+      document.querySelectorAll('[data-i18n-title]').forEach(node => {node.title = t(node.dataset.i18nTitle);});
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(node => {node.placeholder = t(node.dataset.i18nPlaceholder);});
+      document.getElementById('languageSelect').value = current;
+      document.dispatchEvent(new Event('fuel:language-change'));
+    }
+    window.FuelI18n = { t, locale: () => ({en:'en-US',es:'es-AR',fr:'fr-FR',pt:'pt-BR'})[current], apply };
+    document.getElementById('languageSelect').addEventListener('change', event => {
+      if (!supported.includes(event.target.value)) return;
+      current = event.target.value;
+      try { localStorage.setItem('fuel-route-language',current); } catch (_) {}
+      apply();
+    });
+    apply();
+  }());
+  </script>
+  
+<script type="importmap">
     {"imports": {
       "leaflet": "https://unpkg.com/leaflet@1.9.4/dist/leaflet-src.esm.js",
       "maplibre-gl": "https://unpkg.com/maplibre-gl@6.3.0/dist/maplibre-gl.mjs"
@@ -452,8 +564,10 @@
 
     'use strict';
     const el = id => document.getElementById(id);
-    const money = value => '$' + Number(value || 0).toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
-    const decimal = (value, digits=2) => Number(value || 0).toLocaleString('en-US', {maximumFractionDigits:digits});
+    const tr = (key,vars) => window.FuelI18n.t(key,vars);
+    const locale = () => window.FuelI18n.locale();
+    const money = value => new Intl.NumberFormat(locale(),{style:'currency',currency:'USD',minimumFractionDigits:2,maximumFractionDigits:2}).format(Number(value || 0));
+    const decimal = (value, digits=2) => Number(value || 0).toLocaleString(locale(), {maximumFractionDigits:digits});
     const map = L.map('map', {scrollWheelZoom:false, zoomControl:true}).setView([39,-98],4);
     const basemap = maplibreGL({style:'https://tiles.openfreemap.org/styles/liberty'}).addTo(map);
     const mapStyles = Object.freeze({
@@ -499,7 +613,7 @@
       const parent = el('stops'); parent.replaceChildren();
       if (!stops.length) {
         const empty = document.createElement('p'); empty.className = 'empty';
-        empty.textContent = 'No additional fuel purchase is required with the assumed full starting tank.';
+        empty.textContent = tr('noStops');
         parent.append(empty); return;
       }
       stops.forEach((stop, index) => {
@@ -510,14 +624,14 @@
         const location = document.createElement('p'); location.className = 'stop-location'; location.textContent = [stop.city, stop.state, stop.address].filter(Boolean).join(' · ');
         const row = document.createElement('div'); row.className = 'stop-data';
         const amount = document.createElement('span'); amount.className = 'stop-quantity';
-        amount.textContent = 'Buy ' + decimal(stop.gallons_to_buy) + ' gal · ' + money(stop.price_usd_per_gallon) + '/gal';
+        amount.textContent = tr('buy') + ' ' + decimal(stop.gallons_to_buy) + ' gal · ' + money(stop.price_usd_per_gallon) + tr('perGal');
         const cost = document.createElement('strong'); cost.className = 'stop-cost'; cost.textContent = money(stop.stop_cost_usd);
-        const foot = document.createElement('p'); foot.className = 'stop-foot'; foot.textContent = 'Approximate city location · pump access not verified';
+        const foot = document.createElement('p'); foot.className = 'stop-foot'; foot.textContent = tr('approxStop');
         row.append(amount, cost); main.append(name,location,row,foot);
         if (Number.isFinite(Number(stop.lat)) && Number.isFinite(Number(stop.lon))) {
           const view = document.createElement('button');
-          view.type='button';view.className='stop-focus';view.textContent='Locate on map ↗';
-          view.setAttribute('aria-label','Show approximate location of stop ' + (index+1) + ' on the map');
+          view.type='button';view.className='stop-focus';view.textContent=tr('focusMap');
+          view.setAttribute('aria-label',tr('focusAria',{count:index+1}));
           view.addEventListener('click', () => {
             const marker=stopMarkers[index];
             if (marker) { if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) map.setView(marker.getLatLng(),9); else map.flyTo(marker.getLatLng(),9,{duration:.7}); marker.openPopup(); }
@@ -536,10 +650,10 @@
       const ends = [coords[0],coords[coords.length-1]];
       ends.forEach((point, index) => L.circleMarker([point[1],point[0]], {
         radius:8,color:'#fff',weight:3,fillColor:index === 0 ? '#159667' : '#c43f51',fillOpacity:1
-      }).bindTooltip(index === 0 ? 'Origin' : 'Destination').addTo(activeLayer));
+      }).bindTooltip(index === 0 ? tr('originTooltip') : tr('destinationTooltip')).addTo(activeLayer));
       data.stops.forEach((stop,index) => {
         const popup = document.createElement('span');
-        popup.textContent = (index+1) + '. ' + stop.name + ' · ' + money(stop.stop_cost_usd) + ' · approximate location';
+        popup.textContent = (index+1) + '. ' + stop.name + ' · ' + money(stop.stop_cost_usd) + ' · ' + tr('mapPopup');
         if (Number.isFinite(Number(stop.lat)) && Number.isFinite(Number(stop.lon))) {
           const marker=L.marker([Number(stop.lat),Number(stop.lon)], {
             icon:L.divIcon({className:'',html:'<div class="stop-pin"><span>'+(index+1)+'</span></div>',iconSize:[29,29],iconAnchor:[13,27]})
@@ -549,16 +663,16 @@
       });
       map.fitBounds(activeLayer.getBounds(), {padding:[34,34],maxZoom:12});
       el('fitRouteButton').hidden=false;
-      el('mapLiveLabel').textContent='Road route mapped · ' + data.stops.length + ' estimated fuel stops';
+      el('mapLiveLabel').textContent=tr('mapMapped',{count:data.stops.length});
     }
     function showResult(data) {
       lastResult=data;
       el('metrics').replaceChildren();
       const minutes = Math.round(Number(data.route.duration_minutes));
-      addMetric('Road distance', decimal(data.route.distance_miles,1) + ' mi', 'distance');
-      addMetric('Driving time', Math.floor(minutes/60) + 'h ' + (minutes%60) + 'm', 'time');
-      addMetric('Fuel stops', String(data.stops.length), 'stops');
-      addMetric('Fuel purchased en route', money(data.fuel.purchased_en_route_usd), 'cost');
+      addMetric(tr('distanceMetric'), decimal(data.route.distance_miles,1) + ' mi', 'distance');
+      addMetric(tr('timeMetric'), Math.floor(minutes/60) + tr('hours') + ' ' + (minutes%60) + tr('minutes'), 'time');
+      addMetric(tr('stopsMetric'), String(data.stops.length), 'stops');
+      addMetric(tr('purchasesMetric'), money(data.fuel.purchased_en_route_usd), 'cost');
       el('metrics').hidden = false;
       el('tripTotal').textContent=money(data.fuel.estimated_total_trip_cost_usd);
       el('initialTotal').textContent=money(data.fuel.initial_fuel_estimated_cost_usd);
@@ -566,9 +680,9 @@
       renderStops(data.stops);
       const warnings = el('warnings'); warnings.replaceChildren();
       const messages = [
-        'Estimated total trip fuel value: ' + money(data.fuel.estimated_total_trip_cost_usd) + ', including ' + money(data.fuel.initial_fuel_estimated_cost_usd) + ' for fuel already in the starting tank.',
-        'Routing service calls: ' + data.meta.routing_api_calls + (data.meta.cache_hit ? ' (cached result).' : '.'),
-        'Fuel stop markers are approximate city waypoints, not verified station entrances.'
+        tr('warningFuelTotal',{total:money(data.fuel.estimated_total_trip_cost_usd),initial:money(data.fuel.initial_fuel_estimated_cost_usd)}),
+        tr('warningProviderCalls',{count:data.meta.routing_api_calls,cached:data.meta.cache_hit ? tr('cache'):''}) + '.',
+        tr('warningApprox')
       ].concat(data.meta.warnings || []);
       messages.forEach(message => { const item = document.createElement('li'); item.textContent = message; warnings.append(item); });
       el('details').hidden = false;
@@ -579,7 +693,7 @@
       el('details').hidden = true;
       el('tripSummary').hidden = true;
       el('fitRouteButton').hidden = true;
-      el('mapLiveLabel').textContent = 'Map ready · Select your journey';
+      el('mapLiveLabel').textContent = tr('mapReady');
       lastResult = null;
       stopMarkers = [];
       if (activeLayer) { map.removeLayer(activeLayer); activeLayer = null; }
@@ -591,31 +705,41 @@
       if (!lastResult) return;
       const s=lastResult;
       const lines=[
-        'Fuel Route Optimizer — estimate',
+        tr('copyHeader'),
         formatCity({city:el('startCity').value,state:el('startState').value}) + ' → ' + formatCity({city:el('finishCity').value,state:el('finishState').value}),
-        'Distance: ' + decimal(s.route.distance_miles,1) + ' mi',
-        'Refueling stops: ' + s.stops.length,
-        'Purchased along route: ' + money(s.fuel.purchased_en_route_usd),
-        'Estimated trip fuel value including starting fuel: ' + money(s.fuel.estimated_total_trip_cost_usd),
-        'Station positions are approximate and have not been verified.'
+        tr('copyDistance') + ': ' + decimal(s.route.distance_miles,1) + ' mi',
+        tr('copyStops') + ': ' + s.stops.length,
+        tr('copyPurchased') + ': ' + money(s.fuel.purchased_en_route_usd),
+        tr('copyTotal') + ': ' + money(s.fuel.estimated_total_trip_cost_usd),
+        tr('copyApprox')
       ];
       try {
         await navigator.clipboard.writeText(lines.join('\n'));
         const button=el('copySummary');const old=button.textContent;
-        button.textContent='Copied ✓';setTimeout(()=>{button.textContent=old},1700);
-      } catch {setStatus('Unable to copy automatically. Check browser clipboard permissions.','error');}
+        button.textContent=tr('copied');setTimeout(()=>{button.textContent=tr('copy')+' ↗'},1700);
+      } catch {setStatus(tr('copyError'),'error');}
     });
     el('swapButton').addEventListener('click', () => {
       for (const field of ['City','State']) {
         const first = el('start' + field); const last = el('finish' + field);
         [first.value,last.value] = [last.value,first.value];
       }
-      clearResults();setStatus('Origin and destination swapped. Calculate to update the route.');
+      clearResults();setStatus(tr('swapped'));
     });
     document.querySelectorAll('.preset').forEach(button => button.addEventListener('click', () => {
       for (const key of ['startCity','startState','finishCity','finishState']) el(key).value = button.dataset[key];
-      clearResults();setStatus('Sample route selected. Calculate to see the result.');
+      clearResults();setStatus(tr('presetSelected'));
     }));
+    document.addEventListener('fuel:language-change', () => {
+      if (lastResult) {
+        showResult(lastResult);
+        setStatus(tr('statusSuccess'),'success');
+      } else {
+        setStatus(tr('ready'));
+        el('mapLiveLabel').textContent = tr('mapReady');
+      }
+      if (el('submitButton').disabled) el('submitText').textContent = tr('calculating');
+    });
     el('routeForm').addEventListener('submit', async event => {
       event.preventDefault();
       const fields = new FormData(event.currentTarget);
@@ -624,21 +748,21 @@
         finish:{city:String(fields.get('finishCity')).trim(),state:String(fields.get('finishState')).trim().toUpperCase()}
       };
       const button=el('submitButton');
-      button.disabled=true;button.classList.add('loading');el('submitText').textContent='Calculating your trip…';
-      clearResults();setStatus('Calculating the road route and estimating fuel stops…');
+      button.disabled=true;button.classList.add('loading');el('submitText').textContent=tr('calculating');
+      clearResults();setStatus(tr('statusLoading'));
       try {
         const response=await fetch('/api/v1/routes/optimize/', {
           method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)
         });
         const data=await response.json();
-        if (!response.ok) { setStatus((data.error && data.error.message) || 'Unable to calculate this route.','error');return; }
+        if (!response.ok) { setStatus((data.error && data.error.message) || tr('apiError'),'error');return; }
         showResult(data);
-        setStatus('Route calculated. Approximate fuel stops are shown on the map.','success');
+        setStatus(tr('statusSuccess'),'success');
       } catch (error) {
-        setStatus('Unable to load the route. Check your connection and try again.','error');
+        setStatus(tr('statusError'),'error');
         console.error('Route calculation failed:',error);
       } finally {
-        button.disabled=false;button.classList.remove('loading');el('submitText').textContent='Calculate route & fuel stops';
+        button.disabled=false;button.classList.remove('loading');el('submitText').textContent=tr('calculate');
       }
     });
   </script>
