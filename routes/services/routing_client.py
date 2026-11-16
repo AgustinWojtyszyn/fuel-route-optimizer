@@ -14,7 +14,13 @@ def get_route(points):
     if not 2 <= len(points) <= 50:
         raise RoutingError('too_many_waypoints', 'Route requires 2–50 waypoints.', 422)
     try:
-        response = httpx.post(URL, headers={'Authorization':key}, json={'coordinates':points, 'instructions':True}, timeout=float(os.getenv('ORS_TIMEOUT_SECONDS', '20')))
+        timeout = float(os.getenv('ORS_TIMEOUT_SECONDS', '20'))
+    except ValueError as exc:
+        raise RoutingError('routing_configuration','Invalid provider timeout setting.',503) from exc
+    if not math.isfinite(timeout) or not 0 < timeout <= 120:
+        raise RoutingError('routing_configuration','Provider timeout must be between 0 and 120 seconds.',503)
+    try:
+        response = httpx.post(URL, headers={'Authorization':key}, json={'coordinates':points, 'instructions':True}, timeout=timeout)
         if response.status_code in (401,403,429):
             raise RoutingError('routing_access', 'Routing key or provider quota rejected the request.', 503)
         if response.status_code >= 400:

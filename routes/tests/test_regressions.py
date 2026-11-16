@@ -13,6 +13,14 @@ class PrecisionTests(SimpleTestCase):
         self.assertEqual(amount(D('0.0000003')), '0.0000003')
         self.assertEqual(amount(D('22')), '22.0000')
 
+    def test_three_dimensional_geojson_ignores_elevation_in_distance(self):
+        geometry = {'type': 'LineString', 'coordinates': [
+            [-100, 40, 120], [-99, 40, 145],
+        ]}
+        lateral, mile = PolylineProjector(geometry, 100).project((-99.5, 40))
+        self.assertLess(lateral, 1e-7)
+        self.assertAlmostEqual(mile, 50, places=6)
+
     def test_self_crossing_geometry_uses_earliest_pass(self):
         geometry = {'type': 'LineString', 'coordinates': [
             [-100, 40], [-99, 40], [-100, 40], [-99, 40],
@@ -79,3 +87,14 @@ class ThrottlingTests(TestCase):
             self.assertEqual(second.status_code, 429)
             self.assertEqual(second.data['error']['code'], 'rate_limited')
         cache.clear()
+
+
+class ProviderConfigurationTests(SimpleTestCase):
+    @patch.dict('os.environ', {'ORS_API_KEY': 'test-only', 'ORS_TIMEOUT_SECONDS': '-3'})
+    @patch('routes.services.routing_client.httpx.post')
+    def test_invalid_timeout_fails_before_network(self, post):
+        from routes.services.routing_client import RoutingError, get_route
+        with self.assertRaises(RoutingError) as issue:
+            get_route([[0, 0], [1, 1]])
+        self.assertEqual(issue.exception.code, 'routing_configuration')
+        post.assert_not_called()
