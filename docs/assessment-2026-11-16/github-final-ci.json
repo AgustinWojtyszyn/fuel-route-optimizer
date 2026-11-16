@@ -1,0 +1,171 @@
+{
+  "run": {
+    "conclusion": "success",
+    "created_at": "2026-11-16T23:54:04Z",
+    "head_sha": "334e3a80d50221315f92326af94b57cd8a8f8e97",
+    "html_url": "https://github.com/AgustinWojtyszyn/fuel-route-optimizer/actions/runs/43983190860",
+    "id": 43983190860,
+    "status": "completed",
+    "updated_at": "2026-11-16T23:54:27Z"
+  },
+  "jobs": [
+    {
+      "conclusion": "success",
+      "html_url": "https://github.com/AgustinWojtyszyn/fuel-route-optimizer/actions/runs/43983190860/job/133704600472",
+      "id": 133704600472,
+      "name": "tests (3.12)",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v6",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-python@v6",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install pinned dependencies",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Django configuration and migrations",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Independent optimizer and verification tests",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Django integration tests with mocked provider",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Validate OpenAPI reference",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Verify all inline page JavaScript syntax",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Verify all linked browser JavaScript",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Compile source",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@v6",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v6",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "conclusion": "success",
+      "html_url": "https://github.com/AgustinWojtyszyn/fuel-route-optimizer/actions/runs/43983190860/job/133704600726",
+      "id": 133704600726,
+      "name": "tests (3.13)",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v6",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-python@v6",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install pinned dependencies",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Django configuration and migrations",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Independent optimizer and verification tests",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Django integration tests with mocked provider",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Validate OpenAPI reference",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Verify all inline page JavaScript syntax",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Verify all linked browser JavaScript",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Compile source",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@v6",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v6",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "status": "completed"
+        }
+      ]
+    }
+  ]
+}

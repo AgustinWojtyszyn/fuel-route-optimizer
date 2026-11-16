@@ -115,7 +115,15 @@ Detalles y limitaciones en [backend-audit.md](backend-audit.md). Las tres rutas 
 
 La CI de la referencia se comprobó mediante GitHub: [ejecución 43978291363](https://github.com/AgustinWojtyszyn/fuel-route-optimizer/actions/runs/43978291363), ambos jobs Python 3.12/3.13 y todos sus pasos en `success`. La [revisión de entrega](delivery-review.md) y [evidencia JSON](github-reference-ci.json) detallan esa comprobación.
 
-Los cambios nuevos se prueban localmente antes de los commits y de cualquier publicación. El estado de su CI remota se incorporará después de publicarlos; la aprobación de la referencia no se atribuye a código todavía no publicado. No se crean ramas ni se despliega producción. OpenAPI, colección y dependencias ya válidas se mantienen.
+Se publicaron en `main`, después de aprobar las pruebas locales:
+
+- `cb700a3`: validación de fronteras del backend y nuevos casos matemáticos.
+- `cf82883`: correcciones funcionales/visuales e interacción traducida.
+- `334e3a8`: preparación de estáticos, documentación y evidencias.
+
+La [CI de los cambios nuevos, ejecución 43983190860](https://github.com/AgustinWojtyszyn/fuel-route-optimizer/actions/runs/43983190860), terminó en **success** para el SHA `334e3a80d50221315f92326af94b57cd8a8f8e97`: ambos jobs Python 3.12/3.13 y todos sus pasos aprobaron. Evidencia de ejecución, jobs y pasos en [github-final-ci.json](github-final-ci.json). Una actualización posterior de documentación registra esta evidencia; no cambia el código evaluado. No se crearon ramas ni se desplegó producción. OpenAPI, colección y dependencias ya válidas se mantienen.
+
+Durante el trabajo apareció una edición concurrente de `scripts/verify_preserved.py`, ajena a estos commits. Se dejó intacta y fuera de la publicación; no se atribuye al trabajo ni se usa para acreditar pruebas.
 
 ## G. Entrega y pendientes explícitos
 
