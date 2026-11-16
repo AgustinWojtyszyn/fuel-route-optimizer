@@ -65,14 +65,13 @@ class AccountingTests(TestCase):
 
 class ThrottlingTests(TestCase):
     def test_rate_limit_uses_standard_error_contract(self):
-        from django.conf import settings
         from django.core.cache import cache
-        from django.test import override_settings
         from rest_framework.test import APIClient
+        from rest_framework.throttling import ScopedRateThrottle
         cache.clear()
-        custom = {**settings.REST_FRAMEWORK,
-                  'DEFAULT_THROTTLE_RATES': {'fuel_routes': '1/min'}}
-        with override_settings(REST_FRAMEWORK=custom):
+        # DRF binds the rate map when importing its throttle class; changing
+        # Django settings alone does not affect that already-cached mapping.
+        with patch.object(ScopedRateThrottle, 'THROTTLE_RATES', {'fuel_routes': '1/min'}):
             client = APIClient()
             first = client.post('/api/v1/routes/optimize/', {}, format='json')
             second = client.post('/api/v1/routes/optimize/', {}, format='json')
