@@ -61,3 +61,22 @@ class AccountingTests(TestCase):
         self.assertEqual(response['stops'][0]['fuel_before_stop_gallons'], '0.2000')
         self.assertEqual(response['stops'][1]['fuel_after_stop_gallons'], '0.5000')
         self.assertEqual(response['fuel']['remaining_at_destination_gallons'], '0.0000')
+
+
+class ThrottlingTests(TestCase):
+    def test_rate_limit_uses_standard_error_contract(self):
+        from django.conf import settings
+        from django.core.cache import cache
+        from django.test import override_settings
+        from rest_framework.test import APIClient
+        cache.clear()
+        custom = {**settings.REST_FRAMEWORK,
+                  'DEFAULT_THROTTLE_RATES': {'fuel_routes': '1/min'}}
+        with override_settings(REST_FRAMEWORK=custom):
+            client = APIClient()
+            first = client.post('/api/v1/routes/optimize/', {}, format='json')
+            second = client.post('/api/v1/routes/optimize/', {}, format='json')
+            self.assertEqual(first.status_code, 400)
+            self.assertEqual(second.status_code, 429)
+            self.assertEqual(second.data['error']['code'], 'rate_limited')
+        cache.clear()

@@ -76,3 +76,16 @@ For small fractional purchases, the API now preserves exact decimal gallons inst
 `python scripts/run_live_checks.py` requires a real HeiGIT key, validates every returned road segment, reconciles all gallons/cents and provider calls, continues after a failed route, and **exits nonzero if any check fails**. Do not use local mocked tests as evidence of real provider availability or driving feasibility.
 
 Sources: [Django security releases](https://www.djangoproject.com/weblog/2026/nov/03/security-releases/), [DRF 3.18.3](https://www.django-rest-framework.org/community/release-notes/), [openrouteservice return formats](https://github.com/GIScience/openrouteservice/blob/main/docs/api-reference/endpoints/directions/requests-and-return-types.md), [hosted limits](https://giscience.github.io/openrouteservice/hosted-api-restrictions).
+
+## Operational safety
+
+The optimization endpoint applies a configurable, per-IP Django REST Framework throttle
+(default `120/min`; `DJANGO_ROUTE_RATE` overrides it). Throttled calls return HTTP 429
+with the same `error.code=rate_limited` envelope as other API errors. This is a
+single-process development safeguard; configure shared caches, reverse-proxy rules,
+authentication and abuse controls before exposing a multi-worker public API.
+The fuel verifier rejects **any** deficit, including below 0.00000001 gallons;
+route legs and required gallons are returned at sufficient precision to replay
+the calculation independently.
+
+[![Python API checks](https://github.com/AgustinWojtyszyn/fuel-route-optimizer/actions/workflows/ci.yml/badge.svg)](https://github.com/AgustinWojtyszyn/fuel-route-optimizer/actions/workflows/ci.yml)

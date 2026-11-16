@@ -64,11 +64,11 @@ def plan(start, finish):
     tank=CAPACITY
     for index,(offer,gallons) in enumerate(purchases):
         tank-=legs[index]/MPG
-        if tank < -D('.00000001'):
+        if tank < 0:
             raise InputError('fuel_accounting','Fuel ran out before a stop.')
         before=max(D(0),tank)
         tank=before+gallons
-        if tank > CAPACITY+D('.00000001'):
+        if tank > CAPACITY:
             raise InputError('fuel_accounting','Tank was overfilled.')
         station=station_lookup[offer.ident]
         # Each station rounds its own receipt to cents. Sum those receipts,
@@ -76,7 +76,7 @@ def plan(start, finish):
         charge=cents(gallons*station.price);spent+=charge;bought+=gallons
         stops.append({'opis_id':station.opis_id,'name':station.name,'address':station.address,'city':station.city,'state':station.state,'lat':station.latitude,'lon':station.longitude,'location_quality':station.location_quality,'station_access_verified':False,'route_mile':float(offer.mile),'price_usd_per_gallon':str(station.price),'gallons_to_buy':amount(gallons),'fuel_before_stop_gallons':amount(before),'fuel_after_stop_gallons':amount(tank),'stop_cost_usd':money(charge)})
     tank-=legs[len(purchases)]/MPG
-    if tank < -D('.00000001') or abs(tank-left) > D('.00000001'):
+    if tank < 0 or tank != left:
         raise InputError('fuel_accounting','The route and fuel balances disagree.')
     tank=max(D(0),tank)
     consumed=sum(legs,D(0))/MPG

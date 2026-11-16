@@ -1,7 +1,7 @@
 """Independent verification of REAL trip outputs; assertions remain active with python -O."""
 from decimal import Decimal, ROUND_HALF_UP
 
-TOLERANCE = Decimal('0.00000001')
+TOLERANCE = Decimal('0')
 
 
 def decimal(value):

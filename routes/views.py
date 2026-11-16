@@ -7,6 +7,8 @@ from rest_framework.response import Response
 from rest_framework.exceptions import ParseError
 from rest_framework.exceptions import UnsupportedMediaType
 from rest_framework.parsers import JSONParser
+from rest_framework.exceptions import Throttled
+from rest_framework.throttling import ScopedRateThrottle
 from routes.models import Station, DatasetState
 from routes.serializers import RouteSerializer
 from routes.services.route_planner import plan, InputError
@@ -14,6 +16,8 @@ from routes.services.routing_client import RoutingError
 
 def error(code,message,details=None): return {'error':{'code':code,'message':message,'details':details or {}}}
 class OptimizeView(APIView):
+    throttle_classes=[ScopedRateThrottle]
+    throttle_scope='fuel_routes'
     parser_classes=[JSONParser]
     authentication_classes=[]
     permission_classes=[]
@@ -22,6 +26,8 @@ class OptimizeView(APIView):
             return Response(error('invalid_json','Malformed JSON body.'),status=400)
         if isinstance(exc, UnsupportedMediaType):
             return Response(error('unsupported_media_type','Use application/json.'),status=415)
+        if isinstance(exc, Throttled):
+            return Response(error('rate_limited','Too many requests; try again later.'),status=429)
         return super().handle_exception(exc)
     def post(self,request):
         serializer=RouteSerializer(data=request.data)

@@ -96,6 +96,12 @@ class LiveVerificationTests(unittest.TestCase):
     def test_valid_plan(self):
         self.assertTrue(verify_plan(example_plan(), 2))
 
+    def test_even_microscopic_shortages_are_rejected(self):
+        plan = example_plan()
+        plan['route']['leg_distances_miles'] = [400, '300.000000001']
+        with self.assertRaisesRegex(ValueError, 'Ran out of fuel'):
+            verify_plan(plan, 2)
+
     def test_wrong_request_count(self):
         with self.assertRaisesRegex(ValueError, 'Provider request count'):
             verify_plan(example_plan(), 3)
