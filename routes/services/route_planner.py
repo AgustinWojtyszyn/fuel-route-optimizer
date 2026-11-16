@@ -24,6 +24,13 @@ def plan(start, finish):
     target=find_city(finish['city'],finish['state'])
     if not source or not target: raise InputError('unknown_city','City and state must match a city in the local US gazetteer.')
     if source.pk==target.pk: raise InputError('same_location','Start and finish must differ.')
+    # Reject incomplete imports before spending a provider request. Without
+    # prices the estimated initial-fuel cost cannot be computed; without any
+    # located station an itinerary requiring fuel could never be planned.
+    if not Station.objects.exists():
+        raise InputError('empty_catalog','Import the station CSV before routing.')
+    if not Station.objects.filter(latitude__isnull=False, longitude__isnull=False).exists():
+        raise InputError('station_locations_missing','Import city centroids before routing.')
     points=[[source.longitude,source.latitude],[target.longitude,target.latitude]]
     direct=get_route(points)
     calls=1
