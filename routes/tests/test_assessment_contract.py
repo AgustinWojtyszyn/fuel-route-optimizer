@@ -81,3 +81,17 @@ class AssessmentResultContract(TestCase):
         self.assertEqual(response.status_code, 422)
         self.assertEqual(response.data['error']['code'], 'unverified_fuel_plan')
         self.assertEqual(provider.call_count, 2)
+
+    def test_retries_with_nearer_station_when_detour_breaks_range(self):
+        risky, nearby = self.stations
+        found = [
+            (Offer(D(390), risky.price, risky.opis_id), risky, 8),
+            (Offer(D(395), nearby.price, nearby.opis_id), nearby, 1),
+        ]
+        data, calls = self.calculate([
+            self.road(800, [800]),
+            self.road(820, [501, 319]),
+            self.road(802, [399, 403]),
+        ], found=found)
+        self.assertEqual(calls, 3)
+        self.assertEqual([stop['opis_id'] for stop in data['stops']], [nearby.opis_id])

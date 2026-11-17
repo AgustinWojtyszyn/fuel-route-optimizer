@@ -32,6 +32,7 @@ python manage.py migrate
 python manage.py import_cities
 python manage.py import_census_places  # optional; needs Census network access
 python manage.py import_stations /private/path/fuel-prices-for-be-assessment.csv
+python manage.py import_station_locations /private/path/station-locations.private.jsonl
 export ORS_API_KEY='YOUR_PRIVATE_KEY'
 python manage.py check
 python manage.py runserver
@@ -71,9 +72,9 @@ See [GitHub Actions](https://github.com/AgustinWojtyszyn/fuel-route-optimizer/ac
 
 ## Must complete **before sending** to the evaluator
 
-1. Run `scripts/run_live_checks.py` with the valid key and the source CSV; inspect real results and failures. If a route cannot be planned from approximate stations, do not substitute invented stops or statistics.
-2. Open the seven Postman requests locally; verify a real short route, a longer route requiring refueling, meaningful errors and the map.
-3. Record the **actual** Loom/Postman demonstration using [the recording guide](docs/loom-script.md); include the working endpoint and response, map, fuel math, API call count and limitations. Paste the **real** Loom URL in the submission message.
-4. Verify that the **last** commit in `main` has passing CI, and submit its repository link. Do not share `.env`, any real API key, private input CSV or proprietary result files.
+1. Open the three Postman requests against the default Render URL. Check availability just before recording.
+2. Record the demonstration following [the recording guide](docs/loom-script.md). Include the working requests, map, fuel math, provider call count and limits.
+3. Share the repository link and your Loom URL with the evaluator. Keep `.env`, the price CSV and full derived route records private.
+
 
 **Not yet proven by CI:** real HeiGIT routing, exact station/pump access, live station prices, live end-to-end performance, browser behavior on physical mobile devices, or existence of a Loom recording.

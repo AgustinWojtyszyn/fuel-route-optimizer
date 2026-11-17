@@ -1,4 +1,47 @@
-# Fase 3 — auditoría final (16 de noviembre de 2026)
+# Assessment verification — 17 November 2026
+
+Production API: [Render](https://fuel-route-optimizer-dyth.onrender.com/).
+Use `POST /api/v1/routes/optimize/` for the three
+[Postman requests](../postman/Fuel-Routes.postman_collection.json).
+The [Loom guide](loom-script.md) has the recording order and English narration.
+
+| Assessment requirement | Evidence |
+| --- | --- |
+| US origin and destination | The two successful US pairs below went through the deployed gazetteer. A non-US pair returned a structured 422 before routing. Inputs are city/place and state. |
+| Real road route and map | Render returned ORS GeoJSON. The deployed browser planner displayed the Chicago–Denver polyline and five numbered stops. |
+| Cost-effective station selection | The fixed-route optimizer is checked against an independent cost oracle. The route planner verifies actual road-leg distances, recalculates purchases and can retry an over-range detour once. The initial candidates use a geographic projection. Maximum three requests; optimization over all roads and access paths is outside the model. |
+| 500-mile range and 10 MPG | Both real responses passed independent per-leg fuel accounting, including tank capacity, remaining fuel and receipt reconciliation. |
+| Multiple stops | Chicago–Denver returned five purchases. |
+| Cost | Route purchases and the estimated cost of initial fuel consumed are separate. The latter uses a reference median. Prices are undated. |
+| Original assessment CSV | The supplied CSV import yields 6,626 unique US stations. Normalizing its CRLF line endings to LF matches the exact deployed price dataset SHA-256 returned by the successful requests. |
+| Free routing | Existing openrouteservice/HeiGIT routing with local place resolution; browser map built with Leaflet and OpenFreeMap. |
+| Response time and calls | Cold HTTP client measurements below include network and hosting overhead. Counts are reported by the API. The browser replay used zero new provider calls. The local instrumented script counts outgoing calls when run with a configured private key and catalog. |
+| Current stable Django | Django 6.1.3 pinned and installed, as listed by the Django project on the audit date. |
+
+## Production baseline
+
+Measured on `3a3c485` before the regression fix, on the same service and data.
+
+| Request | HTTP | Miles | Stops | Response-reported routing calls | Client wall time |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Los Angeles, CA → Las Vegas, NV | 200 | 270.055 | 0 | 1 | 10.546 s |
+| Chicago, IL → Denver, CO | 200 | 1,008.241 | 5 | 2 | 9.857 s |
+| Paris, FR → Denver, CO | 422 | — | — | Rejected during local city lookup | 7.164 s |
+
+The complete price-derived results stay private. The [OpenAPI contract](openapi.json)
+documents the JSON structure. The browser check exercised the loading state, the
+theme switch and the live long-trip rendering. The CSS layout and map were retained.
+
+## Coverage and release checks
+
+- `GET /health/` reported 1,023 reviewed locations out of 6,626 catalog entries (15.44%). The remaining 5,603 entries are ineligible for recommendations. The importer requires source identity, two evidence hosts, a review date, coordinates within the catalog state and coordinates distinct from stored city centers. This audit did not independently revisit all source records. Driveway access was unverified for the demo stops.
+- The detour regression reproduced HTTP 422 with a cheaper projected stop that put a road leg over 500 miles. The fix excludes the most offset station bordering such a leg and checks the replacement road legs within the existing three-call limit.
+- Django checks, migration drift checks, 70 Django tests, 30 independent tests, JSON parsing, Python compilation and JavaScript syntax checks run locally. The production Django configuration check with a temporary key reported only the informational HSTS preload warning.
+- Render is configured for manual deployments from `main`. The version deployed after this audit and the corresponding CI run are visible on their respective service and repository histories. The recording itself is the remaining submission artifact.
+
+---
+
+## Historical audit from 16 November
 
 > **Actualización posterior (16/11/2026):** Este archivo preserva los resultados
 > del análisis inicial de Fase 3. Desde entonces se implementaron controles de

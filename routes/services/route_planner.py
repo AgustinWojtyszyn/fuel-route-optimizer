@@ -37,7 +37,7 @@ def plan(start, finish):
     points=[[source.longitude,source.latitude],[target.longitude,target.latitude]]
     direct=get_route(points)
     calls=1
-    found=candidates(direct)
+    found = candidates(direct) if D(direct['distance_miles']) > CAPACITY * MPG else []
     try: preliminary,preliminary_left=optimize(direct['distance_miles'],[o for o,_,_ in found])
     except Infeasible as exc: raise InputError('no_feasible_fuel_plan',str(exc)) from exc
     station_by_id={s.opis_id:(s,lateral) for _,s,lateral in found}
@@ -46,22 +46,42 @@ def plan(start, finish):
     purchases,left=preliminary,preliminary_left
     if len(chosen)>48: raise InputError('too_many_stops','More than 48 stops would exceed the routing provider limit.')
     for attempt in range(2 if chosen else 0):
-        route=get_route([points[0]]+[[s.reviewed_location.longitude,s.reviewed_location.latitude] for s in chosen]+[points[1]])
-        calls+=1
-        positions=[]; distance=D(0)
-        for station,leg in zip(chosen,route['legs_miles']):
-            distance+=D(leg)
-            positions.append(Offer(distance,station.price,station.opis_id))
-        try: purchases,left=optimize(sum(map(D,route['legs_miles']),D(0)),positions)
-        except Infeasible as exc: raise InputError('unverified_fuel_plan','Verified road segments exceed vehicle range.') from exc
-        bought_ids={offer.ident for offer,_ in purchases}
-        if len(bought_ids)==len(chosen): break
+        waypoints = [[s.reviewed_location.longitude, s.reviewed_location.latitude] for s in chosen]
+        route = get_route([points[0], *waypoints, points[1]])
+        calls += 1
+        legs = [D(leg) for leg in route['legs_miles']]
+        positions = []
+        distance = D(0)
+        for station, leg in zip(chosen, legs):
+            distance += leg
+            positions.append(Offer(distance, station.price, station.opis_id))
+        try:
+            purchases, left = optimize(sum(legs, D(0)), positions)
+        except Infeasible as exc:
+            if attempt == 0:
+                # A projected station can force a longer drive than expected.
+                # Exclude the most offset stop bordering an over-range leg.
+                adjacent = [
+                    station for i, station in enumerate(chosen)
+                    if max(legs[i:i + 2]) > CAPACITY * MPG
+                ]
+                if adjacent:
+                    rejected = max(adjacent, key=lambda s: station_by_id[s.opis_id][1])
+                    alternatives = [offer for offer, station, _ in found if station.pk != rejected.pk]
+                    try:
+                        replacement, _ = optimize(direct['distance_miles'], alternatives)
+                    except Infeasible:
+                        replacement = []
+                    if 0 < len(replacement) <= 48:
+                        chosen = [station_by_id[offer.ident][0] for offer, _ in replacement]
+                        continue
+            raise InputError('unverified_fuel_plan', 'Verified road segments exceed vehicle range.') from exc
+        bought_ids = {offer.ident for offer, _ in purchases}
+        if len(bought_ids) == len(chosen):
+            break
         if attempt == 1:
-            raise InputError('unstable_waypoints','The fuel plan changed after the final waypoint route.')
-        chosen=[station for station in chosen if station.opis_id in bought_ids]
-    else:
-        if calls==3 and chosen:
-            raise InputError('unstable_waypoints','The final route could not be verified.')
+            raise InputError('unstable_waypoints', 'The fuel plan changed after the final waypoint route.')
+        chosen = [station for station in chosen if station.opis_id in bought_ids]
     station_lookup={s.opis_id:s for s in chosen}
     state_prices=list(Station.objects.filter(state=source.state).values_list('price',flat=True))
     if state_prices: reference=D(median(state_prices)); reference_source='state_median'

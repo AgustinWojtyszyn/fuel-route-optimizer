@@ -2,34 +2,43 @@
 
 Requires ORS_API_KEY in the process environment. Never prints or stores the key.
 """
+import argparse
 import json
 import os
 import sys
 import time
-from decimal import Decimal
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from scripts.verification import verify_plan
 from unittest.mock import patch
 
+ROUTES = [
+    ('los_angeles_las_vegas', 'Los Angeles', 'CA', 'Las Vegas', 'NV', 0, 0),
+    ('chicago_denver', 'Chicago', 'IL', 'Denver', 'CO', 2, None),
+    ('new_york_miami', 'New York City', 'NY', 'Miami', 'FL', 1, None),
+]
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--case', choices=[route[0] for route in ROUTES],
+                    help='Run one cold case to conserve provider quota.')
+args = parser.parse_args()
+if args.case:
+    ROUTES = [route for route in ROUTES if route[0] == args.case]
+
 if not os.getenv('ORS_API_KEY'):
     sys.exit('ORS_API_KEY is not set; no external requests were made.')
-os.environ.setdefault('DJANGO_SETTINGS_MODULE','config.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 import django
 django.setup()
 import httpx
 from django.core.cache import cache
 from django.test import Client
 
-ROUTES = [('los_angeles_las_vegas','Los Angeles','CA','Las Vegas','NV'),
-          ('chicago_denver','Chicago','IL','Denver','CO'),
-          ('new_york_miami','New York City','NY','Miami','FL')]
 out = Path('live_results')
 out.mkdir(exist_ok=True)
 client = Client()
 original_post = httpx.post
 failures = 0
-for slug,city,state,destination,destination_state in ROUTES:
+for slug, city, state, destination, destination_state, minimum, maximum in ROUTES:
     cache.clear()
     count=0
     provider_seconds=0.0
@@ -51,13 +60,17 @@ for slug,city,state,destination,destination_state in ROUTES:
         status=response.status_code
         result=response.json()
         if status == 200:
-            verify_plan(result,count)
-            verified=True
+            verify_plan(result, count)
+            stop_count = len(result['stops'])
+            if stop_count < minimum or (maximum is not None and stop_count > maximum):
+                error_code = 'unexpected_stop_count'
+            else:
+                verified = True
         else:
             error_code=result.get('error',{}).get('code','http_error')
-    except (ValueError,KeyError,TypeError,ArithmeticError) as exc:
+    except (ValueError, KeyError, TypeError, ArithmeticError):
         error_code='verification_failed'
-    except Exception as exc:
+    except Exception:
         # Never print upstream exception bodies: provider credentials may be sensitive.
         error_code='request_exception'
     if not verified:

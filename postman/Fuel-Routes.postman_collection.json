@@ -6,19 +6,12 @@
   "variable": [
     {
       "key": "baseUrl",
-      "value": "http://127.0.0.1:8000"
+      "value": "https://fuel-route-optimizer-dyth.onrender.com"
     }
   ],
   "item": [
     {
-      "name": "Health",
-      "request": {
-        "method": "GET",
-        "url": "{{baseUrl}}/health/"
-      }
-    },
-    {
-      "name": "Short route",
+      "name": "Short | Los Angeles to Las Vegas",
       "request": {
         "method": "POST",
         "header": [
@@ -29,13 +22,31 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\"start\":{\"city\":\"Chicago\",\"state\":\"IL\"},\"finish\":{\"city\":\"Indianapolis\",\"state\":\"IN\"}}"
+          "raw": "{\n  \"start\": \"Los Angeles, CA\",\n  \"finish\": \"Las Vegas, NV\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
         },
         "url": "{{baseUrl}}/api/v1/routes/optimize/"
-      }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Expected route behavior', () => pm.expect(body.stops.length === 0).to.eql(true));"
+            ]
+          }
+        }
+      ]
     },
     {
-      "name": "Long route",
+      "name": "Long | Chicago to Denver",
       "request": {
         "method": "POST",
         "header": [
@@ -46,13 +57,31 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\"start\":{\"city\":\"Chicago\",\"state\":\"IL\"},\"finish\":{\"city\":\"Denver\",\"state\":\"CO\"}}"
+          "raw": "{\n  \"start\": \"Chicago, IL\",\n  \"finish\": \"Denver, CO\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
         },
         "url": "{{baseUrl}}/api/v1/routes/optimize/"
-      }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Expected route behavior', () => pm.expect(body.stops.length >= 2).to.eql(true));"
+            ]
+          }
+        }
+      ]
     },
     {
-      "name": "Invalid city",
+      "name": "Invalid | Unknown US city and state pair",
       "request": {
         "method": "POST",
         "header": [
@@ -63,61 +92,28 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\"start\":{\"city\":\"Not A City\",\"state\":\"IL\"},\"finish\":{\"city\":\"Denver\",\"state\":\"CO\"}}"
-        },
-        "url": "{{baseUrl}}/api/v1/routes/optimize/"
-      }
-    },
-    {
-      "name": "Los Angeles to Las Vegas",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
+          "raw": "{\n  \"start\": \"Paris, FR\",\n  \"finish\": \"Denver, CO\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
           }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\"start\": {\"city\": \"Los Angeles\", \"state\": \"CA\"}, \"finish\": {\"city\": \"Las Vegas\", \"state\": \"NV\"}}"
         },
         "url": "{{baseUrl}}/api/v1/routes/optimize/"
-      }
-    },
-    {
-      "name": "New York to Miami",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 422', () => pm.response.to.have.status(422));",
+              "const body = pm.response.json();",
+              "pm.test('Expected route behavior', () => pm.expect(body.error.code === 'unknown_city').to.eql(true));"
+            ]
           }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\"start\": {\"city\": \"New York City\", \"state\": \"NY\"}, \"finish\": {\"city\": \"Miami\", \"state\": \"FL\"}}"
-        },
-        "url": "{{baseUrl}}/api/v1/routes/optimize/"
-      }
-    },
-    {
-      "name": "Compact city-state route",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\"start\":\"Chicago, IL\",\"finish\":\"Denver, CO\"}"
-        },
-        "url": "{{baseUrl}}/api/v1/routes/optimize/"
-      }
+        }
+      ]
     }
   ]
 }

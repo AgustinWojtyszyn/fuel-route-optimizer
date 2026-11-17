@@ -1,69 +1,40 @@
-# Loom definitivo: demostración técnica verificable (5–6 minutos)
+# Record the Fuel Route Optimizer demo
 
-Este archivo es un **guion**, no una grabación. No hay una URL de video generado por esta revisión. Preparar una pantalla sin claves ni CSV privado y una consola con el entorno ya cargado. Nunca abrir `.env`, el gestor de claves, el archivo de precios o los JSON privados de `live_results/` durante la grabación.
+Target length is **4 minutes**. The recording uses the deployed API and does not need a local key.
 
-## Preparación fuera de cámara
+## Set up your screen
 
-1. Seguir el README en un entorno local: instalar dependencias, migrar, importar ciudades y el CSV proporcionado por el evaluador. Cargar `ORS_API_KEY` únicamente como variable privada; `.env.example` no se carga automáticamente.
-2. Ejecutar `python scripts/run_live_checks.py` con la clave válida y guardar los resultados **privadamente**. Debe verificar Los Angeles → Las Vegas, Chicago → Denver y New York City → Miami. Anotar estado HTTP, distancia, duración, paradas, galones, compras nuevas, valor inicial, tiempo y llamadas de cada ejecución. Si falla, investigar antes de grabar o mostrar el error real y declararlo pendiente.
-3. Ejecutar las pruebas y tener visibles los resultados de esa ejecución. Consultar el SHA y la CI reales; una comprobación de un SHA anterior no acredita el código nuevo.
-4. Importar `postman/Fuel-Routes.postman_collection.json`, definir `baseUrl` local y abrir `/` y `/demo/`. No incluir secretos en variables compartidas de Postman ni exportarlas.
-5. Para medir llamadas en frío, usar las ejecuciones del script que limpia la caché de desarrollo. Una respuesta de caché debe mostrar `cache_hit: true` y cero llamadas, sin presentarla como una consulta nueva.
+1. Open the [landing page](https://fuel-route-optimizer-dyth.onrender.com/), the [planner](https://fuel-route-optimizer-dyth.onrender.com/demo/), and [GitHub Actions](https://github.com/AgustinWojtyszyn/fuel-route-optimizer/actions).
+2. Import [Fuel-Routes.postman_collection.json](../postman/Fuel-Routes.postman_collection.json) in Postman. Its default base URL is Render. All three requests use `POST /api/v1/routes/optimize/` with JSON and require no client credentials.
+3. Send the short and long requests before recording to verify today's provider availability. Open the planner and calculate **Chicago → Denver**. Expand **Recommended fuel stops**. Keep your CSV, secrets and Render environment settings out of the recording.
+4. To display test output locally, run `python manage.py test routes -v 1` and `python -m unittest discover -s tests -v` after installing the pinned requirements. For a cold local provider check with private data and a valid key, run `python scripts/run_live_checks.py --case chicago_denver`. The live check saves full responses privately and counts actual outgoing provider requests.
 
-## 0:00–0:40 — Qué se evalúa
+## 0:00–0:35 · Landing page and architecture
 
-Mostrar el repositorio y el commit concreto. Explicar: Django/DRF recibe dos ciudades de EE. UU., obtiene una carretera de HeiGIT y calcula compras sobre la secuencia de estaciones candidatas del CSV. El vehículo sale con 50 galones, 500 millas de autonomía y 10 MPG. Los precios son observaciones sin fecha, no precios en vivo.
+“Hi, I’m Agustín. This is Fuel Route Optimizer, a Django REST Framework API for planning fuel purchases between U.S. cities. Django validates the city and state against a local catalog. openrouteservice supplies the road geometry, and the planner uses prices from the assessment CSV. The vehicle starts with 50 gallons. At 10 miles per gallon, that gives it a maximum range of 500 miles.”
 
-Abrir la CI del mismo SHA si ya existe y está aprobada. Si no existe una ejecución remota de ese SHA, mostrar las pruebas locales y decir que su CI remota está pendiente.
+## 0:35–1:20 · Short route in Postman
 
-## 0:40–1:35 — API y ruta corta
+Send **Short | Los Angeles to Las Vegas**. Collapse `route.geometry.coordinates` after showing the GeoJSON type. Expand `vehicle`, `fuel`, and `meta`.
 
-En Postman, mostrar `/health/`: confirma catálogo local y presencia de clave, no autentica con HeiGIT. Ejecutar la solicitud Los Angeles → Las Vegas o la ruta corta de la colección.
+“This is the road route as a GeoJSON LineString. For this trip, the starting tank covers the whole distance, so the API recommends no stops. The JSON separates the estimated value of the fuel already in the tank from money spent along the way.”
 
-Mostrar únicamente la respuesta obtenida en ese momento: geometría `LineString`, distancia, duración, `vehicle`, `fuel`, `meta.routing_api_calls` y `cache_hit`. Si la respuesta real no requiere una compra nueva, explicar la diferencia entre consumir combustible y comprarlo. No predecir una distancia o costo antes de recibirlos.
+## 1:20–2:35 · Long route in Postman
 
-## 1:35–2:35 — Ruta larga y comprobación financiera
+Send **Long | Chicago to Denver**. Expand one entry in `stops` and show the leg distances and totals.
 
-Ejecutar Chicago → Denver y, si el tiempo lo permite, New York City → Miami. Mostrar las paradas que la respuesta real recomiende, sus galones y recibos. Distinguir:
+“For a longer trip, the planner projects reviewed stations onto the first route. On that fixed sequence, it looks for the next cheaper station it can reach and buys enough to get there. Otherwise it buys up to the tank limit or the amount needed to reach the destination. A waypoint request gives us the actual road legs through the chosen locations. The API recalculates the purchases and checks how much fuel is left after each leg. It can try one alternative if a detour makes a leg too long. The selected roads and station coverage limit the search.”
 
-- `purchased_en_route_usd`: nuevas compras; coincide con la suma de los recibos mostrados.
-- `initial_fuel_estimated_cost_usd`: valor de referencia del combustible inicial consumido, no un gasto nuevo.
-- `estimated_total_trip_cost_usd`: ambas partidas.
+“Here are the gallons bought, the per-stop costs and the sum of new purchases. The estimated total adds a reference value for fuel consumed from the starting tank. On an uncached request, we use one routing call for a direct trip or up to three for a trip with stops. A cache hit reports zero new calls.”
 
-Relacionar `leg_distances_miles` con la autonomía: ningún tramo puede exigir más combustible del disponible ni una compra superar los 50 galones. Mostrar el conteo real de llamadas: una para la ruta directa, normalmente dos con waypoints y máximo tres para retirar un waypoint sin compra. No prometer ese patrón si la respuesta concreta fue un error.
+## 2:35–3:20 · Map and costs
 
-## 2:35–3:35 — Interfaz y mapa
+Switch to the prepared planner tab. Show the route line, click a numbered marker, and point to the cost breakdown.
 
-Mostrar brevemente la landing: ilustración conceptual explícita, supuestos y acción al planificador. No describir el esquema como una carretera real.
+“The map uses the same geometry and station locations as the API response. Each stop shows the site, gallons to buy, price per gallon, and estimated cost. Station locations were reviewed. Driveway access is flagged separately, and price observations are undated.”
 
-En `/demo/`, buscar origen/destino con teclado, seleccionar ciudad/estado y calcular una de las rutas comprobadas. Mostrar mapa, zoom/estilo, resumen, una parada, enfoque del marcador y copia del resumen. Cambiar oscuro/claro e idioma después del resultado para demostrar persistencia y traducción de datos dinámicos.
+## 3:20–4:00 · Error, tests, and close
 
-Decir y señalar la advertencia: **los puntos representan localidades aproximadas; no son entradas a surtidores verificadas**. La optimización es sobre la secuencia fija de candidatos, sin prueba de optimalidad global entre todas las carreteras.
+Send **Invalid | Unknown US city and state pair**. Expand `error`, then show passing tests for the commit you are presenting.
 
-## 3:35–4:15 — Errores y límites
-
-Mostrar una solicitud mal formada de forma controlada (por ejemplo, estado de tres letras: 400) y una ciudad inexistente (422). Si no hay catálogo o cobertura viable, mostrar el código real devuelto, sin sustituirlo por paradas falsas. Explicar que los errores de proveedor conservan un contrato JSON y no producen un itinerario inventado.
-
-## 4:15–5:20 — Pruebas y evidencia
-
-En consola, ejecutar o mostrar el registro auténtico de:
-
-```sh
-python manage.py check
-python manage.py makemigrations --check --dry-run
-python manage.py test -v 1
-python -m unittest discover -s tests -v
-python scripts/check_javascript.py
-node --check routes/static/routes/landing.js
-node --check routes/static/routes/theme.js
-```
-
-Mostrar la prueba exhaustiva sobre casos sintéticos y explicar que permite contrastar el costo de una secuencia fija con un oráculo independiente. No presentarla como evidencia de disponibilidad actual de HeiGIT. Mostrar las capturas de navegador, tamaños, temas e idiomas efectivamente comprobados y el informe Hallmark con sus avisos o pendientes.
-
-## 5:20–5:50 — Entrega honesta
-
-Mostrar README, OpenAPI, colección Postman y el informe de la revisión. Señalar las limitaciones concretas del entorno y del modelo. Compartir repositorio y URL real de Loom solo después de grabar. Mantener privados el CSV, claves y resultados derivados que no tengan autorización de redistribución.
-
-## Si falta clave o HeiGIT no responde
-
-No se puede demostrar una ruta real completa. Grabar, si se desea, un recorrido de arquitectura, interfaz y pruebas locales, etiquetándolo como tal; mostrar el error controlado del entorno y el resultado del script sin clave. Dejar explícitamente pendientes las tres rutas reales, tiempos/costos/llamadas medidos y el video completo de evaluación. **No reproducir un fixture en pantalla afirmando que es una respuesta de HeiGIT.**
+“This invalid city and state return a structured 422 before the API contacts the router. Automated tests cover fuel accounting, provider failures and a detour that would exceed the vehicle’s range. The repository includes the API contract and the Postman collection. Thanks for watching.”
