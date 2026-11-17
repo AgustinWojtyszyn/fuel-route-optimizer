@@ -30,7 +30,8 @@ class APITests(TestCase):
     def route(self,distance,legs):
         return {'geometry':{'type':'LineString','coordinates':[[-90,41],[-87,41],[-85,41]]},'distance_miles':distance,'duration_minutes':distance,'legs_miles':legs}
     def request(self): return {'start':{'city':'A','state':'IL'},'finish':{'city':'B','state':'IL'}}
-    def test_short_and_cache(self):
+    @patch('routes.services.route_planner.candidates')
+    def test_short_and_cache(self, match_stations):
         with patch('routes.services.route_planner.get_route',return_value=self.route(400,[400])) as provider:
             first=self.client.post('/api/v1/routes/optimize/',self.request(),format='json')
             self.assertEqual(first.status_code,200,first.content)
@@ -39,6 +40,7 @@ class APITests(TestCase):
             self.assertTrue(second.data['meta']['cache_hit'])
             self.assertEqual(second.data['meta']['routing_api_calls'],0)
             self.assertEqual(provider.call_count,1)
+            match_stations.assert_not_called()
     def test_long_two_calls(self):
         with patch('routes.services.route_planner.get_route',side_effect=[self.route(700,[700]),self.route(720,[390,330])]) as provider:
             result=self.client.post('/api/v1/routes/optimize/',self.request(),format='json')
@@ -151,6 +153,34 @@ class RerouteRegressionTests(TestCase):
             self.assertEqual([s['opis_id'] for s in response.data['stops']],['first'])
             self.assertEqual(response.data['route']['distance_miles'],680)
             self.assertFalse(response.data['stops'][0]['station_access_verified'])
+    def test_reroutes_when_provider_snaps_away_from_the_cheaper_stop(self):
+        from routes.services.fuel_optimizer import Offer, D
+        from routes.services.routing_client import RoutingError
+        first = Station.objects.get(pk='first')
+        second = Station.objects.get(pk='second')
+        offers = [
+            (Offer(D(490), first.price, first.pk), first, 9),
+            (Offer(D(450), second.price, second.pk), second, 1),
+        ]
+        geometry = {'type': 'LineString', 'coordinates': [[-100, 40], [-80, 40]]}
+
+        def route(legs):
+            return {'geometry': geometry, 'distance_miles': sum(legs),
+                    'duration_minutes': 700, 'legs_miles': legs}
+
+        request = {'start': 'Origin, IL', 'finish': 'End, IL'}
+        inaccessible = RoutingError('station_route_access', 'Driveway unreachable', 422, stop_index=0)
+        with patch('routes.services.route_planner.candidates', return_value=offers), patch(
+            'routes.services.route_planner.get_route',
+            side_effect=[route([700]), inaccessible, route([455, 260])],
+        ) as provider:
+            response = self.client.post('/api/v1/routes/optimize/', request, format='json')
+        self.assertEqual(response.status_code, 200, response.content)
+        self.assertEqual(provider.call_count, 3)
+        self.assertEqual(response.data['meta']['routing_api_calls'], 3)
+        self.assertEqual([stop['opis_id'] for stop in response.data['stops']], ['second'])
+        self.assertEqual(response.data['fuel']['purchased_en_route_usd'], '86.00')
+
     def test_location_version_invalidates_cache(self):
         request={'start':{'city':'Origin','state':'IL'},'finish':{'city':'End','state':'IL'}}
         route={'geometry':{'type':'LineString','coordinates':[[-100,40],[-80,40]]},'distance_miles':400,'duration_minutes':360,'legs_miles':[400]}

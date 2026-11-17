@@ -4,7 +4,7 @@ from routes.models import Station, StationLocation
 from .locations import find_city
 from .station_matching import candidates
 from .fuel_optimizer import D, Offer, optimize, Infeasible, CAPACITY, MPG
-from .routing_client import get_route
+from .routing_client import RoutingError, get_route
 
 class InputError(Exception):
     def __init__(self, code, message):
@@ -47,8 +47,17 @@ def plan(start, finish):
     if len(chosen)>48: raise InputError('too_many_stops','More than 48 stops would exceed the routing provider limit.')
     for attempt in range(2 if chosen else 0):
         waypoints = [[s.reviewed_location.longitude, s.reviewed_location.latitude] for s in chosen]
-        route = get_route([points[0], *waypoints, points[1]])
         calls += 1
+        try:
+            route = get_route([points[0], *waypoints, points[1]])
+        except RoutingError as exc:
+            if attempt or exc.stop_index is None:
+                raise
+            replacement = alternative_stops(direct['distance_miles'], found, chosen[exc.stop_index].pk)
+            if not replacement:
+                raise
+            chosen = replacement
+            continue
         legs = [D(leg) for leg in route['legs_miles']]
         positions = []
         distance = D(0)
@@ -67,13 +76,9 @@ def plan(start, finish):
                 ]
                 if adjacent:
                     rejected = max(adjacent, key=lambda s: station_by_id[s.opis_id][1])
-                    alternatives = [offer for offer, station, _ in found if station.pk != rejected.pk]
-                    try:
-                        replacement, _ = optimize(direct['distance_miles'], alternatives)
-                    except Infeasible:
-                        replacement = []
-                    if 0 < len(replacement) <= 48:
-                        chosen = [station_by_id[offer.ident][0] for offer, _ in replacement]
+                    replacement = alternative_stops(direct['distance_miles'], found, rejected.pk)
+                    if replacement:
+                        chosen = replacement
                         continue
             raise InputError('unverified_fuel_plan', 'Verified road segments exceed vehicle range.') from exc
         bought_ids = {offer.ident for offer, _ in purchases}
@@ -117,3 +122,15 @@ def plan(start, finish):
     if any(not stop['station_access_verified'] for stop in stops):
         warnings.append('A verified station location does not confirm its driveway access.')
     return {'route':{'distance_miles':round(route['distance_miles'],3),'duration_minutes':round(route['duration_minutes'],2),'leg_distances_miles':list(route['legs_miles']),'geometry':route['geometry'],'provider':'openrouteservice'},'vehicle':{'max_range_miles':500,'mpg':10,'assumed_tank_gallons':50,'initial_fuel_gallons':50},'fuel':{'consumed_gallons':amount(consumed),'purchased_en_route_gallons':amount(bought),'purchased_en_route_usd':money(spent),'initial_fuel_estimated_cost_usd':money(initial_cost),'estimated_total_trip_cost_usd':money(estimated),'remaining_at_destination_gallons':amount(tank),'initial_fuel_reference_price_usd_per_gallon':str(reference),'initial_price_source':reference_source},'stops':stops,'meta':{'routing_api_calls':calls,'station_access_verified':bool(stops) and all(stop['station_access_verified'] for stop in stops),'price_policy':'observed_lower_median','warnings':warnings}}
+
+
+def alternative_stops(distance, found, excluded_id):
+    available = {offer.ident: (offer, station) for offer, station, _ in found
+                 if station.pk != excluded_id}
+    try:
+        purchases, _ = optimize(distance, [offer for offer, _ in available.values()])
+    except Infeasible:
+        return []
+    if len(purchases) > 48:
+        return []
+    return [available[offer.ident][1] for offer, _ in purchases]

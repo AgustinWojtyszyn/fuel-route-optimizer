@@ -2,7 +2,21 @@
 import json
 import re
 
-from django.test import SimpleTestCase
+from django.core.management import call_command
+from django.test import SimpleTestCase, TestCase
+
+from routes.services.locations import find_city
+
+
+class DemoPresetTests(TestCase):
+    def test_every_preset_resolves_with_the_default_city_import(self):
+        call_command("import_cities", verbosity=0)
+        html = self.client.get("/demo/").content.decode("utf-8")
+        endpoints = re.findall(r'data-(?:start|finish)-city="([^"]+)" data-(?:start|finish)-state="([^"]+)"', html)
+        self.assertEqual(len(endpoints), 6)
+        for city, state in endpoints:
+            with self.subTest(city=city, state=state):
+                self.assertIsNotNone(find_city(city, state))
 
 
 class DemoPresentationTests(SimpleTestCase):

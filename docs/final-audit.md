@@ -36,8 +36,58 @@ theme switch and the live long-trip rendering. The CSS layout and map were retai
 
 - `GET /health/` reported 1,023 reviewed locations out of 6,626 catalog entries (15.44%). The remaining 5,603 entries are ineligible for recommendations. The importer requires source identity, two evidence hosts, a review date, coordinates within the catalog state and coordinates distinct from stored city centers. This audit did not independently revisit all source records. Driveway access was unverified for the demo stops.
 - The detour regression reproduced HTTP 422 with a cheaper projected stop that put a road leg over 500 miles. The fix excludes the most offset station bordering such a leg and checks the replacement road legs within the existing three-call limit.
-- Django checks, migration drift checks, 70 Django tests, 30 independent tests, JSON parsing, Python compilation and JavaScript syntax checks run locally. The production Django configuration check with a temporary key reported only the informational HSTS preload warning.
+- Django checks, migration drift checks, 72 Django tests, 30 independent tests, JSON parsing, Python compilation and JavaScript syntax checks run locally. The production Django configuration check with a temporary key reported only the informational HSTS preload warning.
 - Render is configured for manual deployments from `main`. The version deployed after this audit and the corresponding CI run are visible on their respective service and repository histories. The recording itself is the remaining submission artifact.
+
+## Additional route and presentation checks
+
+- New York City, NY to Miami, FL returned HTTP 200 in 9.38 seconds on the same baseline. The service reported two cold routing requests and two reviewed stops over 1,294.207 miles. Independent fuel accounting passed. The three road legs were about 482.988, 318.684 and 492.534 miles.
+- The browser exposed a broken NY → Miami preset. The default gazetteer resolves New York City, NY. The shortcut was corrected and a regression test now checks all preset endpoints against a fresh city import.
+- The planner may use its third request to replace a stop when the provider snaps more than one eighth of a mile from the site. It reroutes only when the remaining candidates can produce a viable projected plan. The same road-distance and fuel checks apply to the returned alternative.
+- Original price dataset equivalence was checked at byte level after line-ending normalization. The 1,023 reviewed sites are distinct from 6,045 legacy city positions. Legacy positions are excluded from recommendations.
+- The provider published a [Driving Car incident](https://status.heigit.org/incidents/12a00cee-9da2-425c-bbe4-a62462d15ec9) on the audit date. Hosted successes are observations at the time of the requests. For recording, run the three Postman cases first.
+
+### Response examples
+
+This example uses synthetic distances, geometry and prices to illustrate the complete short-route JSON. The measured live routes are listed above.
+
+```json
+{
+  "route": {
+    "distance_miles": 120.0,
+    "duration_minutes": 130.0,
+    "leg_distances_miles": [120.0],
+    "geometry": {"type": "LineString", "coordinates": [[-100, 40], [-98, 41]]},
+    "provider": "openrouteservice"
+  },
+  "vehicle": {"max_range_miles": 500, "mpg": 10, "assumed_tank_gallons": 50, "initial_fuel_gallons": 50},
+  "fuel": {
+    "consumed_gallons": "12.0000",
+    "purchased_en_route_gallons": "0.0000",
+    "purchased_en_route_usd": "0.00",
+    "initial_fuel_estimated_cost_usd": "42.00",
+    "estimated_total_trip_cost_usd": "42.00",
+    "remaining_at_destination_gallons": "38.0000",
+    "initial_fuel_reference_price_usd_per_gallon": "3.50",
+    "initial_price_source": "state_median"
+  },
+  "stops": [],
+  "meta": {
+    "routing_api_calls": 1,
+    "station_access_verified": false,
+    "price_policy": "observed_lower_median",
+    "warnings": ["Prices are undated observations; USD per gallon is assumed."],
+    "cache_hit": false,
+    "dataset_version": "synthetic-example"
+  }
+}
+```
+
+The invalid live request returned HTTP 422 with this JSON.
+
+```json
+{"error":{"code":"unknown_city","message":"City and state must match a city in the local US gazetteer.","details":{}}}
+```
 
 ---
 

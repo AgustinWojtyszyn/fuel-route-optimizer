@@ -23,7 +23,7 @@ Send **Short | Los Angeles to Las Vegas**. Collapse `route.geometry.coordinates`
 
 Send **Long | Chicago to Denver**. Expand one entry in `stops` and show the leg distances and totals.
 
-“For a longer trip, the planner projects reviewed stations onto the first route. On that fixed sequence, it looks for the next cheaper station it can reach and buys enough to get there. Otherwise it buys up to the tank limit or the amount needed to reach the destination. A waypoint request gives us the actual road legs through the chosen locations. The API recalculates the purchases and checks how much fuel is left after each leg. It can try one alternative if a detour makes a leg too long. The selected roads and station coverage limit the search.”
+“For a longer trip, the planner projects reviewed stations onto the first route. On that fixed sequence, it looks for the next cheaper station it can reach and buys enough to get there. Otherwise it buys up to the tank limit or the amount needed to reach the destination. A waypoint request gives us the actual road legs through the chosen locations. The API recalculates the purchases and checks how much fuel is left after each leg. It can try one alternative if a road leg exceeds the range or the provider routes too far from a stop. The selected roads and station coverage limit the search.”
 
 “Here are the gallons bought, the per-stop costs and the sum of new purchases. The estimated total adds a reference value for fuel consumed from the starting tank. On an uncached request, we use one routing call for a direct trip or up to three for a trip with stops. A cache hit reports zero new calls.”
 

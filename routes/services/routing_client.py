@@ -6,8 +6,9 @@ import httpx
 from .geometry import haversine
 URL = 'https://api.heigit.org/openrouteservice/v2/directions/driving-car/geojson'
 class RoutingError(Exception):
-    def __init__(self, code, message, status=502):
+    def __init__(self, code, message, status=502, *, stop_index=None):
         self.code, self.message, self.status = code, message, status
+        self.stop_index = stop_index
         super().__init__(message)
 
 def get_route(points):
@@ -68,10 +69,11 @@ def get_route(points):
                 or waypoint_indexes != sorted(waypoint_indexes)
             ):
                 raise ValueError('Invalid provider waypoint indexes')
-            for point, index in zip(points[1:-1], waypoint_indexes[1:-1]):
+            for stop_index, (point, index) in enumerate(zip(points[1:-1], waypoint_indexes[1:-1])):
                 if haversine(point, coords[index]) > 0.125:
                     raise RoutingError(
                         'station_route_access', 'The route does not reach a reviewed fuel stop.', 422,
+                        stop_index=stop_index,
                     )
         # A provider may return a positive summary with collapsed coordinates.
         # Reject it here instead of crashing the station projector with HTTP 500.

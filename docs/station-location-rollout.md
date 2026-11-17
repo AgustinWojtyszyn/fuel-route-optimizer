@@ -33,10 +33,10 @@ download or a redistributable upstream artifact with a configured checksum.
 The repository must never carry the original commercial price CSV.
 
 After configuring both files, run the recovery script from the app directory
-before starting Gunicorn. Use the existing WSGI module and port.
+before starting Gunicorn. The existing Render build command collects static files and generates `render_wsgi.py` as a WhiteNoise wrapper for `config.wsgi`. The start command then uses the configured port and coverage floor.
 
 ```bash
-bash scripts/restore_render_catalog.sh &&
+FUEL_MIN_VERIFIED_STATIONS=456 bash scripts/restore_render_catalog.sh &&
   gunicorn render_wsgi:application --bind "0.0.0.0:$PORT" --workers 1 --timeout 90
 ```
 

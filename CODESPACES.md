@@ -22,6 +22,7 @@ Desde el explorador de archivos de VS Code en el navegador, utilizá **Upload...
 
 ```bash
 python manage.py import_stations ./fuel-prices-for-be-assessment.csv
+python manage.py import_station_locations /ruta/privada/station-locations.private.jsonl
 python manage.py check
 ```
 
@@ -31,7 +32,7 @@ Si el archivo se llama distinto, adaptá la ruta. Mantenelo fuera de Git y no lo
 
 Antes de crear el Codespace, guardá tu clave en **GitHub → Settings → Codespaces → Secrets → New secret** con nombre `ORS_API_KEY`, y autorizá este repositorio. Si ya está creado, detenelo y volvé a iniciarlo tras asignar el secreto para que el proceso Django lo reciba.
 
-Si no configurás `ORS_API_KEY`, podrás inspeccionar la interfaz pero no calcular rutas reales. El CSV y la clave son dos requisitos distintos.
+Si no configurás `ORS_API_KEY`, podrás inspeccionar la interfaz pero no calcular rutas reales. El arranque local completo requiere el CSV, el manifiesto privado de estaciones revisadas y la clave.
 
 ## Comprobaciones
 

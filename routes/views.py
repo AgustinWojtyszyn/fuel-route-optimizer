@@ -37,7 +37,7 @@ class OptimizeView(APIView):
         versions=dict(DatasetState.objects.values_list('key','digest'))
         digest=versions.get('stations','no-data')
         location_digest=versions.get('cities','no-cities')
-        key='route-v7:'+hashlib.sha256(json.dumps([payload,digest,location_digest,versions.get('station_locations')],sort_keys=True).encode()).hexdigest()
+        key='route-v8:'+hashlib.sha256(json.dumps([payload,digest,location_digest,versions.get('station_locations')],sort_keys=True).encode()).hexdigest()
         cached=cache.get(key)
         if cached is not None:
             result=dict(cached);result['meta']={**cached['meta'],'cache_hit':True,'routing_api_calls':0}
