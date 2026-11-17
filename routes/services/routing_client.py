@@ -1,5 +1,6 @@
 import os
 import math
+import logging
 import httpx
 
 from .geometry import haversine
@@ -23,6 +24,11 @@ def get_route(points):
         raise RoutingError('routing_configuration','Provider timeout must be between 0 and 120 seconds.',503)
     try:
         response = httpx.post(URL, headers={'Authorization':key}, json={'coordinates':points, 'instructions':True}, timeout=timeout)
+        if response.status_code >= 400:
+            logging.getLogger(__name__).warning(
+                'HeiGIT routing failed: upstream_http_status=%s waypoints=%s',
+                response.status_code, len(points),
+            )
         if response.status_code in (401,403,429):
             raise RoutingError('routing_access', 'Routing key or provider quota rejected the request.', 503)
         if response.status_code >= 400:
