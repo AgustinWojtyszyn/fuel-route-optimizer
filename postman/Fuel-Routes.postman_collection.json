@@ -101,6 +101,23 @@
         },
         "url": "{{baseUrl}}/api/v1/routes/optimize/"
       }
+    },
+    {
+      "name": "Compact city-state route",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"start\":\"Chicago, IL\",\"finish\":\"Denver, CO\"}"
+        },
+        "url": "{{baseUrl}}/api/v1/routes/optimize/"
+      }
     }
   ]
 }

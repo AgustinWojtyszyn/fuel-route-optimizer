@@ -20,11 +20,13 @@ export ORS_API_KEY='your-key-from-account.heigit.org'
 python manage.py runserver
 ```
 
-Open `http://127.0.0.1:8000/` for the multilingual product introduction, or `http://127.0.0.1:8000/demo/` for the responsive, accessible Leaflet route planner showing road geometry, estimated purchases, receipts and explicit station-location uncertainty. `GET /health/` checks local station/catalog readiness without contacting the provider. It reports station, city and approximate-location counts plus whether a HeiGIT key is present (not whether that key is valid). It returns 503 if the local data cannot support route planning. `POST /api/v1/routes/optimize/` accepts:
+Open `http://127.0.0.1:8000/` for the multilingual product introduction, or `http://127.0.0.1:8000/demo/` for the responsive, accessible Leaflet route planner showing road geometry, estimated purchases, receipts and explicit station-location uncertainty. `GET /health/` checks local station/catalog readiness without contacting the provider. It reports station, city and approximate-location counts plus whether a HeiGIT key is present (not whether that key is valid). It returns 503 if the local data cannot support route planning. `POST /api/v1/routes/optimize/` accepts city/state objects or the shorter `"City, ST"` notation (the route still uses approximate city coordinates, not arbitrary street addresses):
 
 ```json
 {"start":{"city":"Chicago","state":"IL"},"finish":{"city":"Denver","state":"CO"}}
 ```
+
+The equivalent compact payload is `{"start":"Chicago, IL","finish":"Denver, CO"}`. Both formats use the same local city index and do not require separate geocoding requests.
 
 ```bash
 curl -X POST http://127.0.0.1:8000/api/v1/routes/optimize/ \
