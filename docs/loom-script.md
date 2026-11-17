@@ -1,40 +1,51 @@
-# Record the Fuel Route Optimizer demo
+# Guion para Loom · Fuel Route Optimizer
 
-Target length is **4 minutes**. The recording uses the deployed API and does not need a local key.
+**Duración aproximada:** 4 minutos y medio. La narración y las notas de pantalla están en español. Los nombres de los botones y campos se conservan tal como aparecen en la interfaz en inglés.
 
-## Set up your screen
+Antes de grabar, abrí la [landing](https://fuel-route-optimizer-dyth.onrender.com/), el [planificador](https://fuel-route-optimizer-dyth.onrender.com/demo/) y [GitHub Actions](https://github.com/AgustinWojtyszyn/fuel-route-optimizer/actions). Importá la [colección de Postman](../postman/Fuel-Routes.postman_collection.json) y probá las dos rutas válidas. La colección ya apunta a Render. Dejá Chicago → Denver calculado en la pestaña del planificador.
 
-1. Open the [landing page](https://fuel-route-optimizer-dyth.onrender.com/), the [planner](https://fuel-route-optimizer-dyth.onrender.com/demo/), and [GitHub Actions](https://github.com/AgustinWojtyszyn/fuel-route-optimizer/actions).
-2. Import [Fuel-Routes.postman_collection.json](../postman/Fuel-Routes.postman_collection.json) in Postman. Its default base URL is Render. All three requests use `POST /api/v1/routes/optimize/` with JSON and require no client credentials.
-3. Send the short and long requests before recording to verify today's provider availability. Open the planner and calculate **Chicago → Denver**. Expand **Recommended fuel stops**. Keep your CSV, secrets and Render environment settings out of the recording.
-4. To display test output locally, run `python manage.py test routes -v 1` and `python -m unittest discover -s tests -v` after installing the pinned requirements. For a cold local provider check with private data and a valid key, run `python scripts/run_live_checks.py --case chicago_denver`. The live check saves full responses privately and counts actual outgoing provider requests.
+## 0:00–0:55 · Landing y simulador de autonomía
 
-## 0:00–0:35 · Landing page and architecture
+**En pantalla.** Mostrá la portada y el gráfico de 500 millas. Bajá hasta **What does 500 miles really mean?** y elegí **750 mi**.
 
-“Hi, I’m Agustín. This is Fuel Route Optimizer, a Django REST Framework API for planning fuel purchases between U.S. cities. Django validates the city and state against a local catalog. openrouteservice supplies the road geometry, and the planner uses prices from the assessment CSV. The vehicle starts with 50 gallons. At 10 miles per gallon, that gives it a maximum range of 500 miles.”
+> Hola, soy Agustín. Para esta prueba desarrollé Fuel Route Optimizer, una aplicación que calcula recorridos por carretera en Estados Unidos y estima dónde conviene cargar combustible.
+>
+> Arranco en la landing porque acá se puede entender el supuesto principal antes de calcular un viaje. El vehículo sale con el tanque lleno, con 50 galones, y rinde 10 millas por galón. Eso le da una autonomía máxima de 500 millas.
+>
+> Acá abajo dejé un simulador. Si elijo 750 millas, me muestra que consumiría 75 galones y necesitaría al menos una recarga. Es un ejemplo para entender la autonomía. Ahora les muestro qué pasa cuando calculamos un viaje real.
 
-## 0:35–1:20 · Short route in Postman
+## 0:55–1:40 · Planificador y herramientas
 
-Send **Short | Los Angeles to Las Vegas**. Collapse `route.geometry.coordinates` after showing the GeoJSON type. Expand `vehicle`, `fuel`, and `meta`.
+**En pantalla.** Pasá al planificador. Mostrá los campos de origen y destino, los accesos rápidos y el resultado de Chicago → Denver. Tocá **View entire route**, seleccioná una parada numerada y mostrale al evaluador su ficha.
 
-“This is the road route as a GeoJSON LineString. For this trip, the starting tank covers the whole distance, so the API recommends no stops. The JSON separates the estimated value of the fuel already in the tank from money spent along the way.”
+> En el planificador puedo elegir la ciudad y el estado de salida y de llegada. Los campos sugieren ciudades del catálogo y también dejé algunos recorridos listos para probar.
+>
+> Acá tengo Chicago a Denver. Puedo volver a encuadrar todo el recorrido con este botón y seleccionar una parada en el mapa. Para cada carga, la aplicación muestra la estación, cuántos galones recomienda comprar y cuánto costaría esa compra. Abajo queda el detalle de los costos. La interfaz también tiene selector de idioma y modo claro y oscuro.
 
-## 1:20–2:35 · Long route in Postman
+## 1:40–2:25 · Ruta corta en Postman
 
-Send **Long | Chicago to Denver**. Expand one entry in `stops` and show the leg distances and totals.
+**En pantalla.** Enviá **Short | Los Angeles to Las Vegas**. Mostrá el estado **200**, el tipo de geometría y la lista de paradas vacía. Plegá las coordenadas para dejar visibles los totales.
 
-“For a longer trip, the planner projects reviewed stations onto the first route. On that fixed sequence, it looks for the next cheaper station it can reach and buys enough to get there. Otherwise it buys up to the tank limit or the amount needed to reach the destination. A waypoint request gives us the actual road legs through the chosen locations. The API recalculates the purchases and checks how much fuel is left after each leg. It can try one alternative if a road leg exceeds the range or the provider routes too far from a stop. The selected roads and station coverage limit the search.”
+> Ahora hago la misma operación desde la API. El endpoint recibe origen y destino, y Django los valida contra el catálogo de ciudades. La ruta viene de openrouteservice y la respuesta trae las coordenadas en GeoJSON, que son las que usa el navegador para dibujar el recorrido.
+>
+> En este caso, de Los Ángeles a Las Vegas, el tanque inicial alcanza. Por eso la lista de paradas está vacía y el gasto en compras durante el viaje es cero. Igual podemos ver cuánto combustible se consumió del tanque inicial.
 
-“Here are the gallons bought, the per-stop costs and the sum of new purchases. The estimated total adds a reference value for fuel consumed from the starting tank. On an uncached request, we use one routing call for a direct trip or up to three for a trip with stops. A cache hit reports zero new calls.”
+## 2:25–3:55 · Ruta larga, precios y llamadas
 
-## 2:35–3:20 · Map and costs
+**En pantalla.** Enviá **Long | Chicago to Denver**. Abrí `leg_distances_miles`, una entrada de `stops`, `fuel` y `meta.routing_api_calls`. Usá los importes que devuelva tu consulta. Si `meta.cache_hit` muestra `true`, señalá las cero llamadas nuevas y mencioná las cifras de la prueba sin caché como referencia.
 
-Switch to the prepared planner tab. Show the route line, click a numbered marker, and point to the cost breakdown.
+> Vuelvo a la ruta de Chicago a Denver, ahora desde Postman. Para un recorrido largo, la aplicación toma la ruta inicial, busca estaciones cercanas con ubicación revisada y consulta los precios del CSV de la prueba.
+>
+> En cada parada busca la siguiente estación más barata a la que puede llegar. Si la encuentra, compra lo necesario para alcanzarla. Si no, compra hasta el límite del tanque o lo que le falta para llegar. Con las paradas elegidas, vuelve a pedir el recorrido por carretera y calcula las compras otra vez usando las distancias reales de cada tramo.
+>
+> En esta prueba aparecieron cinco paradas. El gasto estimado en compras durante el viaje fue de 162 dólares con 25 centavos. El costo total estimado fue de 335 dólares con 20 centavos, porque también incluye el valor del combustible que se usó del tanque inicial.
+>
+> La ruta corta necesitó una consulta al proveedor y la larga, dos. El servicio puede usar una tercera para verificar una alternativa. Si repito una ruta que ya está en caché, la respuesta indica que no hizo nuevas consultas.
 
-“The map uses the same geometry and station locations as the API response. Each stop shows the site, gallons to buy, price per gallon, and estimated cost. Station locations were reviewed. Driveway access is flagged separately, and price observations are undated.”
+## 3:55–4:30 · Validación y cierre
 
-## 3:20–4:00 · Error, tests, and close
+**En pantalla.** Enviá **Invalid | Unknown US city and state pair**, mostrá el **422** y abrí la pestaña de pruebas de GitHub.
 
-Send **Invalid | Unknown US city and state pair**. Expand `error`, then show passing tests for the commit you are presenting.
-
-“This invalid city and state return a structured 422 before the API contacts the router. Automated tests cover fuel accounting, provider failures and a detour that would exceed the vehicle’s range. The repository includes the API contract and the Postman collection. Thanks for watching.”
+> Para cerrar, envío una ciudad que está fuera del catálogo. La API devuelve un error 422 y lo detecta antes de llamar al proveedor de rutas.
+>
+> Las pruebas verifican la autonomía, el cálculo de las compras y qué pasa cuando un desvío deja una estación fuera de alcance. Las recomendaciones dependen de las estaciones revisadas disponibles en el trayecto, y el JSON indica si el acceso vehicular está verificado. El código, la documentación y la colección de Postman están en el repositorio. Gracias por ver la demo.
