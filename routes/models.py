@@ -30,3 +30,28 @@ class Station(models.Model):
 class DatasetState(models.Model):
     key = models.CharField(max_length=32, primary_key=True)
     digest = models.CharField(max_length=64)
+
+
+class StationLocation(models.Model):
+    """Reviewed establishment location, keyed by the original text OPIS ID."""
+
+    class Status(models.TextChoices):
+        VERIFIED = 'verified_exact', 'Verified exact'
+        HIGH = 'high_confidence', 'High confidence'
+        AMBIGUOUS = 'ambiguous', 'Ambiguous'
+        UNLOCATED = 'unlocated', 'Unlocated'
+
+    station = models.OneToOneField(Station, primary_key=True, on_delete=models.CASCADE,
+                                   related_name='reviewed_location')
+    status = models.CharField(max_length=20, choices=Status.choices, db_index=True)
+    latitude = models.FloatField(null=True)
+    longitude = models.FloatField(null=True)
+    source = models.CharField(max_length=120, blank=True)
+    external_id = models.CharField(max_length=160, blank=True)
+    verified_on = models.DateField(null=True)
+    evidence = models.JSONField(default=list)
+    road_access_verified = models.BooleanField(default=False)
+
+    @property
+    def road_access(self):
+        return self.status == self.Status.VERIFIED and self.road_access_verified

@@ -9,6 +9,7 @@ from django.core.cache import cache
 from django.test import TestCase
 from rest_framework.test import APIClient
 
+from .location_fixtures import create_verified_station
 from routes.models import City, DatasetState, Station
 from routes.services.fuel_optimizer import D, Offer
 from scripts.verification import verify_plan
@@ -23,7 +24,7 @@ class AssessmentResultContract(TestCase):
         DatasetState.objects.create(key='stations', digest='synthetic-assessment-contract')
         self.stations = []
         for ident, longitude, price in [('one', -94, '3'), ('two', -88, '4')]:
-            self.stations.append(Station.objects.create(
+            self.stations.append(create_verified_station(
                 opis_id=ident, name='Synthetic '+ident, address='Test only', city='Fixture',
                 state='IL', rack_id='1', price=D(price), price_min=D(price), price_max=D(price),
                 price_observations=1, price_conflict=False, latitude=40, longitude=longitude,
@@ -48,7 +49,7 @@ class AssessmentResultContract(TestCase):
         self.assertFalse(response.data['meta']['station_access_verified'])
         for stop in response.data['stops']:
             self.assertFalse(stop['station_access_verified'])
-            self.assertEqual(stop['location_quality'], 'city_approx')
+            self.assertEqual(stop['location_quality'], 'verified_exact')
         return response.data, provider.call_count
 
     def test_short_trip_needs_one_provider_call_and_no_new_fuel(self):

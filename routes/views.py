@@ -10,7 +10,7 @@ from rest_framework.exceptions import UnsupportedMediaType
 from rest_framework.parsers import JSONParser
 from rest_framework.exceptions import Throttled
 from rest_framework.throttling import ScopedRateThrottle
-from routes.models import City, Station, DatasetState
+from routes.models import City, Station, DatasetState, StationLocation
 from routes.serializers import RouteSerializer
 from routes.services.route_planner import plan, InputError
 from routes.services.routing_client import RoutingError
@@ -37,7 +37,7 @@ class OptimizeView(APIView):
         versions=dict(DatasetState.objects.values_list('key','digest'))
         digest=versions.get('stations','no-data')
         location_digest=versions.get('cities','no-cities')
-        key='route-v5:'+hashlib.sha256(json.dumps([payload,digest,location_digest],sort_keys=True).encode()).hexdigest()
+        key='route-v6:'+hashlib.sha256(json.dumps([payload,digest,location_digest,versions.get('station_locations')],sort_keys=True).encode()).hexdigest()
         cached=cache.get(key)
         if cached is not None:
             result=dict(cached);result['meta']={**cached['meta'],'cache_hit':True,'routing_api_calls':0}
@@ -53,23 +53,28 @@ class OptimizeView(APIView):
 def health(request):
     """Local dataset readiness: presence of an API key is NOT provider verification."""
     import os
-    from routes.models import City
     station_count = Station.objects.count()
     city_count = City.objects.count()
     located_count = Station.objects.filter(latitude__isnull=False, longitude__isnull=False).count()
+    verified_count = StationLocation.objects.filter(
+        status=StationLocation.Status.VERIFIED,
+        latitude__isnull=False, longitude__isnull=False,
+    ).count()
     if not station_count:
         state = 'catalog_missing'
     elif not city_count:
         state = 'gazetteer_missing'
-    elif not located_count:
+    elif not verified_count:
         state = 'station_locations_missing'
     else:
         state = 'ok'
     return JsonResponse({
         'status': state, 'stations': station_count, 'cities': city_count,
-        'located_stations': located_count,
+        'located_stations': verified_count,
+        'legacy_geocoded_stations': located_count,
         'routing_key_present': bool(os.getenv('ORS_API_KEY')),
-        'location_quality': 'city_centroids_only',
+        'location_quality': 'verified_establishments' if verified_count else 'city_centroids_only',
+        'verified_stations': verified_count,
     }, status=200 if state == 'ok' else 503)
 
 @require_GET

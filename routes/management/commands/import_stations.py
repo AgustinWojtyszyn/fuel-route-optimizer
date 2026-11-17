@@ -4,7 +4,7 @@ from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
-from routes.models import Station, City, DatasetState
+from routes.models import Station, City, DatasetState, StationLocation
 from routes.services.locations import normalize
 
 HEADER = ['OPIS Truckstop ID','Truckstop Name','Address','City','State','Rack ID','Retail Price']
@@ -64,8 +64,21 @@ class Command(BaseCommand):
             city,state=source['City'].strip(),source['State'].strip().upper()
             loc=cities.get((normalize(city),state))
             records.append(Station(opis_id=ident,name=source['Truckstop Name'].strip(),address=source['Address'].strip(),city=city,state=state,rack_id=source['Rack ID'].strip(),price=prices[(len(prices)-1)//2],price_min=prices[0],price_max=prices[-1],price_observations=len(prices),price_conflict=prices[0]!=prices[-1],latitude=loc.latitude if loc else None,longitude=loc.longitude if loc else None,location_quality='city_approx' if loc else 'unlocated'))
-        Station.objects.all().delete()
-        Station.objects.bulk_create(records,batch_size=1000)
+        identities = {s.opis_id: (s.name, s.address, s.city, s.state) for s in records}
+        changed = [
+            old_id for old_id, *previous in Station.objects.values_list(
+                'opis_id', 'name', 'address', 'city', 'state'
+            )
+            if old_id in identities and tuple(previous) != identities[old_id]
+        ]
+        if changed:
+            StationLocation.objects.filter(station_id__in=changed).delete()
+        Station.objects.exclude(opis_id__in=identities).delete()
+        fields = [field.name for field in Station._meta.concrete_fields if not field.primary_key]
+        Station.objects.bulk_create(
+            records, batch_size=1000, update_conflicts=True,
+            unique_fields=['opis_id'], update_fields=fields,
+        )
         DatasetState.objects.update_or_create(key='stations', defaults={'digest':digest})
         located=sum(s.latitude is not None for s in records)
         self.stdout.write(f'rows={count} us_rows={us_count} ids={len(records)} exact_duplicates={count-len(seen)} price_conflicts={sum(s.price_conflict for s in records)} located_city_approx={located} unlocated={len(records)-located} sha256={digest}')

@@ -2,6 +2,7 @@ from unittest.mock import patch
 from django.test import TestCase, SimpleTestCase
 from django.core.cache import cache
 from rest_framework.test import APIClient
+from .location_fixtures import create_verified_station
 from routes.models import City,Station,DatasetState
 from routes.services.routing_client import get_route
 from routes.services.station_matching import project
@@ -25,7 +26,7 @@ class APITests(TestCase):
         City.objects.create(name='A',state='IL',latitude=41,longitude=-90)
         City.objects.create(name='B',state='IL',latitude=41,longitude=-85)
         DatasetState.objects.create(key='stations',digest='test')
-        Station.objects.create(opis_id='1',name='Truckstop',address='Exit 1',city='Test',state='IL',rack_id='1',price='3',price_min='3',price_max='3',price_observations=1,price_conflict=False,latitude=41,longitude=-87,location_quality='city_approx')
+        create_verified_station(opis_id='1',name='Truckstop',address='Exit 1',city='Test',state='IL',rack_id='1',price='3',price_min='3',price_max='3',price_observations=1,price_conflict=False,latitude=41,longitude=-87,location_quality='city_approx')
     def route(self,distance,legs):
         return {'geometry':{'type':'LineString','coordinates':[[-90,41],[-87,41],[-85,41]]},'distance_miles':distance,'duration_minutes':distance,'legs_miles':legs}
     def request(self): return {'start':{'city':'A','state':'IL'},'finish':{'city':'B','state':'IL'}}
@@ -90,7 +91,7 @@ class LongTripTests(TestCase):
         City.objects.create(name='End',state='IL',latitude=40,longitude=-80)
         DatasetState.objects.create(key='stations',digest='long')
         for ident,lon,price in [('10',-94,'4'),('20',-87,'3')]:
-            Station.objects.create(opis_id=ident,name='Stop '+ident,address='Exit',city='Test',state='IL',rack_id='1',price=price,price_min=price,price_max=price,price_observations=1,price_conflict=False,latitude=40,longitude=lon,location_quality='city_approx')
+            create_verified_station(opis_id=ident,name='Stop '+ident,address='Exit',city='Test',state='IL',rack_id='1',price=price,price_min=price,price_max=price,price_observations=1,price_conflict=False,latitude=40,longitude=lon,location_quality='city_approx')
     def test_over_thousand_multi_stop(self):
         direct={'geometry':{'type':'LineString','coordinates':[[-100,40],[-94,40],[-87,40],[-80,40]]},'distance_miles':1200,'duration_minutes':1100,'legs_miles':[1200]}
         confirmed={**direct,'distance_miles':1250,'legs_miles':[375,440,435]}
@@ -133,7 +134,7 @@ class RerouteRegressionTests(TestCase):
         City.objects.create(name='End',state='IL',latitude=40,longitude=-80)
         DatasetState.objects.create(key='stations',digest='reroute')
         for ident,lon,price in [('first',-94,'3'),('second',-88,'4')]:
-            Station.objects.create(opis_id=ident,name=ident,address='Exit',city='Test',state='IL',rack_id='1',price=price,price_min=price,price_max=price,price_observations=1,price_conflict=False,latitude=40,longitude=lon,location_quality='city_approx')
+            create_verified_station(opis_id=ident,name=ident,address='Exit',city='Test',state='IL',rack_id='1',price=price,price_min=price,price_max=price,price_observations=1,price_conflict=False,latitude=40,longitude=lon,location_quality='city_approx')
     def test_unused_waypoint_requires_third_route(self):
         from routes.services.fuel_optimizer import Offer,D
         stations=list(Station.objects.order_by('opis_id'))

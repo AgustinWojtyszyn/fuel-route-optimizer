@@ -17,3 +17,8 @@ htmlcov/
 .DS_Store
 
 staticfiles/
+
+# Private station prices, evidence and per-ID audit output
+/station-audit-private/
+*.private.jsonl
+*.private.jsonl.gz.b64

@@ -18,6 +18,7 @@ python manage.py migrate
 python manage.py import_cities
 python manage.py import_census_places  # optional: expand cities with official 2026 Census places
 python manage.py import_stations /private/path/fuel-prices-for-be-assessment.csv
+python manage.py import_station_locations /private/path/station-locations.private.jsonl
 export ORS_API_KEY='your-key-from-account.heigit.org'
 python manage.py runserver
 ```
@@ -58,25 +59,25 @@ The landing page at `/` introduces the assessment. The API and working planner r
 
 ## Result contract
 
-The result contains `route` (complete GeoJSON LineString, driving distance, duration and each verified leg length), `vehicle`, `fuel`, `stops`, and `meta`. Stops include OPIS ID, undated observed price, planned gallons and city-center coordinates labeled `city_approx` and `station_access_verified: false`. `fuel.purchased_en_route_usd` is new spending; `fuel.estimated_total_trip_cost_usd` also values the initial fuel consumed, using the origin state's median price as a reference (US median fallback). These amounts are estimates in USD assuming the source prices mean USD per gallon. The vehicle starts with 50 gallons, equivalent to 500 miles at 10 mpg. Amounts remain decimal internally and monetary outputs are rounded only at presentation.
+The result contains `route` (complete GeoJSON LineString, driving distance, duration and each verified leg length), `vehicle`, `fuel`, `stops`, and `meta`. Stops include OPIS ID, undated observed price, planned gallons and reviewed establishment coordinates labeled `verified_exact` and a separate `station_access_verified` value. `fuel.purchased_en_route_usd` is new spending; `fuel.estimated_total_trip_cost_usd` also values the initial fuel consumed, using the origin state's median price as a reference (US median fallback). These amounts are estimates in USD assuming the source prices mean USD per gallon. The vehicle starts with 50 gallons, equivalent to 500 miles at 10 mpg. Amounts remain decimal internally and monetary outputs are rounded only at presentation.
 
-`meta.routing_api_calls` is 1 for a direct route with no purchase, 2 for a route with stops, and at most 3 if an unused waypoint must be removed. It is 0 for a cache hit. Successful results are cached locally for 24 hours using the price-file and city-index digests. Errors return `{"error":{"code":"...","message":"...","details":{}}}` with 400 for malformed input, 422 for unknown cities or infeasible plans, and 502/503/504 for provider failures. This development API has a basic request throttle, but no authentication or complete production deployment configuration.
+`meta.routing_api_calls` is 1 for a direct route with no purchase, 2 for a route with stops, and at most 3 if an unused waypoint must be removed. It is 0 for a cache hit. Successful results are cached locally for 24 hours using the price-file, location-review and city-index digests. Errors return `{"error":{"code":"...","message":"...","details":{}}}` with 400 for malformed input, 422 for unknown cities or infeasible plans, and 502/503/504 for provider failures. This development API has a basic request throttle, but no authentication or complete production deployment configuration.
 
 ## How it works
 
 1. Import the supplied CSV locally. Exclude Canadian records; trim whitespace; group by OPIS ID; select the lower observed median price. Retain min/max, number of observations and conflict flag.
-2. Import offline GeoNames cities (population >=500, bundled by `geonamescache`). Match city and US state. This provides **approximate city centers**, never exact truckstop positions. Unknown cities are left unlocated.
-3. Request direct road geometry once from `https://api.heigit.org/openrouteservice/v2/directions/driving-car/geojson`, then project located stations within a 12-mile corridor onto the polyline's cumulative distance.
+2. Import offline GeoNames cities for trip endpoints. Import the private reviewed-coordinate manifest separately for fuel stops.
+3. Request direct road geometry once from `https://api.heigit.org/openrouteservice/v2/directions/driving-car/geojson`, then project verified establishments within a 12-mile corridor onto the polyline's cumulative distance.
 4. On the fixed candidate order, buy only enough to reach the next strictly cheaper reachable station, otherwise enough to fill the 50-gallon tank or reach the destination. Simulate every segment and fail if any leg runs out of fuel.
-5. When purchases are planned, request a waypoint route through the selected **city centers**. Recalculate the fuel plan using the returned road segment distances. Reject the route if its segments make the plan infeasible. If a waypoint no longer needs fuel after recalculation, one final routing request removes it. The resulting route geometry is returned, with at most three provider requests.
+5. When purchases are planned, request a waypoint route via the selected **verified establishments**. Recalculate the fuel plan using the returned road segment distances. Reject the route if its segments make the plan infeasible. If a waypoint no longer needs fuel after recalculation, one final routing request removes it. The resulting route geometry is returned, with at most three provider requests.
 
-The purchase algorithm is optimal for a fixed one-dimensional route and selected stations without access or detour penalties. It does **not** prove global optimality across alternate roads, exact station entrances, or current station availability. Even the waypoint call verifies drivable city-center waypoints, not the precise pump. A city may span several exits; verify station access before use. Routes lacking enough candidate stations return an error, never invented stops.
+The purchase algorithm is optimal for a fixed one-dimensional route and selected stations without access or detour penalties. It does **not** prove global optimality across alternate roads, exact station entrances, or current station availability. Check driveway access separately for each fuel stop. Routes lacking enough candidate stations return an error, never invented stops.
 
 ## Data, attribution, limits
 
 The original assessment CSV appears to contain OPIS data. Its redistribution permission was not established, so it is excluded by `.gitignore` and the project ZIP. Obtain it from the evaluator and import locally. GeoNames city data are provided by [GeoNames](https://www.geonames.org/) under CC BY 4.0 through [geonamescache](https://github.com/yaph/geonamescache). Map data © OpenStreetMap contributors; Leaflet assets and OSM tiles load in the browser with attribution. Follow the [OSM tile usage policy](https://operations.osmfoundation.org/policies/tiles/) before public traffic. The routing provider is [openrouteservice / HeiGIT](https://openrouteservice.org/) and requires a free key. Its hosted driving limit is 6,000 km and 50 waypoints; quota and routing availability depend on the account. There is no live provider result in the bundled evidence because no key was available in the build environment.
 
-The city gazetteer and CSV have no dates for station price observations or exact station coordinates. Alaska and Hawaii are outside the supplied price catalog; some itineraries crossing Canada may not be covered. Cache is per process; use shared caching for a multi-worker deployment. See `docs/verification.md` for measured results and `docs/loom-script.md` for a short demonstration script.
+The pricing CSV has undated observations. The location manifest records the date and evidence for each verified coordinate. Alaska and Hawaii are outside the supplied price catalog; some itineraries crossing Canada may not be covered. Cache is per process; use shared caching for a multi-worker deployment. See `docs/verification.md` for measured results and `docs/loom-script.md` for a short demonstration script.
 
 ## Live verification and production settings
 
@@ -131,7 +132,7 @@ The readiness endpoint intentionally does not call HeiGIT or claim provider conn
 
 Before requesting any paid/quota-limited routing-provider operation, the optimize
 endpoint checks that the local US station catalog is populated and that at least
-one station has an approximate city location. Missing data returns HTTP 422 with
+one station has a verified establishment location. Missing data returns HTTP 422 with
 `error.code=empty_catalog` or `error.code=station_locations_missing`, with
 **zero requests to HeiGIT**. The `/health/` endpoint remains the local readiness
 check and does not authenticate with the provider.
@@ -168,3 +169,5 @@ FUEL_BROWSER_MODULE=/tmp/fuel-browser/node_modules/puppeteer node scripts/test_u
 `python manage.py collectstatic --noinput` prepares the UI assets under ignored `staticfiles/`; a deployment must serve that directory through its own static server. This does not configure or deploy production hosting.
 
 The current environment has no `ORS_API_KEY`. The live-check script exits before making any external request. The three real assessment trips, their provider latencies and account quota remain unverified. Postman has a structurally validated six-request collection; the [Loom script](docs/loom-script.md) is prepared, but no video has been recorded by this audit.
+
+See [reviewed station imports and Render startup](docs/station-location-rollout.md) for the location manifest and repeatable recovery procedure.

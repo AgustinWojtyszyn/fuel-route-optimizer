@@ -1,17 +1,11 @@
-"""Project approximate station positions onto cumulative road geometry."""
+"""Project verified establishment positions onto cumulative road geometry."""
 import math
 from collections import defaultdict
-from routes.models import Station
+from routes.models import StationLocation
 from .fuel_optimizer import D, Offer
-EARTH_MILES = 3958.7613
-CELL_DEGREES = 0.5
+from .geometry import haversine
 
-def haversine(a, b):
-    # GeoJSON LineString coordinates may include an elevation dimension.
-    lon1, lat1 = map(math.radians, a[:2])
-    lon2, lat2 = map(math.radians, b[:2])
-    u = math.sin((lat2-lat1)/2)**2 + math.cos(lat1)*math.cos(lat2)*math.sin((lon2-lon1)/2)**2
-    return 2*EARTH_MILES*math.asin(min(1, math.sqrt(u)))
+CELL_DEGREES = 0.5
 
 class PolylineProjector:
     """Index geometry once; each point checks only segments in nearby cells."""
@@ -57,11 +51,15 @@ def candidates(route,corridor_miles=12):
     coords = route['geometry']['coordinates']
     minlon,maxlon = min(x[0] for x in coords)-.35,max(x[0] for x in coords)+.35
     minlat,maxlat = min(x[1] for x in coords)-.25,max(x[1] for x in coords)+.25
-    qs = Station.objects.filter(longitude__gte=minlon,longitude__lte=maxlon,latitude__gte=minlat,latitude__lte=maxlat)
+    qs = StationLocation.objects.filter(
+        status=StationLocation.Status.VERIFIED,
+        longitude__range=(minlon, maxlon), latitude__range=(minlat, maxlat),
+    ).select_related('station')
     projector = PolylineProjector(route['geometry'],route['distance_miles'])
     found = []
-    for station in qs.iterator(chunk_size=1000):
-        lateral,mile = projector.project((station.longitude,station.latitude))
+    for location in qs.iterator(chunk_size=1000):
+        station = location.station
+        lateral,mile = projector.project((location.longitude,location.latitude))
         if lateral <= corridor_miles and 0 < mile < route['distance_miles']:
             found.append((Offer(D(mile),station.price,station.opis_id),station,lateral))
     return found

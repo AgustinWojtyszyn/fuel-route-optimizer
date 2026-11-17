@@ -19,7 +19,7 @@ class LandingExperienceTests(SimpleTestCase):
         self.assertIn('id="rangeSegments"', page)
         self.assertIn('href="/demo/"', page)
         self.assertIn('href="#features"', page)
-        self.assertIn("not verified pump entrances", page)
+        self.assertIn("Confirm driveway access", page)
         self.assertNotIn("planner-preview.png", page)
         self.assertNotIn("planner-map-preview.png", page)
         self.assertNotIn('id="routeForm"', page)

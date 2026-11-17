@@ -106,7 +106,7 @@ class PresentationIntegrationTests(SimpleTestCase):
         html = page.content.decode('utf-8')
         self.assertIn('href="/demo/"', html)
         self.assertIn('Fuel Route Optimizer', html)
-        self.assertIn('not verified pump entrances', html)
+        self.assertIn('Confirm driveway access', html)
         for language in ('en','es','fr','pt'):
             self.assertIn(f'<option value="{language}">', html)
 

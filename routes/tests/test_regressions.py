@@ -2,6 +2,7 @@
 from decimal import Decimal
 from unittest.mock import patch
 from django.test import SimpleTestCase, TestCase
+from .location_fixtures import create_verified_station
 from routes.models import City, Station
 from routes.services.fuel_optimizer import D, Offer
 from routes.services.route_planner import amount, plan
@@ -35,7 +36,7 @@ class AccountingTests(TestCase):
         City.objects.create(name='Origin', state='IL', latitude=40, longitude=-100)
         City.objects.create(name='Destination', state='IL', latitude=40, longitude=-90)
         for ident, price in [('one', '0.10'), ('two', '0.01')]:
-            Station.objects.create(
+            create_verified_station(
                 opis_id=ident, name=ident, address='Exit', city='Test',
                 state='IL', rack_id='1', price=Decimal(price),
                 price_min=Decimal(price), price_max=Decimal(price),
@@ -126,7 +127,7 @@ class InvalidGeometryTests(SimpleTestCase):
         page = render_to_string('routes/demo.html')
         self.assertIn('textContent =', page)
         self.assertIn('data-i18n="approxBody"', page)
-        self.assertIn('Pump access not verified', page)
+        self.assertIn('Driveway access unverified', page)
         self.assertIn('Fuel Route Optimizer', page)
 
 
@@ -157,8 +158,14 @@ class ReadinessTests(TestCase):
         station.location_quality = 'city_approx'
         station.save()
         response = client.get('/health/')
+        self.assertEqual(response.status_code, 503)
+        from routes.models import StationLocation
+        StationLocation.objects.create(
+            station=station, status='verified_exact', latitude=40.1, longitude=-100,
+        )
+        response = client.get('/health/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()['status'], 'ok')
         self.assertEqual(response.json()['located_stations'], 1)
         self.assertFalse(response.json()['routing_key_present'])
-        self.assertEqual(response.json()['location_quality'], 'city_centroids_only')
+        self.assertEqual(response.json()['location_quality'], 'verified_establishments')

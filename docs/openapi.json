@@ -173,7 +173,7 @@
                     },
                     "location_quality": {
                       "type": "string",
-                      "const": "city_centroids_only"
+                      "enum": ["verified_establishments", "city_centroids_only"]
                     }
                   }
                 }
@@ -181,7 +181,7 @@
             }
           },
           "503": {
-            "description": "Missing station catalog, city gazetteer, or any approximate station locations",
+            "description": "Missing station catalog, city gazetteer, or verified station locations",
             "content": {
               "application/json": {
                 "schema": {
@@ -222,7 +222,7 @@
                     },
                     "location_quality": {
                       "type": "string",
-                      "const": "city_centroids_only"
+                      "enum": ["verified_establishments", "city_centroids_only"]
                     }
                   }
                 }
@@ -538,8 +538,7 @@
                 "description": "Zero on cache hit; one to three real provider calls for new plans"
               },
               "station_access_verified": {
-                "type": "boolean",
-                "const": false
+                "type": "boolean"
               },
               "price_policy": {
                 "type": "string",
@@ -602,23 +601,21 @@
           },
           "lat": {
             "type": "number",
-            "description": "Approximate city center longitude/latitude coordinate pair; this field is latitude"
+            "description": "Reviewed establishment latitude"
           },
           "lon": {
             "type": "number",
-            "description": "Approximate city-center longitude"
+            "description": "Reviewed establishment longitude"
           },
           "location_quality": {
             "type": "string",
             "enum": [
-              "city_approx",
-              "unlocated"
+              "verified_exact"
             ],
-            "description": "City-center approximation is not a verified pump position"
+            "description": "The reviewed coordinates identify a fuel establishment."
           },
           "station_access_verified": {
-            "type": "boolean",
-            "const": false
+            "type": "boolean"
           },
           "route_mile": {
             "type": "number",
