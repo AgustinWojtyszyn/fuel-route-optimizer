@@ -124,7 +124,7 @@
             <div><h2 data-i18n="mapTitle">Interactive route map</h2><p data-i18n="mapDescription">Road geometry and estimated refueling points</p></div>
           </div>
           <div class="map-actions" role="group" aria-label="Map appearance" data-i18n-aria="mapAppearance">
-            <div class="style-switcher">
+            <div class="style-switcher" id="mapStyles">
               <button class="map-style" type="button" data-map-style="liberty" aria-pressed="true" data-i18n="streets">Streets</button>
               <button class="map-style" type="button" data-map-style="positron" aria-pressed="false" data-i18n="minimal">Minimal</button>
               <button class="map-style" type="button" data-map-style="dark" aria-pressed="false" data-i18n="night">Night</button>
@@ -141,7 +141,7 @@
           <span class="legend-item"><span class="legend-dot finish"></span><span data-i18n="destination">Destination</span></span>
           <span class="legend-item"><span class="legend-dot stop"></span><span data-i18n="fuelStops">Fuel stops</span></span>
           <span class="legend-item"><span class="legend-line"></span><span data-i18n="roadRoute">Road route</span></span>
-          <span class="legend-caption" data-i18n="mapAttribution">Map data © OpenStreetMap contributors</span>
+          <span class="legend-caption" id="mapAttribution" data-i18n="mapAttribution">Map data © OpenStreetMap contributors</span>
         </div>
       </section>
     </div>
@@ -221,14 +221,36 @@
     const money = value => new Intl.NumberFormat(locale(),{style:'currency',currency:'USD',minimumFractionDigits:2,maximumFractionDigits:2}).format(Number(value || 0));
     const decimal = (value, digits=2) => Number(value || 0).toLocaleString(locale(), {maximumFractionDigits:digits});
     const map = L.map('map', {scrollWheelZoom:false, zoomControl:true}).setView([39,-98],4);
-    const basemap = maplibreGL({style:'https://tiles.openfreemap.org/styles/liberty'}).addTo(map);
-    const mapRenderer = basemap.getMaplibreMap();
-    el('mapLiveLabel').textContent=tr('mapLoading');
-    mapRenderer.once('load', () => { if (!lastResult) el('mapLiveLabel').textContent=tr('mapReady'); });
-    mapRenderer.on('error', () => { el('mapLiveLabel').textContent=tr('mapUnavailable'); });
+    let lastResult = null;
+    let mapRenderer = null;
+    let basemapStatus = 'mapLoading';
+    function setBasemapStatus(key) {
+      basemapStatus = key;
+      if (!lastResult) el('mapLiveLabel').textContent = tr(key);
+    }
+    setBasemapStatus('mapLoading');
+    const context = document.createElement('canvas').getContext('webgl2');
+    if (context) {
+      context.getExtension('WEBGL_lose_context')?.loseContext();
+      const basemap = maplibreGL({style:'https://tiles.openfreemap.org/styles/liberty'}).addTo(map);
+      mapRenderer = basemap.getMaplibreMap();
+      mapRenderer.once('load', () => setBasemapStatus('mapReady'));
+      mapRenderer.on('error', () => setBasemapStatus('mapUnavailable'));
+    } else {
+      el('mapStyles').parentElement.hidden = true;
+      el('mapAttribution').hidden = true;
+      const raster = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxNativeZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      });
+      raster.once('tileload', () => setBasemapStatus('mapReady'));
+      raster.on('tileerror', () => setBasemapStatus('mapUnavailable'));
+      raster.addTo(map);
+    }
     let mapResizeFrame=null;
     const resizeMap = () => {
       map.invalidateSize({animate:false});
+      if (!mapRenderer) return;
       cancelAnimationFrame(mapResizeFrame);
       // The Leaflet bridge sizes its GL container on the next animation frame.
       // Resize the renderer after that frame so its drawing buffer matches it.
@@ -236,8 +258,8 @@
         mapResizeFrame=requestAnimationFrame(() => mapRenderer.resize());
       });
     };
-    mapRenderer.on('load', resizeMap);
-    mapRenderer.on('style.load', resizeMap);
+    mapRenderer?.on('load', resizeMap);
+    mapRenderer?.on('style.load', resizeMap);
     new ResizeObserver(resizeMap).observe(el('map'));
     window.addEventListener('load', resizeMap);
     const mapStyles = Object.freeze({
@@ -248,13 +270,11 @@
     document.querySelectorAll('[data-map-style]').forEach(button => button.addEventListener('click', () => {
       const next = mapStyles[button.dataset.mapStyle];
       if (!next) return;
-      const renderer = typeof basemap.getMaplibreMap === 'function' ? basemap.getMaplibreMap() : null;
-      if (renderer) renderer.setStyle(next);
+      mapRenderer?.setStyle(next);
       document.querySelectorAll('[data-map-style]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
     }));
     let activeLayer = null;
     let stopMarkers = [];
-    let lastResult = null;
     const formatCity = place => `${place.city}, ${place.state}`;
 
     let statusState={key:'ready',variant:''};
@@ -371,7 +391,7 @@
       el('details').hidden = true;
       el('tripSummary').hidden = true;
       el('fitRouteButton').hidden = true;
-      el('mapLiveLabel').textContent = tr('mapReady');
+      el('mapLiveLabel').textContent = tr(basemapStatus);
       lastResult = null;
       stopMarkers = [];
       if (activeLayer) { map.removeLayer(activeLayer); activeLayer = null; }
@@ -418,7 +438,7 @@
       if (lastResult) {
         const currentCenter=map.getCenter(), currentZoom=map.getZoom();
         showResult(lastResult);map.setView(currentCenter,currentZoom,{animate:false});
-      } else el('mapLiveLabel').textContent=tr(mapRenderer.loaded()?'mapReady':'mapLoading');
+      } else el('mapLiveLabel').textContent=tr(basemapStatus);
       setStatus(previous.key,previous.variant);
       if (el('submitButton').disabled) el('submitText').textContent=tr('calculating');
     });

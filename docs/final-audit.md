@@ -47,6 +47,18 @@ theme switch and the live long-trip rendering. The CSS layout and map were retai
 - Original price dataset equivalence was checked at byte level after line-ending normalization. The 1,023 reviewed sites are distinct from 6,045 legacy city positions. Legacy positions are excluded from recommendations.
 - The provider published a [Driving Car incident](https://status.heigit.org/incidents/12a00cee-9da2-425c-bbe4-a62462d15ec9) on the audit date. Hosted successes are observations at the time of the requests. For recording, run the three Postman cases first.
 
+### Release API verification
+
+Measured on deployed commit `e5f8ea3` before the basemap-only follow-up. The successful responses were cold. Both passed independent fuel and receipt reconciliation.
+
+| Postman case | HTTP | Miles | Stops | Provider calls reported | Client wall time |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Los Angeles → Las Vegas | 200 | 270.055 | 0 | 1 | 7.41 s |
+| Chicago → Denver | 200 | 1,008.241 | 5 | 2 | 9.41 s |
+| Invalid city/state | 422 | — | — | Rejected during local lookup | 9.35 s |
+
+The browser rendered the route and two stop markers for New York City to Miami. Its WebGL2 context was unavailable, which exposed a blank vector basemap. The planner now uses attributed OpenStreetMap raster tiles in that case and retains the vector styles in browsers with WebGL2.
+
 ### Response examples
 
 This example uses synthetic distances, geometry and prices to illustrate the complete short-route JSON. The measured live routes are listed above.
