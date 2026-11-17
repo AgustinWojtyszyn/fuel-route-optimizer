@@ -15,9 +15,10 @@ from pathlib import Path
 
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
+from django.db.models import Q
 from geonamescache import GeonamesCache
 
-from routes.models import City, DatasetState
+from routes.models import City, DatasetState, Station
 from routes.services.locations import normalize
 
 
@@ -135,7 +136,38 @@ class Command(BaseCommand):
             raise CommandError('Census places table is empty; no changes made.')
         with transaction.atomic():
             City.objects.bulk_create(to_create, batch_size=1000)
-            if to_create:
+
+            # Some stations were imported before these places existed. They
+            # must be re-matched, including when the Census file is rerun
+            # after an older import that left stations unlocated.
+            unlocated = Station.objects.filter(
+                Q(latitude__isnull=True) | Q(longitude__isnull=True)
+            )
+            recovered = []
+            if unlocated.exists():
+                indexed = {
+                    (normalize(name), state): (latitude, longitude)
+                    for name, state, latitude, longitude in City.objects.values_list(
+                        'name', 'state', 'latitude', 'longitude'
+                    )
+                }
+                for station in unlocated.iterator(chunk_size=1000):
+                    coords = indexed.get((normalize(station.city), station.state))
+                    if coords is None:
+                        continue
+                    station.latitude, station.longitude = coords
+                    station.location_quality = 'city_approx'
+                    recovered.append(station)
+                if recovered:
+                    Station.objects.bulk_update(
+                        recovered,
+                        ['latitude', 'longitude', 'location_quality'],
+                        batch_size=1000,
+                    )
+
+            # The route cache includes the cities digest. Recovered station
+            # coordinates affect candidate selection even without new places.
+            if to_create or recovered:
                 previous = DatasetState.objects.filter(key='cities').values_list(
                     'digest', flat=True
                 ).first() or ''
@@ -148,6 +180,7 @@ class Command(BaseCommand):
         self.stdout.write(
             self.style.SUCCESS(
                 f'Census 2026: added {len(to_create)} places; '
+                f'recovered {len(recovered)} approximate station locations; '
                 f'skipped {skipped} invalid/out-of-scope rows. '
                 'Locations are approximate centroids, not pump addresses.'
             )

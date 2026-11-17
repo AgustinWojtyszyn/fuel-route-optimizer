@@ -53,6 +53,8 @@ class Command(BaseCommand):
                     if not duplicate:
                         grouped[ident].append((price,row))
         except (OSError, InvalidOperation, ValueError) as exc: raise CommandError(str(exc)) from exc
+        if not grouped:
+            raise CommandError('No valid US stations found; existing catalog preserved.')
         cities = {(normalize(c.name),c.state):c for c in City.objects.all()}
         records=[]
         for ident, obs in grouped.items():
